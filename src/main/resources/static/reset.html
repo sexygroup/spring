@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>reset</title>																	<!--Update-->
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="index,follow">						<!--Update-->
+    <!-- CSS files-->
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="css/fontastic.css">
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <!-- Theme stylesheet-->
+    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/favicon.ico">
+        
+    <!-- Mine files-->																		<!--Update-->
+		<script src="js/mine/axios.min.js"></script>					<!--Update-->
+  	<script src="js/mine/lodash.js"></script>							<!--Update-->
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+  	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>		
+    
+    <!-- JavaScript files-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper.js/umd/popper.min.js"> </script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="js/charts-home.js"></script>
+    <!-- Main JavaScript File-->
+    <script src="js/front.js"></script>
+    
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+    	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->    
+  </head>
+  <body>
+    <div class="page reset-page" id="app">											<!-- 布局：page->container(d-flex)->row->col->info(d-flex)->content->logo-(<h>) -->
+      <div class="container d-flex align-items-center">
+        <div class="form-holder has-shadow">
+          <div class="row">
+            <!-- Logo & Information Panel-->
+            <div class="col-lg-6">
+              <div class="info d-flex align-items-center">
+                <div class="content">
+                  <div class="logo">
+                    <h1>春天造型</h1>
+                  </div>
+                  	<p>"Spring is when you feel like whistling even with a shoe full of slush."<br><span>—Doug Larson</span></p>
+                </div>
+              </div>
+            </div>
+            <!-- Form Panel    -->
+            <div class="col-lg-6 bg-white">						<!--布局：col->form(d-flex)->content->form group -><h>) -->
+              <div class="form d-flex align-items-center">
+                <div class="content">
+                    <div class="form-group">       
+											<h1>找回密码</h1>
+                    </div>
+                    <div class="form-group">					<!--Update：disabled&readonly。disable和readonly都能将输入框设置为只读状态，即其中的内容不可编辑。
+                    																							readonly:css对其有效。当input属性为readonly时，提交表单是可以获得input的内容。
+                    																							disabled:按系统设置的disabled颜色来设置前景色的，css对其无效！									-->
+                      <input type="text" class="input-material"  id="reset-question" v-model="admin.adminQuestion" readonly="readonly">
+                      <label for="reset-question" class="label-material">密保问题</label>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="input-material" id="reset-answer"  v-model="admin.adminAnswer">
+                      <label for="reset-answer" class="label-material">密保答案</label>
+                    </div>
+                    <div class="form-group">
+                      <input type="password" class="input-material" id="reset-password" v-model="admin.adminPassword" >		
+                      <label for="reset-password" class="label-material">新密码</label>	
+                    </div>
+                    <div class="form-group">
+                      <a href="login.html" class="return-login">返回登录</a>
+                      <span></span>
+                      <input type="button" class="btn btn-primary" id="reset" value="确认"  @click="confirm(admin)">
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyrights text-center">
+        <p>Design by <a href="https://bootstrapious.com" class="external">Three Boys</a></p>
+      </div>
+    </div>
+    
+    <!-- Mine files-->							<!--Update-->    
+		<script>
+	    window.onload=function(){
+	    	var v1 = new Vue({
+	      	el: '#app',
+	      	data:{
+	          admin:{									//与控件绑定的admin
+	          	id: 1,
+	          	adminPassword:'',
+	          	adminQuestion:'',
+	          	adminAnswer:''
+	          },
+	          t_adminCode:'',					//与admin.id对应的6位编号
+	          r_admin:{								//存放返回数据的admin
+	          	id: 0,
+	          	adminPassword:'',
+	          	adminQuestion:'',
+	          	adminAnswer:''
+	          },
+            url:"http://127.0.0.1:8888/"
+	     	 },
+	      	methods:{
+	      		//=======================================================================   		
+	      		//初始化admin
+	      		init_admin:function(){
+	      			this.admin.id = 1;
+	      			this.admin.adminPassword = '';
+	      			this.admin.adminQuestion = '';
+	      			this.admin.adminAnswer = '';
+	      		},
+	      		
+	      		//初始化r_admin
+	      		init_r_admin:function(){
+	      			this.r_admin.id = 0;
+	      			this.r_admin.adminPassword = '';
+	      			this.r_admin.adminQuestion = '';
+	      			this.r_admin.adminAnswer = '';
+	      		},
+
+	      		//int型id转化为6位string型code
+	      		id_to_code:function(t_id){
+	      			var  = "";
+	      			var count = t_id.toString().length;
+	      			
+	      			if(count == 1){
+	      				response = "00000"+t_id.toString();	
+	      			}else if(count == 2){
+	      				response = "0000"+t_id.toString();
+	      			}else if(count == 3){
+	      				response = "000"+t_id.toString();
+	      			}else if(count == 4){
+	      				response = "00"+t_id.toString();
+	      			}else if(count == 5){
+	      				response = "0"+t_id.toString();
+	      			}else if(count == 6){
+	      				response = t_id.toString();
+	      			}else{
+	      				response = "id_to_code error.";		//失败返回字符串”id_to_code error.“
+	      			}
+	      			return response;
+	      		},
+	      		
+	      		//6位string型code转化为int型id
+	      		code_to_id:function(t_code){
+	      			var response = t_code.parseInt(t_code,10);			//失败返回NaN
+	      			return response;
+	      		},
+	      		
+	      		//文本校验 - 密码是否为空
+	      		if_invalid:function(t_adminPassword){
+	      			var response = t_adminPassword.length;
+	      			return response;				//response=0表示字符串为空。
+	      		},
+
+	      		//==========================================================================
+            //通过编号获取管理员信息。若数据库存在记录且密码正确，则将返回结果保存到r_admin;否则初始化r_admin。	      		
+            getAdminById:function(t_id){
+              //console.log("======"+t_id+"=====");					//测试语句
+              this.$http.post(this.url+"/getAdminById",t_id,
+              {
+                headers: {
+                  'Content-Type': 'text/plain'
+                }
+              }).then(
+                function(response){
+                  this.init_r_admin();							//初始化r_admin
+                  r_admin = response.body;
+            		},
+            		function(){
+            			this.init_r_admin();							//初始化r_admin
+                  this.$alert("无该管理员账号！");
+                  console.log("getAdmin Error!");
+               }
+            	)
+            },
+            
+            //更新管理员信息
+            updateAdmin:function(t_admin){
+            	this.$http.post(this.url+"/updateAdmin",t_admin
+              {
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              }, {emulateJSON: true}).then(
+                function(response){
+                  this.$alert("修改成功!");
+                  console.log("updateAdmin Success");
+                  this.init_admin();						//刷新界面
+                  this.loading(this.admin.id);
+              	},
+                function(){
+                  this.$alert("修改失败!");
+                  console.log("updateAdmin defeat");
+                  this.init_admin();						//刷新界面
+                  this.loading(this.admin.id)
+                });
+            }     
+            
+            //=============================================================
+	      		//页面加载函数
+	      		loading:function(t_id){
+            	//console.log("======loading=======");			//测试语句
+            	//console.log("======"+t_id+"======");						//测试语句
+            	this.getAdminById(t_id);				//与后台交互
+            	if(r_admin.id != ''){						//判断是否正成功获取数据
+            		this.admin.adminQuestion = this.r_admin.adminQuestion;
+            	}
+	      		}
+	      		
+	      		//确认响应函数	   
+            confirm:function(t_admin){
+            	//console.log("======"+t_admin.id+"======");			//测试语句
+            	//console.log("======"+t_admin.adminPassword+"======");	//测试语句
+            	//console.log("======"+t_admin.adminQuestion+"======");	//测试语句
+            	//console.log("======"+t_admin.adminAnswer+"======");		//测试语句            	
+            	var response = this.if_invalid(t_admin.admin_password);	//判断密码是否为空
+            	if(response == 0){
+            		this.$alert("密码不能为空，请重新输入！");
+            		console.log("Password is null!");
+            		return false;
+            	}
+            	
+            	if(t_admin.adminAnswer = this.r_admin.adminAnswer){		//若密保答案正确
+            		this.updateAdmin(t_admin);
+            	}
+            }
+          }
+	    	});
+	    	v1.loading(this.admin.id);
+	    }	
+   </script>
+  </body>
+</html>

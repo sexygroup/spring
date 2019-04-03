@@ -36,7 +36,7 @@ public class Swagger2Config {
                 .title("spring api")
                 .description("春天造型管理系统API")
                 //作者信息
-                .contact(new Contact("SexyGroup", "", "2921978909@qq.com"))
+                .contact(new Contact("SexyGroup", "https://github.com/sexygroup/spring", "2921978909@qq.com"))
                 .version("1.0")
                 .build();
     }

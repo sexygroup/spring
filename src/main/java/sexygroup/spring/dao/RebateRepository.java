@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import sexygroup.spring.pojo.Rebate;
 
 @Repository
-public interface RebateRepository extends JpaRepository<Rebate, Integer>, JpaSpecificationExecutor<Rebate> {
+public interface  RebateRepository extends JpaRepository<Rebate, Integer>, JpaSpecificationExecutor<Rebate> {
 }

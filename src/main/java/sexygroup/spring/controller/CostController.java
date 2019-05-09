@@ -1,5 +1,6 @@
 package sexygroup.spring.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sexygroup.spring.pojo.Cost;
@@ -33,6 +34,16 @@ public class CostController {
     public boolean deleteById(Integer id) {
         costService.deleteById(id);
         return true;
+    }
+
+    @GetMapping("/findAllDetail")
+    public List<JSONObject> findAllDetail() {
+        return costService.findAllDetail();
+    }
+
+    @GetMapping("/findByIdDetail")
+    public JSONObject findByIdDetail(Integer id) {
+        return costService.findByIdDetail(id);
     }
 
 }

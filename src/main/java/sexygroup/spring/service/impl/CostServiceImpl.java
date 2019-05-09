@@ -1,5 +1,6 @@
 package sexygroup.spring.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,4 +38,13 @@ public class CostServiceImpl implements CostService {
         costRepository.deleteById(id);
     }
 
+    @Override
+    public List<JSONObject> findAllDetail() {
+        return costRepository.findAllDetail();
+    }
+
+    @Override
+    public JSONObject findByIdDetail(Integer id) {
+        return costRepository.findByIdDetail(id);
+    }
 }

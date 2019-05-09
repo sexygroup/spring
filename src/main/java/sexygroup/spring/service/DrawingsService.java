@@ -1,5 +1,6 @@
 package sexygroup.spring.service;
 
+import com.alibaba.fastjson.JSONObject;
 import sexygroup.spring.pojo.Drawings;
 
 import java.util.List;
@@ -14,4 +15,8 @@ public interface DrawingsService {
     Drawings save(Drawings drawings);
 
     void deleteById(Integer id);
+
+    List<JSONObject> findAllDetail();
+
+    JSONObject findByIdDetail(Integer id);
 }

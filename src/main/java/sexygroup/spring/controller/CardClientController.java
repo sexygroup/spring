@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/cardclient")
+@RequestMapping("/cardClient")
 public class CardClientController {
     @Autowired
     CardClientService cardClientService;

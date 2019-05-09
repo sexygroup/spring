@@ -1,5 +1,6 @@
 package sexygroup.spring.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +36,16 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void deleteById(Integer id) {
         clientRepository.deleteById(id);
+    }
+
+    @Override
+    public List<JSONObject> findAllDetail() {
+        return clientRepository.findAllDetail();
+    }
+
+    @Override
+    public List<JSONObject> findByIdDetail(Integer id) {
+        return clientRepository.findByIdDetail(id);
     }
 
 }

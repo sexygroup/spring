@@ -1,5 +1,6 @@
 package sexygroup.spring.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sexygroup.spring.pojo.Client;
@@ -33,6 +34,16 @@ public class ClientController {
     public boolean deleteById(Integer id) {
         clientService.deleteById(id);
         return true;
+    }
+
+    @GetMapping("/findAllDetail")
+    public List<JSONObject> findAllDetail() {
+        return clientService.findAllDetail();
+    }
+
+    @GetMapping("/findByIdDetail")
+    public List<JSONObject> findByIdDetail(Integer id) {
+        return clientService.findByIdDetail(id);
     }
 
 }

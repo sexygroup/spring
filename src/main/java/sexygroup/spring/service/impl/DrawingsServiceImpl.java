@@ -1,5 +1,6 @@
 package sexygroup.spring.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +36,16 @@ public class DrawingsServiceImpl implements DrawingsService {
     @Override
     public void deleteById(Integer id) {
         drawingsRepository.deleteById(id);
+    }
+
+    @Override
+    public List<JSONObject> findAllDetail() {
+        return drawingsRepository.findAllDetail();
+    }
+
+    @Override
+    public JSONObject findByIdDetail(Integer id) {
+        return drawingsRepository.findByIdDetail(id);
     }
 
 }

@@ -1,5 +1,6 @@
 package sexygroup.spring.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sexygroup.spring.pojo.Recharge;
@@ -33,6 +34,16 @@ public class RechargeController {
     public boolean deleteById(Integer id) {
         rechargeService.deleteById(id);
         return true;
+    }
+
+    @GetMapping("/findAllDetail")
+    public List<JSONObject> findAllDetail() {
+        return rechargeService.findAllDetail();
+    }
+
+    @GetMapping("/findByIdDetail")
+    public JSONObject findByIdDetail(Integer id) {
+        return rechargeService.findByIdDetail(id);
     }
 
 }

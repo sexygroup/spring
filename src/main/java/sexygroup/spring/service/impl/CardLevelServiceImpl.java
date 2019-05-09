@@ -1,6 +1,7 @@
 package sexygroup.spring.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sexygroup.spring.dao.CardLevelRepository;
@@ -19,7 +20,8 @@ public class CardLevelServiceImpl implements CardLevelService {
 
     @Override
     public List<CardLevel> findAll() {
-        return cardLevelRepository.findAll();
+        Sort sort=new Sort(Sort.Direction.ASC,"cardLevelPrice");
+        return cardLevelRepository.findAll(sort);
     }
 
     @Override

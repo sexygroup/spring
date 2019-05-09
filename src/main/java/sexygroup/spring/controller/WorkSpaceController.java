@@ -13,13 +13,18 @@ import sexygroup.spring.service.ClientService;
 import sexygroup.spring.service.WorkSpaceService;
 
 @RestController
-@RequestMapping("/workspace")
+@RequestMapping("/workSpace")
 public class WorkSpaceController {
     @Autowired
     WorkSpaceService workSpaceService;
 
-    @PostMapping("/newcard")
-    public JSONObject save(@RequestBody JSONObject jsonObject) {
+    @PostMapping("/newCard")
+    public JSONObject newCard(@RequestBody JSONObject jsonObject) {
+        return workSpaceService.newCard(jsonObject);
+    }
+
+    @PostMapping("/cost")
+    public JSONObject cost(@RequestBody JSONObject jsonObject) {
         return workSpaceService.newCard(jsonObject);
     }
 }

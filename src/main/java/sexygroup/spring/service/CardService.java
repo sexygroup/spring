@@ -1,5 +1,7 @@
 package sexygroup.spring.service;
 
+import com.alibaba.fastjson.JSONObject;
+import io.swagger.models.auth.In;
 import sexygroup.spring.pojo.Card;
 
 import java.util.List;
@@ -14,4 +16,9 @@ public interface CardService {
     Card save(Card card);
 
     void deleteById(Integer id);
+
+    //detail
+    List<JSONObject> findAllDetail();
+
+    List<JSONObject> findByIdDetail(Integer id);
 }

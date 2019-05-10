@@ -44,7 +44,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public JSONObject findByIdDetail(Integer id) {
+    public List<JSONObject> findByIdDetail(Integer id) {
         return imageRepository.findByIdDetail(id);
     }
 

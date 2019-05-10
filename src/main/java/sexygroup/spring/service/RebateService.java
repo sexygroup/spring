@@ -19,4 +19,10 @@ public interface RebateService {
     List<JSONObject> findAllDetail();
 
     JSONObject findByIdDetail(Integer id);
+
+    List<JSONObject> findByCardIdDetail(Integer id);
+    List<JSONObject> findByClientIdDetail(Integer id);
+    List<JSONObject> findByClientNameDetail(String name);
+    List<JSONObject> findByReferrerIdDetail(Integer id);
+    List<JSONObject> findByDataBetweenDetail(String startTime,String endTime);
 }

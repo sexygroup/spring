@@ -47,4 +47,34 @@ public class CostServiceImpl implements CostService {
     public JSONObject findByIdDetail(Integer id) {
         return costRepository.findByIdDetail(id);
     }
+
+    @Override
+    public List<JSONObject> findByCardIdDetail(Integer id) {
+        return costRepository.findByCardIdDetail(id);
+    }
+
+    @Override
+    public List<JSONObject> findByClientIdDetail(Integer id) {
+        return costRepository.findByClientIdDetail(id);
+    }
+
+    @Override
+    public List<JSONObject> findByClientNameDetail(String name) {
+        return costRepository.findByClientNameDetail(name);
+    }
+
+    @Override
+    public List<JSONObject> findByServiceIdDetail(Integer id) {
+        return costRepository.findByServiceIdDetail(id);
+    }
+
+    @Override
+    public List<JSONObject> findByServiceNameDetail(String name) {
+        return costRepository.findByServiceNameDetail(name);
+    }
+
+    @Override
+    public List<JSONObject> findByDataBetweenDetail(String startTime, String endTime) {
+        return costRepository.findByDataBetweenDetail(startTime,endTime);
+    }
 }

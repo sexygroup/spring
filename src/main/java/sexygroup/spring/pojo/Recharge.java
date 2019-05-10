@@ -22,5 +22,5 @@ public class Recharge {
 
     @CreatedDate
     @LastModifiedDate
-    private Timestamp rechargeData;
+    private Timestamp rechargeDate;
 }

@@ -48,4 +48,29 @@ public class RebateServiceImpl implements RebateService {
         return rebateRepository.findByIdDetail(id);
     }
 
+    @Override
+    public List<JSONObject> findByCardIdDetail(Integer id) {
+        return rebateRepository.findByCardIdDetail(id);
+    }
+
+    @Override
+    public List<JSONObject> findByClientIdDetail(Integer id) {
+        return rebateRepository.findByClientIdDetail(id);
+    }
+
+    @Override
+    public List<JSONObject> findByClientNameDetail(String name) {
+        return rebateRepository.findByClientNameDetail(name);
+    }
+
+    @Override
+    public List<JSONObject> findByReferrerIdDetail(Integer id) {
+        return rebateRepository.findByReferrerIdDetail(id);
+    }
+
+    @Override
+    public List<JSONObject> findByDataBetweenDetail(String startTime, String endTime) {
+        return rebateRepository.findByDataBetweenDetail(startTime, endTime);
+    }
+
 }

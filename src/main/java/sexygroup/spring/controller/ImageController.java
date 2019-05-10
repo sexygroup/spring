@@ -49,7 +49,7 @@ public class ImageController {
     }
 
     @GetMapping("/findByIdDetail")
-    public JSONObject findByIdDetail(Integer id) {
+    public List<JSONObject> findByIdDetail(Integer id) {
         return imageService.findByIdDetail(id);
     }
 

@@ -48,4 +48,24 @@ public class RechargeServiceImpl implements RechargeService {
         return rechargeRepository.findByIdDetail(id);
     }
 
+    @Override
+    public List<JSONObject> findByCardIdDetail(Integer id) {
+        return rechargeRepository.findByCardIdDetail(id);
+    }
+
+    @Override
+    public List<JSONObject> findByClientIdDetail(Integer id) {
+        return rechargeRepository.findByClientIdDetail(id);
+    }
+
+    @Override
+    public List<JSONObject> findByClientNameDetail(String name) {
+        return rechargeRepository.findByClientNameDetail(name);
+    }
+
+    @Override
+    public List<JSONObject> findByDataBetweenDetail(String startTime, String endTime) {
+        return rechargeRepository.findByDataBetweenDetail(startTime, endTime);
+    }
+
 }

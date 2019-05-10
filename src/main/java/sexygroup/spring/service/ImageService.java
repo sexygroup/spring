@@ -18,5 +18,5 @@ public interface ImageService {
 
     List<JSONObject> findAllDetail();
 
-    JSONObject findByIdDetail(Integer id);
+    List<JSONObject> findByIdDetail(Integer id);
 }

@@ -48,4 +48,24 @@ public class DrawingsServiceImpl implements DrawingsService {
         return drawingsRepository.findByIdDetail(id);
     }
 
+    @Override
+    public List<JSONObject> findByCardIdDetail(Integer id) {
+        return drawingsRepository.findByCardIdDetail(id);
+    }
+
+    @Override
+    public List<JSONObject> findByClientIdDetail(Integer id) {
+        return drawingsRepository.findByClientIdDetail(id);
+    }
+
+    @Override
+    public List<JSONObject> findByClientNameDetail(String name) {
+        return drawingsRepository.findByClientNameDetail(name);
+    }
+
+    @Override
+    public List<JSONObject> findByDataBetweenDetail(String startTime, String endTime) {
+        return drawingsRepository.findByDataBetweenDetail(startTime, endTime);
+    }
+
 }

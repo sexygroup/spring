@@ -1,6 +1,7 @@
 package sexygroup.spring.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import sexygroup.spring.service.WorkSpaceService;
 
 @RestController
 @RequestMapping("/workSpace")
+@Api("工作台接口")
 public class WorkSpaceController {
     @Autowired
     WorkSpaceService workSpaceService;

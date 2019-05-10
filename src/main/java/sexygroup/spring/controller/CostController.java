@@ -80,9 +80,9 @@ public class CostController {
     }
 
     @ApiOperation(value = "通过‘消费日期’范围查询",notes = "返回LIST")
-    @GetMapping("/findByDataBetweenDetail")
-    public List<JSONObject> findByDataBetweenDetail(String startTime,String endTime){
-        return costService.findByDataBetweenDetail(startTime,endTime);
+    @GetMapping("/findByDateBetweenDetail")
+    public List<JSONObject> findByDateBetweenDetail(String startTime,String endTime){
+        return costService.findByDateBetweenDetail(startTime,endTime);
     }
 
 }

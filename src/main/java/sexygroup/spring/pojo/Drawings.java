@@ -22,5 +22,5 @@ public class Drawings {
 
     @CreatedDate
     @LastModifiedDate
-    private Timestamp drawingsData;
+    private Timestamp drawingsDate;
 }

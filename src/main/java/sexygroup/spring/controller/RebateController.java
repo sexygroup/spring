@@ -73,9 +73,9 @@ public class RebateController {
     }
 
     @ApiOperation(value = "通过‘返利日期’范围查询",notes = "返回LIST")
-    @GetMapping("/findByDataBetweenDetail")
-    public List<JSONObject> findByDataBetweenDetail(String startTime,String endTime){
-        return rebateService.findByDataBetweenDetail(startTime,endTime);
+    @GetMapping("/findByDateBetweenDetail")
+    public List<JSONObject> findByDateBetweenDetail(String startTime,String endTime){
+        return rebateService.findByDateBetweenDetail(startTime,endTime);
     }
 
 }

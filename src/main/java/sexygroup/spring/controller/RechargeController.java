@@ -67,8 +67,8 @@ public class RechargeController {
     }
 
     @ApiOperation(value = "通过‘充值日期’范围查询",notes = "返回LIST")
-    @GetMapping("/findByDataBetweenDetail")
-    public List<JSONObject> findByDataBetweenDetail(String startTime,String endTime){
-        return rechargeService.findByDataBetweenDetail(startTime,endTime);
+    @GetMapping("/findByDateBetweenDetail")
+    public List<JSONObject> findByDateBetweenDetail(String startTime,String endTime){
+        return rechargeService.findByDateBetweenDetail(startTime,endTime);
     }
 }

@@ -22,5 +22,5 @@ public class Rebate {
 
     @CreatedDate
     @LastModifiedDate
-    private Timestamp rebateData;
+    private Timestamp rebateDate;
 }

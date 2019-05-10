@@ -33,7 +33,7 @@ public interface CostRepository extends JpaRepository<Cost, Integer>, JpaSpecifi
     @Query(value = "select * from cost_detail_view  where service_name like CONCAT('%',?1,'%') ", nativeQuery = true)
     List<JSONObject> findByServiceNameDetail(String name);
     //日期范围
-    @Query(value = "select * from cost_detail_view  where cost_data between ?1 and ?2 ", nativeQuery = true)
-    List<JSONObject> findByDataBetweenDetail(String startTime,String endTime);
+    @Query(value = "select * from cost_detail_view  where cost_date between ?1 and ?2 ", nativeQuery = true)
+    List<JSONObject> findByDateBetweenDetail(String startTime,String endTime);
 
 }

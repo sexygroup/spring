@@ -32,5 +32,5 @@ public interface  RebateRepository extends JpaRepository<Rebate, Integer>, JpaSp
 
     //日期范围
     @Query(value = "select * from rebate_detail_view  where rebate_date between ?1 and ?2 ", nativeQuery = true)
-    List<JSONObject> findByDataBetweenDetail(String startTime,String endTime);
+    List<JSONObject> findByDateBetweenDetail(String startTime,String endTime);
 }

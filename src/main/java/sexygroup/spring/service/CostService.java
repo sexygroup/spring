@@ -25,5 +25,5 @@ public interface CostService {
     List<JSONObject> findByClientNameDetail(String name);
     List<JSONObject> findByServiceIdDetail(Integer id);
     List<JSONObject> findByServiceNameDetail(String name);
-    List<JSONObject> findByDataBetweenDetail(String startTime,String endTime);
+    List<JSONObject> findByDateBetweenDetail(String startTime,String endTime);
 }

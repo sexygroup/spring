@@ -64,8 +64,8 @@ public class RechargeServiceImpl implements RechargeService {
     }
 
     @Override
-    public List<JSONObject> findByDataBetweenDetail(String startTime, String endTime) {
-        return rechargeRepository.findByDataBetweenDetail(startTime, endTime);
+    public List<JSONObject> findByDateBetweenDetail(String startTime, String endTime) {
+        return rechargeRepository.findByDateBetweenDetail(startTime, endTime);
     }
 
 }

@@ -66,9 +66,9 @@ public class DrawingsController {
     }
 
     @ApiOperation(value = "通过‘提现日期’范围查询",notes = "返回LIST")
-    @GetMapping("/findByDataBetweenDetail")
-    public List<JSONObject> findByDataBetweenDetail(String startTime,String endTime){
-        return drawingsService.findByDataBetweenDetail(startTime,endTime);
+    @GetMapping("/findByDateBetweenDetail")
+    public List<JSONObject> findByDateBetweenDetail(String startTime,String endTime){
+        return drawingsService.findByDateBetweenDetail(startTime,endTime);
     }
 
 }

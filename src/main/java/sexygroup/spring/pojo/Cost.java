@@ -24,5 +24,5 @@ public class Cost {
 
     @CreatedDate
     @LastModifiedDate
-    private Timestamp costData;
+    private Timestamp costDate;
 }

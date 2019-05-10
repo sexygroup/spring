@@ -28,5 +28,5 @@ public interface RechargeRepository extends JpaRepository<Recharge, Integer>, Jp
     List<JSONObject> findByClientNameDetail(String name);
     //日期范围
     @Query(value = "select * from recharge_detail_view  where recharge_date between ?1 and ?2 ", nativeQuery = true)
-    List<JSONObject> findByDataBetweenDetail(String startTime,String endTime);
+    List<JSONObject> findByDateBetweenDetail(String startTime,String endTime);
 }

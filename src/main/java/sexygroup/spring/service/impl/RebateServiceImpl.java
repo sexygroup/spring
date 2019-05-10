@@ -69,8 +69,8 @@ public class RebateServiceImpl implements RebateService {
     }
 
     @Override
-    public List<JSONObject> findByDataBetweenDetail(String startTime, String endTime) {
-        return rebateRepository.findByDataBetweenDetail(startTime, endTime);
+    public List<JSONObject> findByDateBetweenDetail(String startTime, String endTime) {
+        return rebateRepository.findByDateBetweenDetail(startTime, endTime);
     }
 
 }

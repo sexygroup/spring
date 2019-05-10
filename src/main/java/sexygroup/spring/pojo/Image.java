@@ -21,5 +21,5 @@ public class Image {
 
     @CreatedDate
     @LastModifiedDate
-    private Timestamp imageData;
+    private Timestamp imageDate;
 }

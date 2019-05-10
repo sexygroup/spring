@@ -24,5 +24,5 @@ public interface RebateService {
     List<JSONObject> findByClientIdDetail(Integer id);
     List<JSONObject> findByClientNameDetail(String name);
     List<JSONObject> findByReferrerIdDetail(Integer id);
-    List<JSONObject> findByDataBetweenDetail(String startTime,String endTime);
+    List<JSONObject> findByDateBetweenDetail(String startTime,String endTime);
 }

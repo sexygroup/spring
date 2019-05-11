@@ -73,4 +73,9 @@ public class CardServiceImpl implements CardService {
         return cardRepository.findHolderByCardId(id);
     }
 
+    @Override
+    public List<JSONObject> findAllHolderDetail() {
+        return cardRepository.findAllHolderDetail();
+    }
+
 }

@@ -28,4 +28,5 @@ public interface CardService {
     JSONObject findByHolderPhoneDetail(String phone);
     List<JSONObject> findByHolderNameDetail(String name);
     JSONObject findHolderByCardId(Integer id);
+    List<JSONObject> findAllHolderDetail();
 }

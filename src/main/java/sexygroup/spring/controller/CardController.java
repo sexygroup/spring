@@ -64,7 +64,7 @@ public class CardController {
         return cardService.findByHolderPhoneDetail(phone);
     }
 
-    @ApiOperation(value = "通过‘持有人名称’查询",notes = "返回LIST")
+    @ApiOperation(value = "通过‘持有人名称’模糊查询",notes = "返回LIST")
     @GetMapping("/findByHolderNameDetail")
     public List<JSONObject> findByHolderNameDetail(String name) {
         return cardService.findByHolderNameDetail(name);
@@ -76,5 +76,9 @@ public class CardController {
         return cardService.findHolderByCardId(id);
     }
 
-
+    @ApiOperation(value = "查找所以持有人和卡的信息",notes = "返回LIST")
+    @GetMapping("/findAllHolderDetail")
+    public List<JSONObject> findAllHolderDetail() {
+        return cardService.findAllHolderDetail();
+    }
 }

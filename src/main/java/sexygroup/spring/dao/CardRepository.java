@@ -33,5 +33,7 @@ public interface CardRepository extends JpaRepository<Card, Integer>, JpaSpecifi
     @Query(value = "select * from card_client_view  where card_id=?1 and is_holder='1' ", nativeQuery = true)
     JSONObject findHolderByCardId(Integer id);
 
+    @Query(value = "select * from card_client_view where is_holder='1' order by card_id asc ,client_id asc ", nativeQuery = true)
+    List<JSONObject> findAllHolderDetail();
 
 }

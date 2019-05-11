@@ -53,7 +53,7 @@ public class ClientController {
         return clientService.existsByClientPhone(clientPhone);
     }
 
-    @ApiOperation(value = "通过‘客户名称’查询",notes = "返回LIST")
+    @ApiOperation(value = "通过‘客户名称’模糊查询",notes = "返回LIST")
     @GetMapping("/findByClientNameDetail")
     public List<JSONObject> findByClientNameDetail(String name) {
         return clientService.findByClientNameDetail(name);

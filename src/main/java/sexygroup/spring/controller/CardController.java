@@ -1,6 +1,7 @@
 package sexygroup.spring.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sexygroup.spring.pojo.Card;
@@ -45,5 +46,35 @@ public class CardController {
     public List<JSONObject> findByIdDetail(Integer id) {
         return cardService.findByIdDetail(id);
     }
+
+    @GetMapping("/findByCardIdAndClientIdDetail")
+    public JSONObject findByCardIdAndClientIdDetail(Integer cardId,Integer clientId) {
+        return cardService.findByCardIdAndClientIdDetail(cardId, clientId);
+    }
+
+    @ApiOperation(value = "通过‘推荐人卡号’查询",notes = "返回LIST")
+    @GetMapping("/findByCardReferrerDetail")
+    public List<JSONObject> findByCardReferrerDetail(Integer id) {
+        return cardService.findByCardReferrerDetail(id);
+    }
+
+    @ApiOperation(value = "通过‘持有人手机号’查询",notes = "返回JSON")
+    @GetMapping("/findByHolderPhoneDetail")
+    public JSONObject findByHolderPhoneDetail(String phone) {
+        return cardService.findByHolderPhoneDetail(phone);
+    }
+
+    @ApiOperation(value = "通过‘持有人名称’查询",notes = "返回LIST")
+    @GetMapping("/findByHolderNameDetail")
+    public List<JSONObject> findByHolderNameDetail(String name) {
+        return cardService.findByHolderNameDetail(name);
+    }
+
+    @ApiOperation(value = "通过‘卡ID’查询持有人信息",notes = "返回JSON")
+    @GetMapping("/findHolderByCardId")
+    public JSONObject findHolderByCardId(Integer id) {
+        return cardService.findHolderByCardId(id);
+    }
+
 
 }

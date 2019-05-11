@@ -21,4 +21,11 @@ public interface CardService {
     List<JSONObject> findAllDetail();
 
     List<JSONObject> findByIdDetail(Integer id);
+
+    JSONObject findByCardIdAndClientIdDetail(Integer cardId,Integer clientId);
+    //
+    List<JSONObject> findByCardReferrerDetail(Integer id);
+    JSONObject findByHolderPhoneDetail(String phone);
+    List<JSONObject> findByHolderNameDetail(String name);
+    JSONObject findHolderByCardId(Integer id);
 }

@@ -48,4 +48,19 @@ public class ClientServiceImpl implements ClientService {
         return clientRepository.findByIdDetail(id);
     }
 
+    @Override
+    public boolean existsByClientPhone(String phone) {
+        return clientRepository.existsByClientPhone(phone);
+    }
+
+    @Override
+    public List<JSONObject> findByClientNameDetail(String name) {
+        return clientRepository.findByClientNameDetail(name);
+    }
+
+    @Override
+    public List<JSONObject> findByClientPhoneDetail(String phone) {
+        return clientRepository.findByClientPhoneDetail(phone);
+    }
+
 }

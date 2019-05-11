@@ -16,4 +16,13 @@ public interface ClientRepository extends JpaRepository<Client, Integer>, JpaSpe
 
     @Query(value = "select * from card_client_view  where client_id=?1 order by card_id asc", nativeQuery = true)
     List<JSONObject> findByIdDetail(Integer id);
+
+    boolean existsByClientPhone(String phone);
+
+    @Query(value = "select * from card_client_view  where client_name like CONCAT('%',?1,'%') ", nativeQuery = true)
+    List<JSONObject> findByClientNameDetail(String name);
+
+    @Query(value = "select * from card_client_view  where client_phone=?1 ", nativeQuery = true)
+    List<JSONObject> findByClientPhoneDetail(String phone);
+
 }

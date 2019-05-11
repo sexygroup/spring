@@ -48,4 +48,29 @@ public class CardServiceImpl implements CardService {
         return cardRepository.findByIdDetail(id);
     }
 
+    @Override
+    public JSONObject findByCardIdAndClientIdDetail(Integer cardId, Integer clientId) {
+        return cardRepository.findByCardIdAndClientIdDetail(cardId,clientId);
+    }
+
+    @Override
+    public List<JSONObject> findByCardReferrerDetail(Integer id) {
+        return cardRepository.findByCardReferrerDetail(id);
+    }
+
+    @Override
+    public JSONObject findByHolderPhoneDetail(String phone) {
+        return cardRepository.findByHolderPhoneDetail(phone);
+    }
+
+    @Override
+    public List<JSONObject> findByHolderNameDetail(String name) {
+        return cardRepository.findByHolderNameDetail(name);
+    }
+
+    @Override
+    public JSONObject findHolderByCardId(Integer id) {
+        return cardRepository.findHolderByCardId(id);
+    }
+
 }

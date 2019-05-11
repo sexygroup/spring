@@ -20,4 +20,9 @@ public interface ClientService {
     List<JSONObject> findAllDetail();
 
     List<JSONObject> findByIdDetail(Integer id);
+
+    boolean existsByClientPhone(String phone);
+    //
+    List<JSONObject> findByClientNameDetail(String name);
+    List<JSONObject> findByClientPhoneDetail(String phone);
 }

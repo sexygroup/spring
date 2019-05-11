@@ -1,5 +1,6 @@
 package sexygroup.spring.controller;
 
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sexygroup.spring.pojo.CardClient;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/cardClient")
+@Api(tags="卡-客户关系表操作")
 public class CardClientController {
     @Autowired
     CardClientService cardClientService;

@@ -19,7 +19,7 @@ import sexygroup.spring.service.WorkSpaceService;
 @Api(tags="工作台接口")
 public class WorkSpaceController {
     @Autowired
-    WorkSpaceService workSpaceService;
+    private WorkSpaceService workSpaceService;
 
     @ApiOperation(value = "办卡接口",notes = "参数格式：" +
             "{" +

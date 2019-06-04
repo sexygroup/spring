@@ -12,7 +12,7 @@ import java.util.Optional;
 @RequestMapping("/admin")
 public class AdminController {
     @Autowired
-    AdminService adminService;
+    private AdminService adminService;
 
     @GetMapping("/findAll")
     public List<Admin> findAll() {

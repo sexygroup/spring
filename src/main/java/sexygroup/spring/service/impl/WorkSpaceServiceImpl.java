@@ -17,25 +17,25 @@ import java.util.Optional;
 public class WorkSpaceServiceImpl implements WorkSpaceService {
 
     @Autowired
-    CardRepository cardRepository;
+    private CardRepository cardRepository;
 
     @Autowired
-    ClientRepository clientRepository;
+    private ClientRepository clientRepository;
 
     @Autowired
-    CardClientRepository cardClientRepository;
+    private CardClientRepository cardClientRepository;
 
     @Autowired
-    CostRepository costRepository;
+    private CostRepository costRepository;
 
     @Autowired
-    RechargeRepository rechargeRepository;
+    private RechargeRepository rechargeRepository;
 
     @Autowired
-    RebateRepository rebateRepository;
+    private RebateRepository rebateRepository;
 
     @Autowired
-    DrawingsRepository drawingsRepository;
+    private DrawingsRepository drawingsRepository;
 
     @Override
     public JSONObject newCard(JSONObject jsonObject) {

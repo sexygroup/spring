@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequestMapping("/rebate")
 public class RebateController {
     @Autowired
-    RebateService rebateService;
+    private RebateService rebateService;
 
     @GetMapping("/findAll")
     public List<Rebate> findAll() {

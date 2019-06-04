@@ -14,7 +14,7 @@ import java.util.Optional;
 @Transactional
 public class AdminServiceImpl implements AdminService {
     @Autowired
-    AdminRepository adminRepository;
+    private AdminRepository adminRepository;
 
 
     @Override

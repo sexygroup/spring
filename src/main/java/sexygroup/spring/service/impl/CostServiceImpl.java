@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import sexygroup.spring.dao.CostRepository;
 import sexygroup.spring.pojo.Cost;
 import sexygroup.spring.service.CostService;
+import sexygroup.spring.utils.JsonUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @Transactional
 public class CostServiceImpl implements CostService {
     @Autowired
-    CostRepository costRepository;
+    private CostRepository costRepository;
 
 
     @Override
@@ -40,41 +41,41 @@ public class CostServiceImpl implements CostService {
 
     @Override
     public List<JSONObject> findAllDetail() {
-        return costRepository.findAllDetail();
+        return (List<JSONObject>) JsonUtil.convert(costRepository.findAllDetail().toString());
     }
 
     @Override
     public JSONObject findByIdDetail(Integer id) {
-        return costRepository.findByIdDetail(id);
+        return (JSONObject) JsonUtil.convert(costRepository.findByIdDetail(id).toJSONString());
     }
 
     @Override
     public List<JSONObject> findByCardIdDetail(Integer id) {
-        return costRepository.findByCardIdDetail(id);
+        return (List<JSONObject>) JsonUtil.convert(costRepository.findByCardIdDetail(id).toString());
     }
 
     @Override
     public List<JSONObject> findByClientIdDetail(Integer id) {
-        return costRepository.findByClientIdDetail(id);
+        return (List<JSONObject>) JsonUtil.convert(costRepository.findByClientIdDetail(id).toString());
     }
 
     @Override
     public List<JSONObject> findByClientNameDetail(String name) {
-        return costRepository.findByClientNameDetail(name);
+        return (List<JSONObject>) JsonUtil.convert(costRepository.findByClientNameDetail(name).toString());
     }
 
     @Override
     public List<JSONObject> findByServiceIdDetail(Integer id) {
-        return costRepository.findByServiceIdDetail(id);
+        return (List<JSONObject>) JsonUtil.convert(costRepository.findByServiceIdDetail(id).toString());
     }
 
     @Override
     public List<JSONObject> findByServiceNameDetail(String name) {
-        return costRepository.findByServiceNameDetail(name);
+        return (List<JSONObject>) JsonUtil.convert(costRepository.findByServiceNameDetail(name).toString());
     }
 
     @Override
     public List<JSONObject> findByDateBetweenDetail(String startTime, String endTime) {
-        return costRepository.findByDateBetweenDetail(startTime,endTime);
+        return (List<JSONObject>) JsonUtil.convert(costRepository.findByDateBetweenDetail(startTime,endTime).toString());
     }
 }

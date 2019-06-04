@@ -1,5 +1,7 @@
 server:
   port: 9876
+  servlet:
+    context-path: /spring
 
 spring:
   application:
@@ -31,10 +33,15 @@ spring:
     open-in-view: true
     #hibernate:
      # ddl-auto: none
+  data:
+    redis:
+      repositories:
+        enabled: false
   #日期格式配置
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+
 #是否开启swagger
 swagger:
   enabled: true

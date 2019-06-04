@@ -15,7 +15,7 @@ import java.util.Optional;
 @RequestMapping("/cost")
 public class CostController {
     @Autowired
-    CostService costService;
+    private CostService costService;
 
     @GetMapping("/findAll")
     public List<Cost> findAll() {

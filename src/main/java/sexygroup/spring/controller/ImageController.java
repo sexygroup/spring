@@ -20,7 +20,7 @@ import java.util.Optional;
 @RequestMapping("/image")
 public class ImageController {
     @Autowired
-    ImageService imageService;
+    private ImageService imageService;
 
     @GetMapping("/findAll")
     public List<Image> findAll() {

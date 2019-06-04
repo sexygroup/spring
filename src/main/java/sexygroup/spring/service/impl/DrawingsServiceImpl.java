@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import sexygroup.spring.dao.DrawingsRepository;
 import sexygroup.spring.pojo.Drawings;
 import sexygroup.spring.service.DrawingsService;
+import sexygroup.spring.utils.JsonUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @Transactional
 public class DrawingsServiceImpl implements DrawingsService {
     @Autowired
-    DrawingsRepository drawingsRepository;
+    private DrawingsRepository drawingsRepository;
 
 
     @Override
@@ -40,32 +41,32 @@ public class DrawingsServiceImpl implements DrawingsService {
 
     @Override
     public List<JSONObject> findAllDetail() {
-        return drawingsRepository.findAllDetail();
+        return (List<JSONObject>) JsonUtil.convert(drawingsRepository.findAllDetail().toString());
     }
 
     @Override
     public JSONObject findByIdDetail(Integer id) {
-        return drawingsRepository.findByIdDetail(id);
+        return (JSONObject)JsonUtil.convert(drawingsRepository.findByIdDetail(id).toJSONString());
     }
 
     @Override
     public List<JSONObject> findByCardIdDetail(Integer id) {
-        return drawingsRepository.findByCardIdDetail(id);
+        return (List<JSONObject>) JsonUtil.convert(drawingsRepository.findByCardIdDetail(id).toString());
     }
 
     @Override
     public List<JSONObject> findByClientIdDetail(Integer id) {
-        return drawingsRepository.findByClientIdDetail(id);
+        return (List<JSONObject>) JsonUtil.convert(drawingsRepository.findByClientIdDetail(id).toString());
     }
 
     @Override
     public List<JSONObject> findByClientNameDetail(String name) {
-        return drawingsRepository.findByClientNameDetail(name);
+        return (List<JSONObject>) JsonUtil.convert(drawingsRepository.findByClientNameDetail(name).toString());
     }
 
     @Override
     public List<JSONObject> findByDateBetweenDetail(String startTime, String endTime) {
-        return drawingsRepository.findByDateBetweenDetail(startTime, endTime);
+        return (List<JSONObject>) JsonUtil.convert(drawingsRepository.findByDateBetweenDetail(startTime, endTime).toString());
     }
 
 }

@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequestMapping("/recharge")
 public class RechargeController {
     @Autowired
-    RechargeService rechargeService;
+    private RechargeService rechargeService;
 
     @GetMapping("/findAll")
     public List<Recharge> findAll() {

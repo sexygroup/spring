@@ -12,7 +12,7 @@ import java.util.Optional;
 @RequestMapping("/cardLevel")
 public class CardLevelController {
     @Autowired
-    CardLevelService cardLevelService;
+    private CardLevelService cardLevelService;
 
     @GetMapping("/findAll")
     public List<CardLevel> findAll() {

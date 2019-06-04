@@ -13,7 +13,7 @@ import java.util.Optional;
 @Transactional
 public class ServiceServiceImpl implements ServiceService {
     @Autowired
-    ServiceRepository serviceRepository;
+    private ServiceRepository serviceRepository;
 
 
     @Override

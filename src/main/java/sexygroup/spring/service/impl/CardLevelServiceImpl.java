@@ -15,7 +15,7 @@ import java.util.Optional;
 @Transactional
 public class CardLevelServiceImpl implements CardLevelService {
     @Autowired
-    CardLevelRepository cardLevelRepository;
+    private CardLevelRepository cardLevelRepository;
 
 
     @Override

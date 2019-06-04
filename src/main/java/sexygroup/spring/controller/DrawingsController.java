@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequestMapping("/drawings")
 public class DrawingsController {
     @Autowired
-    DrawingsService drawingsService;
+    private DrawingsService drawingsService;
 
     @GetMapping("/findAll")
     public List<Drawings> findAll() {

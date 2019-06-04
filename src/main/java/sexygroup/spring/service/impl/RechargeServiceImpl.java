@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import sexygroup.spring.dao.RechargeRepository;
 import sexygroup.spring.pojo.Recharge;
 import sexygroup.spring.service.RechargeService;
+import sexygroup.spring.utils.JsonUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @Transactional
 public class RechargeServiceImpl implements RechargeService {
     @Autowired
-    RechargeRepository rechargeRepository;
+    private RechargeRepository rechargeRepository;
 
 
     @Override
@@ -40,32 +41,32 @@ public class RechargeServiceImpl implements RechargeService {
 
     @Override
     public List<JSONObject> findAllDetail() {
-        return rechargeRepository.findAllDetail();
+        return (List<JSONObject>) JsonUtil.convert(rechargeRepository.findAllDetail().toString());
     }
 
     @Override
     public JSONObject findByIdDetail(Integer id) {
-        return rechargeRepository.findByIdDetail(id);
+        return (JSONObject)JsonUtil.convert(rechargeRepository.findByIdDetail(id).toJSONString());
     }
 
     @Override
     public List<JSONObject> findByCardIdDetail(Integer id) {
-        return rechargeRepository.findByCardIdDetail(id);
+        return (List<JSONObject>) JsonUtil.convert(rechargeRepository.findByCardIdDetail(id).toString());
     }
 
     @Override
     public List<JSONObject> findByClientIdDetail(Integer id) {
-        return rechargeRepository.findByClientIdDetail(id);
+        return (List<JSONObject>) JsonUtil.convert(rechargeRepository.findByClientIdDetail(id).toString());
     }
 
     @Override
     public List<JSONObject> findByClientNameDetail(String name) {
-        return rechargeRepository.findByClientNameDetail(name);
+        return (List<JSONObject>) JsonUtil.convert(rechargeRepository.findByClientNameDetail(name).toString());
     }
 
     @Override
     public List<JSONObject> findByDateBetweenDetail(String startTime, String endTime) {
-        return rechargeRepository.findByDateBetweenDetail(startTime, endTime);
+        return (List<JSONObject>) JsonUtil.convert(rechargeRepository.findByDateBetweenDetail(startTime, endTime).toString());
     }
 
 }

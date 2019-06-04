@@ -16,7 +16,7 @@ import java.util.Optional;
 @Transactional
 public class CardClientServiceImpl implements CardClientService {
     @Autowired
-    CardClientRepository cardClientRepository;
+    private CardClientRepository cardClientRepository;
 
 
     @Override

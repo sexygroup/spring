@@ -16,7 +16,7 @@ import java.util.Optional;
 @Api(tags="卡-客户关系表操作")
 public class CardClientController {
     @Autowired
-    CardClientService cardClientService;
+    private CardClientService cardClientService;
 
     @GetMapping("/findAll")
     public List<CardClient> findAll() {

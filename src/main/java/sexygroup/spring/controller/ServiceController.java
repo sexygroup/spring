@@ -12,7 +12,7 @@ import java.util.Optional;
 @RequestMapping("/service")
 public class ServiceController {
     @Autowired
-    ServiceService serviceService;
+    private ServiceService serviceService;
 
     @GetMapping("/findAll")
     public List<Service> findAll() {

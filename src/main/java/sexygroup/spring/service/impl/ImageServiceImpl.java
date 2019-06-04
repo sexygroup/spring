@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import sexygroup.spring.dao.ImageRepository;
 import sexygroup.spring.pojo.Image;
 import sexygroup.spring.service.ImageService;
+import sexygroup.spring.utils.JsonUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @Transactional
 public class ImageServiceImpl implements ImageService {
     @Autowired
-    ImageRepository imageRepository;
+    private ImageRepository imageRepository;
 
 
     @Override
@@ -40,12 +41,12 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public List<JSONObject> findAllDetail() {
-        return imageRepository.findAllDetail();
+        return (List<JSONObject>) JsonUtil.convert(imageRepository.findAllDetail().toString());
     }
 
     @Override
     public List<JSONObject> findByIdDetail(Integer id) {
-        return imageRepository.findByIdDetail(id);
+        return (List<JSONObject>) JsonUtil.convert(imageRepository.findByIdDetail(id).toString());
     }
 
 }

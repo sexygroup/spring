@@ -1,0 +1,191 @@
+<!----------------------------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------------------------------->
+	//索引，不管怎么排序，这一行永远从1递增
+	<el-table-column type="index" width="100px" label="#" sortable></el-table-column>
+	
+	//id转编号显示方法
+	<el-table-column label="等级编号">
+    	<template slot-scope="scope">
+            <p>{{idToCode(scope.row.cardLevelId)}}</p>
+        </template>
+    </el-table-column>
+		         						  	
+	//正常
+	<el-table-column prop="cardLevelPrice" label="价格" sortable></el-table-column>
+	
+	//包含按钮
+	<el-table-column label="操作" width="200px">
+		<template slot-scope="scope">
+		    <el-button icon="edit" type="warning" @click="c_clickEditButton(scope.row)" size="small">编辑</el-button>
+		    <el-button icon="delete" type="danger" @click="c_confirmDelete(scope.row.cardLevelId)" size="small">删除</el-button>
+		</template>
+	</el-table-column>
+	
+	//用标签显示(el-tag)，然后鼠标放在上面可以有提示(el-popover)
+	<el-table-column label="会员等级">
+        <template slot-scope="scope">
+            <el-popover trigger="hover" placement="top">
+                <p>折扣: {{idToCode(scope.row.cardLevelId)}}</p>
+                <div slot="reference" class="name-wrapper">
+                    <el-tag type="primary" size="medium">{{scope.row.cardLevelPrice}}</el-tag>
+                </div>
+            </el-popover>
+        </template>
+    </el-table-column>
+
+	//然后鼠标放在上面可以有提示(el-popover),列表提示
+	<el-table-column label="账号" width="125" sortable>
+        <template slot-scope="scope">
+            <el-popover trigger="hover" placement="top">
+                <el-form>
+                    <el-form-item label="姓名:">{{ scope.row.name }}</el-form-item>
+                    <el-form-item label="性别:">{{ scope.row.gender }}</el-form-item>
+                    <el-form-item label="出生日期:">{{ scope.row.birthday }}</el-form-item>
+                    <el-form-item label="电话:">{{ scope.row.phone }}</el-form-item>
+                    <el-form-item label="爱好:">{{ scope.row.habbit }}</el-form-item>
+                </el-form>
+                <div slot="reference" class="name-wrapper">
+                    <el-tag type="primary" size="medium">{{ scope.row.account }}</el-tag>
+                </div>
+            </el-popover>
+        </template>
+    </el-table-column>
+
+
+
+
+
+
+
+
+
+									        <el-dialog title="修改会员卡信息" v-model="editDialogFormVisible" @close="resetEditForm('editForm')">
+									            <el-form :rules="" :model="cardClientDetail" ref="editForm">
+									                <el-form-item label="会员卡编号">
+									                    <el-input v-model="cardClientDetail.card_id" auto-complete="off" disabled="true"></el-input>
+									                </el-form-item>
+									                <el-form-item label="密码">
+									                    <el-input v-model="clientForm.password" auto-complete="off" disabled="true"></el-input>
+									                </el-form-item>
+									                <el-form-item label="会员等级">
+									                    <el-input v-model="getLevel(clientForm.points)" auto-complete="off" disabled="true"></el-input>
+									                </el-form-item>
+									                <el-form-item label="性别">
+									                    <el-select v-model="clientForm.gender" size="large" disabled="true">
+									                        <el-option label="男" value="Male"></el-option>
+									                        <el-option label="女" value="Female"></el-option>
+									                    </el-select>
+									                </el-form-item>
+									                <el-form-item label="出生日期" prop="birthday">
+									                    <el-input v-model="clientForm.birthday" auto-complete="off" disabled="true"></el-input>
+									                </el-form-item>
+									                <el-form-item label="手机" prop="phone">
+									                    <el-input v-model="clientForm.phone" auto-complete="off" disabled="true"></el-input>
+									                </el-form-item>
+									                <el-form-item label="爱好">
+									                    <el-input
+									                            v-model="clientForm.habbit"
+									                            type="textarea"
+									                            :rows="3"
+									                            disabled="true"
+									                            auto-complete="off"
+									                            disabled="true"></el-input>
+									                </el-form-item>
+									            </el-form>
+									            <div slot="footer" class="dialog-footer">
+									                <el-button icon="edit" type="primary" @click="editClient('editForm')">修 改</el-button>
+									                <el-button icon="close" @click="resetEditForm('editForm')">取 消</el-button>
+									            </div>
+									        </el-dialog>	
+
+
+<!----------------------------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------------------------------->
+执行 GET 请求
+// 为给定 ID 的 user 创建请求
+axios.get('/user?ID=12345')
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+// 可选地，上面的请求可以这样做
+axios.get('/user', {
+    params: {
+      ID: 12345
+    }
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+执行 POST 请求
+axios.post('/user', {
+    firstName: 'Fred',
+    lastName: 'Flintstone'
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+axios({
+  method: 'post',
+  url: '/user/12345',
+  data: {
+    firstName: 'Fred',
+    lastName: 'Flintstone'
+  }
+});
+
+
+
+push() 向数组的末尾添加元素
+定义：push() 方法可向数组的末尾添加一个或多个元素，并返回新的长度。
+参数: item1, item2, …, itemX ,要添加到数组末尾的元素
+?
+1
+2
+3
+let a = [1,2,3];
+let item = a.push('末尾'); // 4
+console.log(a); // [1,2,3,'末尾']
+
+pop() 删除一个数组中的最后的一个元素
+定义: pop() 方法删除一个数组中的最后的一个元素，并且返回这个元素。
+参数: 无。
+?
+1
+2
+3
+let a = [1,2,3];
+let item = a.pop(); // 3
+console.log(a); // [1,2]
+
+
+<!----------------------------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------------------------------->
+          <!-- Page Footer-->
+          <footer class="main-footer">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-6">
+                  <p>Your company &copy; 2019-2020</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                  <p>Design by Three Boys From HIT &nbsp;&nbsp;&nbsp;<a href="#" target="_blank" title="贺明QQ：957039243；刘猛QQ：2921978909；贾少杰QQ：1710951735。">联系我们</a></p>
+                </div>
+              </div>
+            </div>
+          </footer>
+          
+

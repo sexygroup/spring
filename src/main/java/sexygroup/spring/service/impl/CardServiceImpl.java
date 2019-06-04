@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import sexygroup.spring.dao.CardRepository;
 import sexygroup.spring.pojo.Card;
 import sexygroup.spring.service.CardService;
+import sexygroup.spring.utils.JsonUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @Transactional
 public class CardServiceImpl implements CardService {
     @Autowired
-    CardRepository cardRepository;
+    private CardRepository cardRepository;
 
 
     @Override
@@ -40,42 +41,42 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public List<JSONObject> findAllDetail() {
-        return cardRepository.findAllDetail();
+        return (List<JSONObject>) JsonUtil.convert(cardRepository.findAllDetail().toString());
     }
 
     @Override
     public List<JSONObject> findByIdDetail(Integer id) {
-        return cardRepository.findByIdDetail(id);
+        return (List<JSONObject>) JsonUtil.convert(cardRepository.findByIdDetail(id).toString());
     }
 
     @Override
     public JSONObject findByCardIdAndClientIdDetail(Integer cardId, Integer clientId) {
-        return cardRepository.findByCardIdAndClientIdDetail(cardId,clientId);
+        return (JSONObject)JsonUtil.convert(cardRepository.findByCardIdAndClientIdDetail(cardId,clientId).toJSONString());
     }
 
     @Override
     public List<JSONObject> findByCardReferrerDetail(Integer id) {
-        return cardRepository.findByCardReferrerDetail(id);
+        return (List<JSONObject>) JsonUtil.convert(cardRepository.findByCardReferrerDetail(id).toString());
     }
 
     @Override
     public JSONObject findByHolderPhoneDetail(String phone) {
-        return cardRepository.findByHolderPhoneDetail(phone);
+        return (JSONObject)JsonUtil.convert(cardRepository.findByHolderPhoneDetail(phone).toJSONString());
     }
 
     @Override
     public List<JSONObject> findByHolderNameDetail(String name) {
-        return cardRepository.findByHolderNameDetail(name);
+        return (List<JSONObject>) JsonUtil.convert(cardRepository.findByHolderNameDetail(name).toString());
     }
 
     @Override
     public JSONObject findHolderByCardId(Integer id) {
-        return cardRepository.findHolderByCardId(id);
+        return (JSONObject)JsonUtil.convert(cardRepository.findHolderByCardId(id).toJSONString());
     }
 
     @Override
     public List<JSONObject> findAllHolderDetail() {
-        return cardRepository.findAllHolderDetail();
+        return (List<JSONObject>) JsonUtil.convert(cardRepository.findAllHolderDetail().toString());
     }
 
 }

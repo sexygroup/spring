@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import sexygroup.spring.dao.ClientRepository;
 import sexygroup.spring.pojo.Client;
 import sexygroup.spring.service.ClientService;
+import sexygroup.spring.utils.JsonUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @Transactional
 public class ClientServiceImpl implements ClientService {
     @Autowired
-    ClientRepository clientRepository;
+    private ClientRepository clientRepository;
 
 
     @Override
@@ -40,12 +41,12 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<JSONObject> findAllDetail() {
-        return clientRepository.findAllDetail();
+        return (List<JSONObject>) JsonUtil.convert(clientRepository.findAllDetail().toString());
     }
 
     @Override
     public List<JSONObject> findByIdDetail(Integer id) {
-        return clientRepository.findByIdDetail(id);
+        return (List<JSONObject>) JsonUtil.convert(clientRepository.findByIdDetail(id).toString());
     }
 
     @Override
@@ -55,12 +56,12 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<JSONObject> findByClientNameDetail(String name) {
-        return clientRepository.findByClientNameDetail(name);
+        return (List<JSONObject>) JsonUtil.convert(clientRepository.findByClientNameDetail(name).toString());
     }
 
     @Override
     public List<JSONObject> findByClientPhoneDetail(String phone) {
-        return clientRepository.findByClientPhoneDetail(phone);
+        return (List<JSONObject>) JsonUtil.convert(clientRepository.findByClientPhoneDetail(phone).toString());
     }
 
 }

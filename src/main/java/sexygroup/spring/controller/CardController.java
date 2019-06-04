@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequestMapping("/card")
 public class CardController {
     @Autowired
-    CardService cardService;
+    private CardService cardService;
 
     @GetMapping("/findAll")
     public List<Card> findAll() {
@@ -76,7 +76,7 @@ public class CardController {
         return cardService.findHolderByCardId(id);
     }
 
-    @ApiOperation(value = "查找所以持有人和卡的信息",notes = "返回LIST")
+    @ApiOperation(value = "查找所有持有人和卡的信息",notes = "返回LIST")
     @GetMapping("/findAllHolderDetail")
     public List<JSONObject> findAllHolderDetail() {
         return cardService.findAllHolderDetail();

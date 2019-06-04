@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>login</title>																					<!--Update-->
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="index,follow">										<!--Update-->
+    <!-- CSS files-->
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="css/fontastic.css">
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <!-- Theme stylesheet-->
+    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/favicon.ico">
+        
+    <!-- Mine files-->																		<!--Update-->
+		<script src="js/mine/axios.min.js"></script>					<!--Update-->
+  	<script src="js/mine/lodash.js"></script>							<!--Update-->
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+  	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>		
+      
+    <!-- JavaScript files-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper.js/umd/popper.min.js"> </script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
+    <!-- Main JavaScript File-->
+    <script src="js/front.js"></script> 
+
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+  </head>
+
+  <body> 
+    <div class="page login-page" id="app">
+      <div class="container d-flex align-items-center">		<!-- 布局：page->container(d-flex)->row->col->info(d-flex)->content->logo-(<h>) -->
+        <div class="form-holder has-shadow" >
+          <div class="row" >
+            <!-- Logo & Information Panel-->
+            <div class="col-lg-6">
+              <div class="info d-flex align-items-center">
+                <div class="content">
+                  <div class="logo">
+                    <h1>春天造型</h1>
+                  </div>
+                  	<p>"Spring is when you feel like whistling even with a shoe full of slush."<br><span>—Doug Larson</span></p>
+                </div>
+              </div>
+            </div>
+            <!-- Form Panel -->
+            <div class="col-lg-6 bg-white" >			<!--布局：col->form(d-flex)->content->form group -><h>) -->
+              <div class="form d-flex align-items-center" >
+                <div class="content" >
+                    <div class="form-group">       
+											<h1>登录</h1>
+                    </div>
+                    <div class="form-group"> 
+                      <input type="text" class="input-material" id="login-code" readonly="readonly" v-model="adminCode">	
+                      <label for="login-code" class="label-material">账号</label>
+                    </div>
+                    <div class="form-group"> 	
+                      <input type="password" class="input-material" id="login-password" v-model="admin.adminPassword" >		
+                      <label for="login-password" class="label-material">登录密码</label>	
+                    </div>
+                    <div class="form-group">       
+                      <a href="#" class="forgot-pass" @click="forget()">找回密码</a>
+                      <span></span>
+                      <input type="button" class="btn btn-primary" id="login" value="确认" @click="confirm(admin)">
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyrights text-center">
+        <p>Design by <a href="#" class="external">Star sister and brother</a></p>
+      </div>
+    </div>
+    
+    <!-- Mine files-->	   
+		<script>
+	    window.onload=function(){
+	    	var v1 = new Vue({
+	      	el: '#app',
+	      	data:{
+	          admin:{		//与控件绑定的admin
+	          	adminId:1,
+	          	adminPassword:''
+	          },
+	          adminCode:'',		//与admin.id对应的6位编号，与控件绑定
+	          r_admin:{				//存放返回数据的admin
+	          	adminId:0,
+	          	adminPassword:''
+	          },
+            //url:"http://127.0.0.1:8080/spring9/"
+            //url:"http://10.241.77.73:9876/"
+            url:"/spring/"
+            
+	     	 	},
+	      	methods:{
+	      		//=======================================================================   		
+	      		//初始化admin
+	      		init_admin:function(){
+	      			this.admin.adminId = 1;
+	      			this.admin.adminPassword = '';
+	      		},
+	      		
+	      		//初始化r_admin
+	      		init_r_admin:function(){
+	      			this.r_admin.adminId = 0;
+	      			this.r_admin.adminPassword = '';
+	      		},
+	      		
+	      		//int型id转化为6位string型code。失败返回字符串”error“。
+	      		idToCode:function(t_id){
+	      			var response= "";
+	      			var count = t_id.toString().length;
+	      			
+	      			if(count == 1){
+	      				response = "00000"+t_id.toString();	
+	      			}else if(count == 2){
+	      				response = "0000"+t_id.toString();
+	      			}else if(count == 3){
+	      				response = "000"+t_id.toString();
+	      			}else if(count == 4){
+	      				response = "00"+t_id.toString();
+	      			}else if(count == 5){
+	      				response = "0"+t_id.toString();
+	      			}else if(count == 6){
+	      				response = t_id.toString();
+	      			}else{
+	      				response = "error";
+	      			}
+	      			return response;
+	      		},
+	      		
+	      		//6位string型code转化为int型id。失败返回NaN。
+	      		codeToId:function(t_code){
+	      			var response = parseInt(t_code,10);
+	      			return response;
+	      		},
+	      		
+	      		//检验字符串是否为空。response=0表示字符串为空。
+	      		if_invalid:function(t_string){
+	      			var response = t_string.length;
+	      			return response;
+	      		},
+	      		      		
+	      		//===========================================================================================
+	      		//通过编号获取管理员信息。初始化r_admin；若数据库存在记录且密码正确，则将返回结果保存到r_admin。
+          	findAdminById:function(t_id){
+             	//console.log("======"+t_id+"=====");		//测试语句
+             	var handle = this;	//供axios使用外层this
+             	axios.get(this.url+"admin/findById",{
+    						params: {
+      						id:t_id
+    						}
+  						}).then(function (response){
+    						//console.log(response.data);					//测试代码
+    						handle.init_r_admin();							//初始化r_admin
+    						if(response.data == null){
+                	handle.$alert("无该管理员账号!");
+                	console.log("getAdmin Error!");
+                	return false;
+    						}else{
+	    						if(response.data.adminPassword==handle.admin.adminPassword){
+	    							handle.r_admin.adminId = response.data.adminId;
+	    							handle.r_admin.adminPassword = response.data.adminPassword;
+	    						}else{
+	                  handle.$alert("密码错误，请重新输入！");
+	                  console.log("Password Error!");
+	                  return false;
+	    						}    							
+    						}
+    					}).catch(function (error){
+    						console.log(error);
+  						});
+  					},	
+	      		//=============================================================================
+	      		//“登录页面”响应函数。初始化数据。
+	      		loading:function(){
+	      			this.init_admin();
+	      			this.init_r_admin();
+	      			this.adminCode = this.idToCode(this.admin.adminId);
+	      			//console.log(this.adminCode);
+	      		},
+	      		
+	    			//"确认按键"响应函数
+            confirm:function(t_admin){
+            	//console.log("======"+t_admin.adminId+"======");					//测试语句
+            	//console.log("======"+t_admin.adminPassword+"======");		//测试语句     	
+            	//判断密码是否为空
+            	var response = this.if_invalid(t_admin.adminPassword);
+            	if(response == 0){																				
+            		this.$alert("密码不能为空，请重新输入！");
+            		console.log("Password is null!");
+            		return false;
+            	}
+            	//与后台交互。
+            	this.findAdminById(t_admin.adminId);
+            	//等待后台返回数据需要延迟一段200毫秒，用setTimeout(function(),200);
+            	var handle=this;		//供setTimeout()使用外层this
+            	window.setTimeout(function(){
+            		//判断是否正成功获取数据
+            		if(handle.r_admin.adminId != 0){
+            			window.location.href="work.html"+"?"+"code="+handle.adminCode;
+            		}           		
+            	},200);       
+            },
+            
+            //”忘记密码“响应函数
+            forget:function(){
+            	if(this.adminCode != ''){
+            		window.location.href="reset.html"+"?"+"code="+this.adminCode;
+            	}
+            }
+          }
+	    	});
+	    	v1.loading();
+	    }	
+   </script>
+  </body>
+</html>

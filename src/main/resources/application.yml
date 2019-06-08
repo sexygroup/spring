@@ -1,5 +1,5 @@
 server:
-  port: 9876
+  port: 9988
   servlet:
     context-path: /spring
 
@@ -14,7 +14,7 @@ spring:
 
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/spring?useUnicode=true&characterEncoding=utf-8&&useSSL=false&&serverTimezone=Asia/Shanghai&&allowMultiQueries=true
+    url: jdbc:mysql://localhost:3306/springdb?useUnicode=true&characterEncoding=utf-8&&useSSL=false&&serverTimezone=Asia/Shanghai&&allowMultiQueries=true
     username: root
     password: password
     platform: mysql
@@ -32,7 +32,7 @@ spring:
     database: mysql
     open-in-view: true
     #hibernate:
-     # ddl-auto: none
+    # ddl-auto: none
   data:
     redis:
       repositories:

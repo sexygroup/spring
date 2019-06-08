@@ -16,5 +16,5 @@ public class Service {
     private Integer serviceId;
     private String serviceName;
     private double servicePrice;
-    private double servicePercent;
+    private double serviceRebate;
 }

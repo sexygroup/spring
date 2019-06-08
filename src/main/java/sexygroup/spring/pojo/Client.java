@@ -13,7 +13,10 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer clientId;
+    private Integer cardId;
+    private Integer clientIsHolder;
     private String clientName;
     private String clientGender;
+    private String clientAge;
     private String clientPhone;
 }

@@ -9,16 +9,11 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class Card {
+public class Staff {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer cardId;
-    private Integer cardReferrer;
-    private String cardPassword;
-    private String cardQuestion;
-    private String cardAnswer;
-    private double cardMoney;
-    private double cardPoint;
-
+    private Integer staffId;
+    private String staffName;
+    private String staffPhone;
 }

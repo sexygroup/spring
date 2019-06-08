@@ -10,14 +10,23 @@ import java.sql.Timestamp;
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Image {
+public class Consume {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer imageId;
+    private Integer consumeId;
+    private Integer staffId;
+    private Integer cardId;
     private Integer clientId;
-    private String imageComment;
+    private Integer serviceId;
+
+    private double consumePrice;
+    private double consumeDeduct;
+    private double consumeMoney;
+    private double consumePoint;
+    private double consumeRebatePrice;
+    private double consumeRebatePoint;
 
     @CreatedDate
-    private Timestamp imageDate;
+    private Timestamp consumeDate;
 }

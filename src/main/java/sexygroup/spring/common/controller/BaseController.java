@@ -28,7 +28,7 @@ public class BaseController<T, D extends BaseService> {
         return (T) service.save(entity);
     }
 
-    @PostMapping("/deleteById")
+    @GetMapping("/deleteById")
     public boolean deleteById(Integer id) {
         service.deleteById(id);
         return true;

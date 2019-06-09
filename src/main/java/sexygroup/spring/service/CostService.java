@@ -1,8 +1,12 @@
 package sexygroup.spring.service;
 
+import com.alibaba.fastjson.JSONObject;
 import sexygroup.spring.common.service.BaseService;
 import sexygroup.spring.pojo.Cost;
 
-public interface CostService extends BaseService<Cost> {
+import java.util.List;
 
+public interface CostService extends BaseService<Cost> {
+    List<JSONObject> findByDateBetween(String startTime, String endTime);
+    List<JSONObject> findByMoneyBetween(double min, double max);
 }

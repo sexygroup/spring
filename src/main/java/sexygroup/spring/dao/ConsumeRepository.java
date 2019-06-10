@@ -59,4 +59,8 @@ public interface ConsumeRepository extends BaseRepository<Consume, Integer> {
     @Query(value = "select * from all_consume_detail_view where service_name like CONCAT('%',?1,'%') order by consume_id desc ", nativeQuery = true)
     List<JSONObject> findByServiceName(String name);
 
+    //撤销消费
+    @Query(value = "select cancel_consume(?1)", nativeQuery = true)
+    Integer cancelConsume(Integer consumeId);
+
 }

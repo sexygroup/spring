@@ -50,4 +50,10 @@ public class RechargeController extends BaseController<Recharge, RechargeService
         return rechargeService.findByPriceBetween(min, max);
     }
 
+    @GetMapping("/cancelRecharge")
+    @ApiOperation(value = "通过充值id撤销充值",notes = "return Integer: 0失败，1成功")
+    public Integer cancelConsume(Integer rechargeId) {
+        return rechargeService.cancelRecharge(rechargeId);
+    }
+
 }

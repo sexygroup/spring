@@ -16,6 +16,7 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer imageId;
     private Integer clientId;
+    private String imageName;
     private String imageComment;
 
     @CreatedDate

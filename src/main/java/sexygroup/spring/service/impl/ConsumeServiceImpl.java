@@ -88,4 +88,9 @@ public class ConsumeServiceImpl extends BaseServiceImpl<Consume, ConsumeReposito
     public List<JSONObject> findByServiceName(String name) {
         return JsonUtil.convertList(consumeRepository.findByServiceName(name));
     }
+
+    @Override
+    public Integer cancelConsume(Integer consumeId) {
+        return consumeRepository.cancelConsume(consumeId);
+    }
 }

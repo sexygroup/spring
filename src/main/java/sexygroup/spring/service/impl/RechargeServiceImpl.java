@@ -43,4 +43,9 @@ public class RechargeServiceImpl extends BaseServiceImpl<Recharge, RechargeRepos
     public List<JSONObject> findByPriceBetween(double min, double max) {
         return JsonUtil.convertList(rechargeRepository.findByPriceBetween(min, max));
     }
+
+    @Override
+    public Integer cancelRecharge(Integer rechargeId) {
+        return rechargeRepository.cancelRecharge(rechargeId);
+    }
 }

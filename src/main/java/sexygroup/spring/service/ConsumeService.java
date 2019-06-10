@@ -1,6 +1,7 @@
 package sexygroup.spring.service;
 
 import com.alibaba.fastjson.JSONObject;
+import io.swagger.models.auth.In;
 import sexygroup.spring.common.service.BaseService;
 import sexygroup.spring.pojo.Consume;
 
@@ -27,4 +28,6 @@ public interface ConsumeService extends BaseService<Consume> {
     //通过服务信息查
     List<JSONObject> findByServiceId(Integer id);
     List<JSONObject> findByServiceName(String name);
+    //撤销消费
+    Integer cancelConsume(Integer consumeId);
 }

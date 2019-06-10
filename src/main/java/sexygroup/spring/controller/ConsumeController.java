@@ -109,4 +109,10 @@ public class ConsumeController extends BaseController<Consume, ConsumeService> {
     public List<JSONObject> findByServiceName(String name) {
         return consumeService.findByServiceName(name);
     }
+
+    @GetMapping("/cancelConsume")
+    @ApiOperation(value = "通过消费id撤销消费",notes = "return Integer: 0失败，1成功")
+    public Integer cancelConsume(Integer consumeId) {
+        return consumeService.cancelConsume(consumeId);
+    }
 }

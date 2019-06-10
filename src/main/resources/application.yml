@@ -2,6 +2,8 @@ server:
   port: 9988
   servlet:
     context-path: /spring
+  tomcat:
+    basedir: app/SpringManager/tmp
 
 spring:
   application:
@@ -9,8 +11,8 @@ spring:
 
   servlet:
     multipart:
-      max-file-size: 100MB
-      max-request-size: 100MB
+      max-file-size: 1024MB
+      max-request-size: 2048MB
 
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver

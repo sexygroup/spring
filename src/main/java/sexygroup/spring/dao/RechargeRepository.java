@@ -30,4 +30,8 @@ public interface RechargeRepository extends BaseRepository<Recharge, Integer> {
     //通过充值金额金额范围查询（包含卡信息和充值信息）
     @Query(value = "select * from all_card_recharge_view  where recharge_price between ?1 and ?2 order by recharge_id desc ", nativeQuery = true)
     List<JSONObject> findByPriceBetween(double min, double max);
+
+    //撤销充值
+    @Query(value = "select cancel_recharge(?1)", nativeQuery = true)
+    Integer cancelRecharge(Integer rechargeId);
 }

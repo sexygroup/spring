@@ -20,4 +20,5 @@ public class Staff {
     private String staffPhone;
     private String staffQuestion;
     private String staffAnswer;
+    private Integer staffLogin;
 }

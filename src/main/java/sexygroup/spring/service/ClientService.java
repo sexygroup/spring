@@ -16,4 +16,7 @@ public interface ClientService extends BaseService<Client> {
     List<JSONObject> findByClientId(Integer id);
     List<JSONObject> findByClientName(String name);
     List<JSONObject> findByClientPhone(String phone);
+    //查头像
+    JSONObject findProfileByClientId(Integer id);
+    List<JSONObject> findAllProfileByCardId(Integer id);
 }

@@ -58,4 +58,17 @@ public class ClientController extends BaseController<Client, ClientService> {
     public List<JSONObject> findByClientPhone(String phone) {
         return clientService.findByClientPhone(phone);
     }
+
+    //查头像
+    @GetMapping("/findProfileByClientId")
+    @ApiOperation(value = "通过客户id查询客户头像(包含客户和图片信息)",notes = "return JSON")
+    public JSONObject findProfileByClientId(Integer id) {
+        return clientService.findProfileByClientId(id);
+    }
+
+    @GetMapping("/findAllProfileByCardId")
+    @ApiOperation(value = "通过卡id查卡下所有客户的头像(包含客户和图片信息)",notes = "return List")
+    public List<JSONObject> findAllProfileByCardId(Integer id) {
+        return clientService.findAllProfileByCardId(id);
+    }
 }

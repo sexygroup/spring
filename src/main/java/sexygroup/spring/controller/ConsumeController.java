@@ -4,9 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sexygroup.spring.common.controller.BaseController;
 import sexygroup.spring.pojo.Consume;
 import sexygroup.spring.service.ConsumeService;
@@ -114,5 +112,11 @@ public class ConsumeController extends BaseController<Consume, ConsumeService> {
     @ApiOperation(value = "通过消费id撤销消费",notes = "return Integer: 0失败，1成功")
     public Integer cancelConsume(Integer consumeId) {
         return consumeService.cancelConsume(consumeId);
+    }
+
+    @PostMapping("/saveConsumeList")
+    @ApiOperation(value = "保存消费列表",notes = "return boolean")
+    public boolean saveConsumeList(@RequestBody JSONObject consumeList){
+        return consumeService.saveConsumeList(consumeList);
     }
 }

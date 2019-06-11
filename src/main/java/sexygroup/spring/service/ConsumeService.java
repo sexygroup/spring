@@ -30,4 +30,6 @@ public interface ConsumeService extends BaseService<Consume> {
     List<JSONObject> findByServiceName(String name);
     //撤销消费
     Integer cancelConsume(Integer consumeId);
+    //保存消费列表
+    boolean saveConsumeList(JSONObject consumeList);
 }

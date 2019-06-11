@@ -30,13 +30,12 @@ public class ImageController extends BaseController<Image, ImageService> {
     private ImageService imageService;
 
     //上传图片
-    @PostMapping("/upload")
+    @PostMapping(value = "/upload",consumes = "multipart/form-data")
     @ApiOperation(value = "上传图片和图片信息",notes = "return String")
     @ResponseBody
     public String handleFilesUpload(HttpServletRequest request, MultipartFile[] files, String[] comments, Integer clientId){
         //获取文件保存路径
         String savePath=request.getSession().getServletContext().getRealPath("/")+"upload/";
-
         //保存文件
         if (files.length==0){
             return "received 0 files";

@@ -48,4 +48,14 @@ public class ClientServiceImpl extends BaseServiceImpl<Client, ClientRepository>
     public List<JSONObject> findByClientPhone(String phone) {
         return JsonUtil.convertList(clientRepository.findByClientPhone(phone));
     }
+
+    @Override
+    public JSONObject findProfileByClientId(Integer id) {
+        return JsonUtil.convertJSONObject(clientRepository.findProfileByClientId(id));
+    }
+
+    @Override
+    public List<JSONObject> findAllProfileByCardId(Integer id) {
+        return JsonUtil.convertList(clientRepository.findAllProfileByCardId(id));
+    }
 }

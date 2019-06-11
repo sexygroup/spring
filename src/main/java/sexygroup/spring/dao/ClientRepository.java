@@ -34,4 +34,13 @@ public interface ClientRepository extends BaseRepository<Client, Integer> {
     @Query(value = "select * from client_image_view where client_phone=?1 order by client_id,image_id desc ", nativeQuery = true)
     List<JSONObject> findByClientPhone(String phone);
 
+    //通过客户id查询客户头像(包含客户和图片信息)
+    @Query(value = "select * from client_image_view where client_id=?1 and " +
+            " image_id=(select max(image_id) from client_image_view where client_id=?1)", nativeQuery = true)
+    JSONObject findProfileByClientId(Integer id);
+    //通过卡id查卡下所有客户的头像(包含客户和图片信息)
+    @Query(value = "select * from client_image_view where card_id=?1 and " +
+            " image_id in (select max(image_id) from client_image_view where card_id=?1 group by client_id) " +
+            " order by client_id ", nativeQuery = true)
+    List<JSONObject> findAllProfileByCardId(Integer id);
 }

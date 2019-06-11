@@ -1,5 +1,6 @@
 package sexygroup.spring.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -92,5 +93,39 @@ public class ConsumeServiceImpl extends BaseServiceImpl<Consume, ConsumeReposito
     @Override
     public Integer cancelConsume(Integer consumeId) {
         return consumeRepository.cancelConsume(consumeId);
+    }
+
+    @Override
+    public boolean saveConsumeList(JSONObject consumeList) {
+        Integer cardId=consumeList.getInteger("cardId");
+        Integer clientId=consumeList.getInteger("clientId");
+        Integer staffId=consumeList.getInteger("staffId");
+        double totalDeduct=consumeList.getDouble("totalDeduct");
+        JSONArray serviceList=consumeList.getJSONArray("serviceList");
+
+        for (int i=0;i<serviceList.size();++i){
+            JSONObject service=serviceList.getJSONObject(i);
+            Integer serviceId=service.getInteger("serviceId");
+            double consumePrice=service.getDouble("consumePrice");
+            //求consumeDeduct
+            double consumeDeduct;
+            if (totalDeduct-consumePrice>0){
+                consumeDeduct=consumePrice;
+                totalDeduct=totalDeduct-consumePrice;
+            }else {
+                consumeDeduct=totalDeduct;
+                totalDeduct=0;
+            }
+
+            Consume consume=new Consume();
+            consume.setCardId(cardId);
+            consume.setClientId(clientId);
+            consume.setStaffId(staffId);
+            consume.setServiceId(serviceId);
+            consume.setConsumePrice(consumePrice);
+            consume.setConsumeDeduct(consumeDeduct);
+            consumeRepository.save(consume);
+        }
+        return true;
     }
 }

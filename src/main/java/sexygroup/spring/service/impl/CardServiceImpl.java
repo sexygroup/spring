@@ -6,10 +6,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sexygroup.spring.common.service.impl.BaseServiceImpl;
 import sexygroup.spring.dao.CardRepository;
+import sexygroup.spring.dao.ClientRepository;
 import sexygroup.spring.pojo.Card;
+import sexygroup.spring.pojo.Client;
 import sexygroup.spring.service.CardService;
 import sexygroup.spring.utils.JsonUtil;
 
+import java.io.File;
 import java.util.List;
 
 @Service
@@ -18,6 +21,8 @@ public class CardServiceImpl extends BaseServiceImpl<Card, CardRepository> imple
 
     @Autowired
     private CardRepository cardRepository;
+    @Autowired
+    private ClientRepository clientRepository;
 
     @Override
     public List<JSONObject> findAllDetail() {
@@ -91,5 +96,35 @@ public class CardServiceImpl extends BaseServiceImpl<Card, CardRepository> imple
     @Override
     public List<JSONObject> findByPointBetween(double min, double max) {
         return JsonUtil.convertList(cardRepository.findByPointBetween(min, max));
+    }
+
+    @Override
+    public JSONObject addNewCard(Card card, Client client) {
+        card.setCardPoint(0.0);
+        Card savedCard=cardRepository.save(card);
+        client.setCardId(savedCard.getCardId());
+        client.setClientIsHolder(1);
+        Client savedClient=clientRepository.save(client);
+        //生成返回值
+        JSONObject jsonObject1= (JSONObject) JSONObject.toJSON(savedCard);
+        JSONObject jsonObject2= (JSONObject) JSONObject.toJSON(savedClient);
+        jsonObject1.putAll(jsonObject2);
+        return jsonObject1;
+    }
+
+    @Override
+    public boolean deleteCard(Integer cardId, String fileDir) {
+        //删除图片
+        List<JSONObject> imageList=cardRepository.findClientByCardId(cardId);
+        for (JSONObject image:imageList){
+            File file=new File(fileDir+image.getString("image_name"));
+            //删除文件
+            if (file.exists()){
+                file.delete();
+            }
+        }
+        //删除卡
+        cardRepository.deleteById(cardId);
+        return true;
     }
 }

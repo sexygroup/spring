@@ -10,6 +10,7 @@ import sexygroup.spring.pojo.Client;
 import sexygroup.spring.service.ClientService;
 import sexygroup.spring.utils.JsonUtil;
 
+import java.io.File;
 import java.util.List;
 
 @Service
@@ -57,5 +58,21 @@ public class ClientServiceImpl extends BaseServiceImpl<Client, ClientRepository>
     @Override
     public List<JSONObject> findAllProfileByCardId(Integer id) {
         return JsonUtil.convertList(clientRepository.findAllProfileByCardId(id));
+    }
+
+    @Override
+    public boolean deleteClient(Integer clientId, String fileDir) {
+        //删除图片
+        List<JSONObject>imageList=clientRepository.findByClientId(clientId);
+        for (JSONObject image:imageList){
+            File file=new File(fileDir+image.getString("image_name"));
+            //删除文件
+            if (file.exists()){
+                file.delete();
+            }
+        }
+        //删除客户
+        clientRepository.deleteById(clientId);
+        return true;
     }
 }

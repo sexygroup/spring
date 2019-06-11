@@ -19,9 +19,6 @@ spring:
     url: jdbc:mysql://localhost:3306/springdb?useUnicode=true&characterEncoding=utf-8&&useSSL=false&&serverTimezone=Asia/Shanghai&&allowMultiQueries=true
     username: root
     password: password
-    platform: mysql
-    schema: classpath:spring.sql
-    continue-on-error: false
     #保证服务稳定
     tomcat:
       test-on-borrow: false
@@ -35,10 +32,7 @@ spring:
     open-in-view: true
     #hibernate:
     # ddl-auto: none
-  data:
-    redis:
-      repositories:
-        enabled: false
+
   #日期格式配置
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

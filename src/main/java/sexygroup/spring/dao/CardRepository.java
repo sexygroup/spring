@@ -64,4 +64,8 @@ public interface CardRepository extends BaseRepository<Card, Integer> {
     //通过卡积分范围查询(只查持有人和卡信息)
     @Query(value = "select * from card_client_view  where client_is_holder=1 and card_point between ?1 and ?2 order by card_id ", nativeQuery = true)
     List<JSONObject> findByPointBetween(double min, double max);
+
+    //通过卡id查卡下所有客户的信息(包含客户和图片信息)
+    @Query(value = "select * from client_image_view where card_id=?1 order by client_id,image_id desc ", nativeQuery = true)
+    List<JSONObject> findClientByCardId(Integer id);
 }

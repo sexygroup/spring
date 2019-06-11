@@ -1,8 +1,10 @@
 package sexygroup.spring.service;
 
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.web.bind.annotation.RequestBody;
 import sexygroup.spring.common.service.BaseService;
 import sexygroup.spring.pojo.Card;
+import sexygroup.spring.pojo.Client;
 
 import java.util.List;
 
@@ -25,4 +27,8 @@ public interface CardService extends BaseService<Card> {
 
     List<JSONObject> findByMoneyBetween(double min, double max);
     List<JSONObject> findByPointBetween(double min, double max);
+    //
+    JSONObject addNewCard(Card card, Client client);
+    //通过卡id删除卡、客户及其图片
+    boolean deleteCard(Integer cardId,String fileDir);
 }

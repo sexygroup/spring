@@ -16,8 +16,8 @@ public class Recharge {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer rechargeId;
     private Integer cardId;
-    private double rechargePrice;
-    private double rechargeMoney;
+    private Double rechargePrice;
+    private Double rechargeMoney;
 
     @CreatedDate
     private Timestamp rechargeDate;

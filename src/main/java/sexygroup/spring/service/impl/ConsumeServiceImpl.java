@@ -96,25 +96,19 @@ public class ConsumeServiceImpl extends BaseServiceImpl<Consume, ConsumeReposito
     }
 
     @Override
-    public boolean saveConsumeList(JSONObject consumeList) {
-        Integer cardId=consumeList.getInteger("cardId");
-        Integer clientId=consumeList.getInteger("clientId");
-        Integer staffId=consumeList.getInteger("staffId");
-        double totalDeduct=consumeList.getDouble("totalDeduct");
-        JSONArray serviceList=consumeList.getJSONArray("serviceList");
-
+    public boolean saveConsumeList(Integer cardId, Integer clientId, Integer staffId, Double totalDeduct, JSONArray serviceList) {
         for (int i=0;i<serviceList.size();++i){
             JSONObject service=serviceList.getJSONObject(i);
             Integer serviceId=service.getInteger("serviceId");
-            double consumePrice=service.getDouble("consumePrice");
+            Double servicePrice=service.getDouble("servicePrice");
             //求consumeDeduct
-            double consumeDeduct;
-            if (totalDeduct-consumePrice>0){
-                consumeDeduct=consumePrice;
-                totalDeduct=totalDeduct-consumePrice;
+            Double consumeDeduct;
+            if (totalDeduct-servicePrice>0){
+                consumeDeduct=servicePrice;
+                totalDeduct=totalDeduct-servicePrice;
             }else {
                 consumeDeduct=totalDeduct;
-                totalDeduct=0;
+                totalDeduct=0.0;
             }
 
             Consume consume=new Consume();
@@ -122,7 +116,7 @@ public class ConsumeServiceImpl extends BaseServiceImpl<Consume, ConsumeReposito
             consume.setClientId(clientId);
             consume.setStaffId(staffId);
             consume.setServiceId(serviceId);
-            consume.setConsumePrice(consumePrice);
+            consume.setConsumePrice(servicePrice);
             consume.setConsumeDeduct(consumeDeduct);
             consumeRepository.save(consume);
         }

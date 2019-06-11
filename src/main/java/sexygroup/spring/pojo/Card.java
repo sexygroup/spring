@@ -18,7 +18,7 @@ public class Card {
     private String cardPassword;
     private String cardQuestion;
     private String cardAnswer;
-    private double cardMoney;
-    private double cardPoint;
+    private Double cardMoney;
+    private Double cardPoint;
 
 }

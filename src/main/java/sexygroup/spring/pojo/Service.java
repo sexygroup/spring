@@ -15,6 +15,6 @@ public class Service {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer serviceId;
     private String serviceName;
-    private double servicePrice;
-    private double serviceRebate;
+    private Double servicePrice;
+    private Double serviceRebate;
 }

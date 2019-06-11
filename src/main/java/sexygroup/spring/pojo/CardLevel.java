@@ -14,5 +14,5 @@ public class CardLevel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cardLevelId;
-    private double cardLevelPrice;
+    private Double cardLevelPrice;
 }

@@ -12,6 +12,7 @@ import sexygroup.spring.common.controller.BaseController;
 import sexygroup.spring.pojo.Client;
 import sexygroup.spring.service.ClientService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -70,5 +71,13 @@ public class ClientController extends BaseController<Client, ClientService> {
     @ApiOperation(value = "通过卡id查卡下所有客户的头像(包含客户和图片信息)",notes = "return List")
     public List<JSONObject> findAllProfileByCardId(Integer id) {
         return clientService.findAllProfileByCardId(id);
+    }
+
+    @GetMapping("/deleteClient")
+    @ApiOperation(value = "通过客户id删除客户及其图片",notes = "return boolean")
+    public boolean deleteClient(HttpServletRequest request, Integer clientId){
+        //获取文件保存路径
+        String fileDir=request.getSession().getServletContext().getRealPath("/")+"upload/";
+        return clientService.deleteClient(clientId,fileDir);
     }
 }

@@ -16,7 +16,7 @@ public class Cost {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer costId;
 
-    private double costMoney;
+    private Double costMoney;
 
     private Timestamp costDate;
 }

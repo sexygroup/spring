@@ -20,12 +20,12 @@ public class Consume {
     private Integer clientId;
     private Integer serviceId;
 
-    private double consumePrice;
-    private double consumeDeduct;
-    private double consumeMoney;
-    private double consumePoint;
-    private double consumeRebatePrice;
-    private double consumeRebatePoint;
+    private Double consumePrice;
+    private Double consumeDeduct;
+    private Double consumeMoney;
+    private Double consumePoint;
+    private Double consumeRebatePrice;
+    private Double consumeRebatePoint;
 
     @CreatedDate
     private Timestamp consumeDate;

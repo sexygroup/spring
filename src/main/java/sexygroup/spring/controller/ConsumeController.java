@@ -1,5 +1,6 @@
 package sexygroup.spring.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -117,6 +118,11 @@ public class ConsumeController extends BaseController<Consume, ConsumeService> {
     @PostMapping("/saveConsumeList")
     @ApiOperation(value = "保存消费列表",notes = "return boolean")
     public boolean saveConsumeList(@RequestBody JSONObject consumeList){
-        return consumeService.saveConsumeList(consumeList);
+        Integer cardId=consumeList.getInteger("cardId");
+        Integer clientId=consumeList.getInteger("clientId");
+        Integer staffId=consumeList.getInteger("staffId");
+        Double totalDeduct=consumeList.getDouble("totalDeduct");
+        JSONArray serviceList=consumeList.getJSONArray("serviceList");
+        return consumeService.saveConsumeList(cardId,clientId,staffId,totalDeduct,serviceList);
     }
 }

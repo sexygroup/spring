@@ -1,16 +1,17 @@
 package sexygroup.spring.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sexygroup.spring.common.controller.BaseController;
 import sexygroup.spring.pojo.Card;
+import sexygroup.spring.pojo.Client;
 import sexygroup.spring.service.CardService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -111,6 +112,20 @@ public class CardController extends BaseController<Card, CardService> {
     @ApiOperation(value = "通过卡积分范围查询(只查持有人和卡信息)",notes = "return List")
     public List<JSONObject> findByPointBetween(double min, double max) {
         return cardService.findByPointBetween(min, max);
+    }
+
+    @PostMapping("/addNewCard")
+    @ApiOperation(value = "添加新卡（需要卡信息和客户信息）",notes = "return boolean")
+    public JSONObject addNewCard(Card card,Client client){
+        return cardService.addNewCard(card,client);
+    }
+
+    @GetMapping("/deleteCard")
+    @ApiOperation(value = "通过卡id删除卡、客户及其图片",notes = "return boolean")
+    public boolean deleteCard(HttpServletRequest request, Integer cardId){
+        //获取文件保存路径
+        String fileDir=request.getSession().getServletContext().getRealPath("/")+"upload/";
+        return cardService.deleteCard(cardId,fileDir);
     }
 
 }

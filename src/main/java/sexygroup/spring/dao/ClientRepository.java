@@ -43,4 +43,5 @@ public interface ClientRepository extends BaseRepository<Client, Integer> {
             " image_id in (select max(image_id) from client_image_view where card_id=?1 group by client_id) " +
             " order by client_id ", nativeQuery = true)
     List<JSONObject> findAllProfileByCardId(Integer id);
+
 }

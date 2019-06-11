@@ -11,5 +11,4 @@ import sexygroup.spring.service.StaffService;
 @Transactional
 public class StaffServiceImpl extends BaseServiceImpl<Staff, StaffRepository> implements StaffService {
 
-
 }

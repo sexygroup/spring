@@ -18,12 +18,12 @@ import java.net.InetAddress;
 public class QRCodeController {
 
     @GetMapping("/generateUrlCode")
-    @ApiOperation(value = "生成Url二维码(url格式：9988/path1/a.html)",notes = "return boolean")
+    @ApiOperation(value = "生成Url二维码(url格式：9988(端口)/htmlPath/htmlName.html)",notes = "return boolean")
     public String generateUrlCode(HttpServletRequest request,String url,String pictureName) {
         //获取文件保存路径
         String savePath=request.getSession().getServletContext().getRealPath("/")+"QRCode/";
         //获取ip
-        String localIP="";
+        String localIP;
         InetAddress inetAddress=null;
         try {
             inetAddress=inetAddress.getLocalHost();

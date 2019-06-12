@@ -30,8 +30,6 @@ spring:
     show-sql: true
     database: mysql
     open-in-view: true
-    #hibernate:
-    # ddl-auto: none
 
   #日期格式配置
   jackson:
@@ -41,3 +39,8 @@ spring:
 #是否开启swagger
 swagger:
   enabled: true
+#日志输出配置
+logging:
+  path: D:/春天造型管理系统/log/
+  file:
+    max-size: 10MB

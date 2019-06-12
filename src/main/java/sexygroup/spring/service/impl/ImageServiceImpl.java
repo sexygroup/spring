@@ -21,21 +21,21 @@ public class ImageServiceImpl extends BaseServiceImpl<Image, ImageRepository> im
     private ImageRepository imageRepository;
 
     @Override
-    public boolean saveImage(Integer clientId,String comment, MultipartFile multipartFile,String savePath) throws IOException {
-        Image image=new Image();
+    public boolean saveImage(Integer clientId, String comment, MultipartFile multipartFile, String savePath) throws IOException {
+        Image image = new Image();
         image.setClientId(clientId);
         image.setImageComment(comment);
         //保存获取ImageId
-        Image savedImage=imageRepository.save(image);
+        Image savedImage = imageRepository.save(image);
 
         //获取文件名
-        String fileName=multipartFile.getOriginalFilename();
-        String suffix=fileName.substring(fileName.lastIndexOf("."));
-        savedImage.setImageName(savedImage.getImageId()+suffix);
+        String fileName = multipartFile.getOriginalFilename();
+        String suffix = fileName.substring(fileName.lastIndexOf("."));
+        savedImage.setImageName(savedImage.getImageId() + suffix);
         //保存文件
-        File dest = new File(savePath+savedImage.getImageName());
+        File dest = new File(savePath + savedImage.getImageName());
         //判断文件父目录是否存在/不存在就创建
-        if(!dest.getParentFile().exists()){
+        if (!dest.getParentFile().exists()) {
             dest.getParentFile().mkdirs();
         }
         multipartFile.transferTo(dest);
@@ -45,17 +45,17 @@ public class ImageServiceImpl extends BaseServiceImpl<Image, ImageRepository> im
     }
 
     @Override
-    public boolean deleteImage(Integer imageId,String fileDir) {
+    public boolean deleteImage(Integer imageId, String fileDir) {
         //获取图片名
-        Optional<Image> imageOptional=imageRepository.findById(imageId);
-        if (!imageOptional.isPresent()){
+        Optional<Image> imageOptional = imageRepository.findById(imageId);
+        if (!imageOptional.isPresent()) {
             return true;
         }
-        Image image=imageOptional.get();
-        String filePath=fileDir+image.getImageName();
-        File file=new File(filePath);
+        Image image = imageOptional.get();
+        String filePath = fileDir + image.getImageName();
+        File file = new File(filePath);
         //删除文件
-        if (file.exists()){
+        if (file.exists()) {
             file.delete();
         }
         //删除数据库中图片信息

@@ -93,6 +93,7 @@ public class CardServiceImpl extends BaseServiceImpl<Card, CardRepository> imple
     public List<JSONObject> findByMoneyBetween(double min, double max) {
         return JsonUtil.convertList(cardRepository.findByMoneyBetween(min, max));
     }
+
     @Override
     public List<JSONObject> findByPointBetween(double min, double max) {
         return JsonUtil.convertList(cardRepository.findByPointBetween(min, max));
@@ -101,13 +102,13 @@ public class CardServiceImpl extends BaseServiceImpl<Card, CardRepository> imple
     @Override
     public JSONObject addNewCard(Card card, Client client) {
         card.setCardPoint(0.0);
-        Card savedCard=cardRepository.save(card);
+        Card savedCard = cardRepository.save(card);
         client.setCardId(savedCard.getCardId());
         client.setClientIsHolder(1);
-        Client savedClient=clientRepository.save(client);
+        Client savedClient = clientRepository.save(client);
         //生成返回值
-        JSONObject jsonObject1= (JSONObject) JSONObject.toJSON(savedCard);
-        JSONObject jsonObject2= (JSONObject) JSONObject.toJSON(savedClient);
+        JSONObject jsonObject1 = (JSONObject) JSONObject.toJSON(savedCard);
+        JSONObject jsonObject2 = (JSONObject) JSONObject.toJSON(savedClient);
         jsonObject1.putAll(jsonObject2);
         return jsonObject1;
     }
@@ -115,11 +116,11 @@ public class CardServiceImpl extends BaseServiceImpl<Card, CardRepository> imple
     @Override
     public boolean deleteCard(Integer cardId, String fileDir) {
         //删除图片
-        List<JSONObject> imageList=cardRepository.findClientByCardId(cardId);
-        for (JSONObject image:imageList){
-            File file=new File(fileDir+image.getString("image_name"));
+        List<JSONObject> imageList = cardRepository.findClientByCardId(cardId);
+        for (JSONObject image : imageList) {
+            File file = new File(fileDir + image.getString("image_name"));
             //删除文件
-            if (file.exists()){
+            if (file.exists()) {
                 file.delete();
             }
         }

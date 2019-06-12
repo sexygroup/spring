@@ -21,7 +21,7 @@ public class CostServiceImpl extends BaseServiceImpl<Cost, CostRepository> imple
 
     @Override
     public List<JSONObject> findByDateBetween(String startTime, String endTime) {
-        return JsonUtil.convertList(costRepository.findByDateBetween(startTime,endTime));
+        return JsonUtil.convertList(costRepository.findByDateBetween(startTime, endTime));
     }
 
     @Override

@@ -15,19 +15,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cost")
-@Api(tags="成本")
+@Api(tags = "成本")
 public class CostController extends BaseController<Cost, CostService> {
     @Autowired
     private CostService costService;
 
     @GetMapping("/findByDateBetween")
-    @ApiOperation(value = "通过日期范围查询（日期格式：2019-01-01 00:00:00）",notes = "return List")
+    @ApiOperation(value = "通过日期范围查询（日期格式：2019-01-01 00:00:00）", notes = "return List")
     public List<JSONObject> findByDateBetween(String startTime, String endTime) {
         return costService.findByDateBetween(startTime, endTime);
     }
 
     @GetMapping("/findByMoneyBetween")
-    @ApiOperation(value = "通过金额范围查询",notes = "return List")
+    @ApiOperation(value = "通过金额范围查询", notes = "return List")
     public List<JSONObject> findByMoneyBetween(double min, double max) {
         return costService.findByMoneyBetween(min, max);
     }

@@ -9,7 +9,7 @@ import sexygroup.spring.service.ServiceService;
 
 @RestController
 @RequestMapping("/service")
-@Api(tags="服务")
+@Api(tags = "服务")
 public class ServiceController extends BaseController<Service, ServiceService> {
 
 }

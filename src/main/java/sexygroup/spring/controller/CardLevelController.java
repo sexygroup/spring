@@ -9,7 +9,7 @@ import sexygroup.spring.service.CardLevelService;
 
 @RestController
 @RequestMapping("/cardLevel")
-@Api(tags="卡等级")
+@Api(tags = "卡等级")
 public class CardLevelController extends BaseController<CardLevel, CardLevelService> {
 
 }

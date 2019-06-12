@@ -17,11 +17,11 @@ public class JsonUtil {
                 "'object_info':{'business_code':'0001','object_info2':{'object_1':'o_k'}}}]";
         String str3 = null;
 
-        List jsonArray=new ArrayList();
-        JSONObject jsonObject=new JSONObject();
-        jsonObject.put("my_name",1);
+        List jsonArray = new ArrayList();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("my_name", 1);
         jsonArray.add(jsonObject);
-        jsonObject.put("my_money",2);
+        jsonObject.put("my_money", 2);
         jsonArray.add(jsonObject);
         System.out.println(convertList(jsonArray));
     }
@@ -30,6 +30,7 @@ public class JsonUtil {
     /**
      * json key下划线转驼峰(递归)
      * 输入变量json字符串
+     *
      * @param json
      * @return
      */
@@ -42,11 +43,12 @@ public class JsonUtil {
     /**
      * json key下划线转驼峰(递归)
      * 输入变量List<JSONObject>
+     *
      * @param list
      * @return
      */
-    public static List<JSONObject> convertList(List<JSONObject> list){
-        JSONArray jsonArray= (JSONArray) JSONArray.toJSON(list);
+    public static List<JSONObject> convertList(List<JSONObject> list) {
+        JSONArray jsonArray = (JSONArray) JSONArray.toJSON(list);
         convert(jsonArray);
         return jsonArray.toJavaList(JSONObject.class);
     }
@@ -54,10 +56,11 @@ public class JsonUtil {
     /**
      * json key下划线转驼峰(递归)
      * 输入变量JSONArray
+     *
      * @param jsonArray
      * @return
      */
-    public static JSONArray convertJSONArray(JSONArray jsonArray){
+    public static JSONArray convertJSONArray(JSONArray jsonArray) {
         convert(jsonArray);
         return jsonArray;
     }
@@ -65,16 +68,18 @@ public class JsonUtil {
     /**
      * json key下划线转驼峰(递归)
      * 输入变量JSONObject
+     *
      * @param jsonObject
      * @return
      */
-    public static JSONObject convertJSONObject(JSONObject jsonObject){
+    public static JSONObject convertJSONObject(JSONObject jsonObject) {
         convert(jsonObject);
         return jsonObject;
     }
 
     /**
      * json key下划线转驼峰(递归) 核心代码
+     *
      * @param json
      */
     public static void convert(Object json) {

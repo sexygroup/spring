@@ -9,7 +9,7 @@ import sexygroup.spring.service.StaffService;
 
 @RestController
 @RequestMapping("/staff")
-@Api(tags="员工")
+@Api(tags = "员工")
 public class StaffController extends BaseController<Staff, StaffService> {
 
 }

@@ -97,21 +97,21 @@ public class ConsumeServiceImpl extends BaseServiceImpl<Consume, ConsumeReposito
 
     @Override
     public boolean saveConsumeList(Integer cardId, Integer clientId, Integer staffId, Double totalDeduct, JSONArray serviceList) {
-        for (int i=0;i<serviceList.size();++i){
-            JSONObject service=serviceList.getJSONObject(i);
-            Integer serviceId=service.getInteger("serviceId");
-            Double servicePrice=service.getDouble("servicePrice");
+        for (int i = 0; i < serviceList.size(); ++i) {
+            JSONObject service = serviceList.getJSONObject(i);
+            Integer serviceId = service.getInteger("serviceId");
+            Double servicePrice = service.getDouble("servicePrice");
             //求consumeDeduct
             Double consumeDeduct;
-            if (totalDeduct-servicePrice>0){
-                consumeDeduct=servicePrice;
-                totalDeduct=totalDeduct-servicePrice;
-            }else {
-                consumeDeduct=totalDeduct;
-                totalDeduct=0.0;
+            if (totalDeduct - servicePrice > 0) {
+                consumeDeduct = servicePrice;
+                totalDeduct = totalDeduct - servicePrice;
+            } else {
+                consumeDeduct = totalDeduct;
+                totalDeduct = 0.0;
             }
 
-            Consume consume=new Consume();
+            Consume consume = new Consume();
             consume.setCardId(cardId);
             consume.setClientId(clientId);
             consume.setStaffId(staffId);

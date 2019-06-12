@@ -219,7 +219,7 @@ LOCK TABLES `card` WRITE;
 /*!40000 ALTER TABLE `card`
     DISABLE KEYS */;
 INSERT INTO `card`
-VALUES (1, NULL, '0000', '嘤嘤嘤？', '嘤嘤嘤！', 100.00, 90.00),
+VALUES (1, NULL, '0000', '嘤嘤嘤？', '嘤嘤嘤！', 92.00, 88.00),
        (2, 1, '0000', '嘤嘤嘤？', '嘤嘤嘤！', 190.00, 100.00),
        (3, 1, '0000', '测试', '测试', 95.00, -5.00);
 /*!40000 ALTER TABLE `card`
@@ -484,7 +484,7 @@ CREATE TABLE `consume`
     `consume_date`         datetime       NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '消费时间(auto)',
     PRIMARY KEY (`consume_id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 28
+  AUTO_INCREMENT = 29
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -500,7 +500,8 @@ INSERT INTO `consume`
 VALUES (1, 1, 1, 1, 1, 10.00, 10.00, 100.00, 90.00, 0.00, 0.00, '2019-06-11 15:11:15'),
        (2, 1, 2, 2, 1, 10.00, 0.00, 190.00, 100.00, 5.00, 95.00, '2019-06-11 15:14:09'),
        (3, 3, 3, 3, 3, 10.00, 5.00, -5.00, -5.00, 5.00, 100.00, '2019-06-11 16:51:59'),
-       (27, 1, 1, 1, 1, 10.00, 10.00, 100.00, 90.00, 0.00, 0.00, '2019-06-11 18:01:06');
+       (27, 1, 1, 1, 1, 10.00, 10.00, 100.00, 90.00, 0.00, 0.00, '2019-06-11 18:01:06'),
+       (28, 1, 1, 1, 1, 10.00, 2.00, 92.00, 88.00, 0.00, 0.00, '2019-06-12 21:30:09');
 /*!40000 ALTER TABLE `consume`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1362,4 +1363,4 @@ from (`client`
 /*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-12 11:22:35
+-- Dump completed on 2019-06-12 22:10:25

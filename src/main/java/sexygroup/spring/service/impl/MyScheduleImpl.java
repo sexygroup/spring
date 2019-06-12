@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 @Service
 public class MyScheduleImpl implements MySchedule {
-    Logger log = Logger.getLogger(this.getClass().getName());
+    private Logger log = Logger.getLogger(this.getClass().getName());
 
     //用户名
     @Value("${spring.datasource.username}")
@@ -48,8 +48,7 @@ public class MyScheduleImpl implements MySchedule {
             Process process = Runtime.getRuntime().exec(cmd);
             log.info("backup database '" + dbName + "' success,filePath: " + filePath);
         } catch (Exception e) {
-            e.printStackTrace();
-            log.warning(e.getMessage());
+            log.severe(e.getMessage());
         }
     }
 }

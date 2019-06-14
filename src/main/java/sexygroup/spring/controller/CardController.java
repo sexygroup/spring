@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sexygroup.spring.common.controller.BaseController;
 import sexygroup.spring.pojo.Card;
 import sexygroup.spring.pojo.Client;
@@ -118,7 +115,7 @@ public class CardController extends BaseController<Card, CardService> {
 
     @PostMapping("/addNewCard")
     @ApiOperation(value = "添加新卡（需要卡信息和客户信息）", notes = "return boolean")
-    public JSONObject addNewCard(Card card, Client client) {
+    public JSONObject addNewCard(@RequestBody Card card, @RequestBody Client client) {
         return cardService.addNewCard(card, client);
     }
 

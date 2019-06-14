@@ -151,6 +151,69 @@ SELECT 1 AS `consume_id`,
 SET character_set_client = @saved_cs_client;
 
 --
+-- Temporary view structure for view `all_rebate_detail_view`
+--
+
+DROP TABLE IF EXISTS `all_rebate_detail_view`;
+/*!50001 DROP VIEW IF EXISTS `all_rebate_detail_view`*/;
+SET @saved_cs_client = @@character_set_client;
+SET character_set_client = utf8mb4;
+/*!50001 CREATE VIEW `all_rebate_detail_view` AS
+SELECT 1 AS `consume_id`,
+       1 AS `staff_id`,
+       1 AS `card_id`,
+       1 AS `client_id`,
+       1 AS `service_id`,
+       1 AS `consume_price`,
+       1 AS `consume_deduct`,
+       1 AS `consume_money`,
+       1 AS `consume_point`,
+       1 AS `consume_rebate_price`,
+       1 AS `consume_rebate_point`,
+       1 AS `consume_date`,
+       1 AS `staff_is_admin`,
+       1 AS `staff_password`,
+       1 AS `staff_question`,
+       1 AS `staff_answer`,
+       1 AS `staff_name`,
+       1 AS `staff_phone`,
+       1 AS `staff_login`,
+       1 AS `staff_delete_date`,
+       1 AS `service_name`,
+       1 AS `service_price`,
+       1 AS `service_rebate`,
+       1 AS `service_delete_date`,
+       1 AS `card_referrer`,
+       1 AS `card_password`,
+       1 AS `card_question`,
+       1 AS `card_answer`,
+       1 AS `card_money`,
+       1 AS `card_point`,
+       1 AS `card_delete_date`,
+       1 AS `client_is_holder`,
+       1 AS `client_name`,
+       1 AS `client_gender`,
+       1 AS `client_age`,
+       1 AS `client_phone`,
+       1 AS `client_delete_date`,
+       1 AS `referrer_card_id`,
+       1 AS `referrer_card_referrer`,
+       1 AS `referrer_card_password`,
+       1 AS `referrer_card_question`,
+       1 AS `referrer_card_answer`,
+       1 AS `referrer_card_money`,
+       1 AS `referrer_card_point`,
+       1 AS `referrer_card_delete_date`,
+       1 AS `referrer_client_id`,
+       1 AS `referrer_client_is_holder`,
+       1 AS `referrer_client_name`,
+       1 AS `referrer_client_gender`,
+       1 AS `referrer_client_age`,
+       1 AS `referrer_client_phone`,
+       1 AS `referrer_client_delete_date`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Temporary view structure for view `all_service_view`
 --
 
@@ -1223,6 +1286,80 @@ from (((`consume` join `all_staff_view` on ((`consume`.`staff_id` = `all_staff_v
 /*!50001 SET collation_connection = @saved_col_connection */;
 
 --
+-- Final view structure for view `all_rebate_detail_view`
+--
+
+/*!50001 DROP VIEW IF EXISTS `all_rebate_detail_view`*/;
+/*!50001 SET @saved_cs_client = @@character_set_client */;
+/*!50001 SET @saved_cs_results = @@character_set_results */;
+/*!50001 SET @saved_col_connection = @@collation_connection */;
+/*!50001 SET character_set_client = utf8mb4 */;
+/*!50001 SET character_set_results = utf8mb4 */;
+/*!50001 SET collation_connection = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM = UNDEFINED */
+    /*!50013 DEFINER =`root`@`%` SQL SECURITY DEFINER */
+    /*!50001 VIEW `all_rebate_detail_view` AS
+select `all_consume_detail_view`.`consume_id`           AS `consume_id`,
+       `all_consume_detail_view`.`staff_id`             AS `staff_id`,
+       `all_consume_detail_view`.`card_id`              AS `card_id`,
+       `all_consume_detail_view`.`client_id`            AS `client_id`,
+       `all_consume_detail_view`.`service_id`           AS `service_id`,
+       `all_consume_detail_view`.`consume_price`        AS `consume_price`,
+       `all_consume_detail_view`.`consume_deduct`       AS `consume_deduct`,
+       `all_consume_detail_view`.`consume_money`        AS `consume_money`,
+       `all_consume_detail_view`.`consume_point`        AS `consume_point`,
+       `all_consume_detail_view`.`consume_rebate_price` AS `consume_rebate_price`,
+       `all_consume_detail_view`.`consume_rebate_point` AS `consume_rebate_point`,
+       `all_consume_detail_view`.`consume_date`         AS `consume_date`,
+       `all_consume_detail_view`.`staff_is_admin`       AS `staff_is_admin`,
+       `all_consume_detail_view`.`staff_password`       AS `staff_password`,
+       `all_consume_detail_view`.`staff_question`       AS `staff_question`,
+       `all_consume_detail_view`.`staff_answer`         AS `staff_answer`,
+       `all_consume_detail_view`.`staff_name`           AS `staff_name`,
+       `all_consume_detail_view`.`staff_phone`          AS `staff_phone`,
+       `all_consume_detail_view`.`staff_login`          AS `staff_login`,
+       `all_consume_detail_view`.`staff_delete_date`    AS `staff_delete_date`,
+       `all_consume_detail_view`.`service_name`         AS `service_name`,
+       `all_consume_detail_view`.`service_price`        AS `service_price`,
+       `all_consume_detail_view`.`service_rebate`       AS `service_rebate`,
+       `all_consume_detail_view`.`service_delete_date`  AS `service_delete_date`,
+       `all_consume_detail_view`.`card_referrer`        AS `card_referrer`,
+       `all_consume_detail_view`.`card_password`        AS `card_password`,
+       `all_consume_detail_view`.`card_question`        AS `card_question`,
+       `all_consume_detail_view`.`card_answer`          AS `card_answer`,
+       `all_consume_detail_view`.`card_money`           AS `card_money`,
+       `all_consume_detail_view`.`card_point`           AS `card_point`,
+       `all_consume_detail_view`.`card_delete_date`     AS `card_delete_date`,
+       `all_consume_detail_view`.`client_is_holder`     AS `client_is_holder`,
+       `all_consume_detail_view`.`client_name`          AS `client_name`,
+       `all_consume_detail_view`.`client_gender`        AS `client_gender`,
+       `all_consume_detail_view`.`client_age`           AS `client_age`,
+       `all_consume_detail_view`.`client_phone`         AS `client_phone`,
+       `all_consume_detail_view`.`client_delete_date`   AS `client_delete_date`,
+       `all_card_client_view`.`card_id`                 AS `referrer_card_id`,
+       `all_card_client_view`.`card_referrer`           AS `referrer_card_referrer`,
+       `all_card_client_view`.`card_password`           AS `referrer_card_password`,
+       `all_card_client_view`.`card_question`           AS `referrer_card_question`,
+       `all_card_client_view`.`card_answer`             AS `referrer_card_answer`,
+       `all_card_client_view`.`card_money`              AS `referrer_card_money`,
+       `all_card_client_view`.`card_point`              AS `referrer_card_point`,
+       `all_card_client_view`.`card_delete_date`        AS `referrer_card_delete_date`,
+       `all_card_client_view`.`client_id`               AS `referrer_client_id`,
+       `all_card_client_view`.`client_is_holder`        AS `referrer_client_is_holder`,
+       `all_card_client_view`.`client_name`             AS `referrer_client_name`,
+       `all_card_client_view`.`client_gender`           AS `referrer_client_gender`,
+       `all_card_client_view`.`client_age`              AS `referrer_client_age`,
+       `all_card_client_view`.`client_phone`            AS `referrer_client_phone`,
+       `all_card_client_view`.`client_delete_date`      AS `referrer_client_delete_date`
+from (`all_consume_detail_view`
+         join `all_card_client_view`
+              on (((`all_consume_detail_view`.`card_referrer` = `all_card_client_view`.`card_id`) and
+                   (`all_card_client_view`.`client_is_holder` = 1)))) */;
+/*!50001 SET character_set_client = @saved_cs_client */;
+/*!50001 SET character_set_results = @saved_cs_results */;
+/*!50001 SET collation_connection = @saved_col_connection */;
+
+--
 -- Final view structure for view `all_service_view`
 --
 
@@ -1363,4 +1500,4 @@ from (`client`
 /*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-12 22:10:25
+-- Dump completed on 2019-06-14 10:03:00

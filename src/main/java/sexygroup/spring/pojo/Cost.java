@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Cost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,5 +19,6 @@ public class Cost {
 
     private Double costMoney;
 
+    @CreatedDate
     private Timestamp costDate;
 }

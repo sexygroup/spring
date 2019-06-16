@@ -601,8 +601,8 @@ BEGIN
         set NEW.consume_rebate_point = 0;
     else
 /*求返利积分数*/
-        set NEW.consume_rebate_price =
-                    NEW.consume_price * (select service_rebate from service where service_id = NEW.service_id);
+        set NEW.consume_rebate_price = (NEW.consume_price - NEW.consume_deduct) *
+                                       (select service_rebate from service where service_id = NEW.service_id);
 /*修改推荐人积分数*/
         update card set card_point=card_point + NEW.consume_rebate_price where card_id = referrer;
 /*获取返利后推荐人积分总数*/
@@ -1504,4 +1504,4 @@ from (`client`
 /*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-16 17:54:24
+-- Dump completed on 2019-06-16 18:04:03

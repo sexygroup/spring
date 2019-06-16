@@ -12,4 +12,14 @@ public interface CostService extends BaseService<Cost> {
     List<JSONObject> findByDateBetween(String startTime, String endTime);
 
     List<JSONObject> findByMoneyBetween(double min, double max);
+
+    //按周统计
+    List<JSONObject> findAllWeekly();
+
+    JSONObject findByWeek(String week);
+
+    //按月统计
+    List<JSONObject> findAllMonthly();
+
+    JSONObject findByMonth(String month);
 }

@@ -46,4 +46,28 @@ public class CostController extends BaseController<Cost, CostService> {
     public List<JSONObject> findByMoneyBetween(double min, double max) {
         return costService.findByMoneyBetween(min, max);
     }
+
+    @GetMapping("/findAllWeekly")
+    @ApiOperation(value = "按周统计", notes = "return List")
+    public List<JSONObject> findAllWeekly() {
+        return costService.findAllWeekly();
+    }
+
+    @GetMapping("/findByWeek")
+    @ApiOperation(value = "查询某周（统计）", notes = "return JSON")
+    public Optional<JSONObject> findByWeek(String week) {
+        return Optional.ofNullable(costService.findByWeek(week));
+    }
+
+    @GetMapping("/findAllMonthly")
+    @ApiOperation(value = "按月统计", notes = "return List")
+    public List<JSONObject> findAllMonthly() {
+        return costService.findAllMonthly();
+    }
+
+    @GetMapping("/findByMonth")
+    @ApiOperation(value = "查询某月（统计）", notes = "return JSON")
+    public Optional<JSONObject> findByMonth(String month) {
+        return Optional.ofNullable(costService.findByMonth(month));
+    }
 }

@@ -122,4 +122,34 @@ public class ConsumeServiceImpl extends BaseServiceImpl<Consume, ConsumeReposito
         }
         return true;
     }
+
+    @Override
+    public List<JSONObject> findAllDaily() {
+        return JsonUtil.convertList(consumeRepository.findAllDaily());
+    }
+
+    @Override
+    public JSONObject findByDay(String day) {
+        return JsonUtil.convertJSONObject(consumeRepository.findByDay(day));
+    }
+
+    @Override
+    public List<JSONObject> findAllWeekly() {
+        return JsonUtil.convertList(consumeRepository.findAllWeekly());
+    }
+
+    @Override
+    public JSONObject findByWeek(String week) {
+        return JsonUtil.convertJSONObject(consumeRepository.findByWeek(week));
+    }
+
+    @Override
+    public List<JSONObject> findAllMonthly() {
+        return JsonUtil.convertList(consumeRepository.findAllMonthly());
+    }
+
+    @Override
+    public JSONObject findByMonth(String month) {
+        return JsonUtil.convertJSONObject(consumeRepository.findByMonth(month));
+    }
 }

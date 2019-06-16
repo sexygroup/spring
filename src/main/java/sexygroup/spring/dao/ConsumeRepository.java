@@ -71,4 +71,25 @@ public interface ConsumeRepository extends BaseRepository<Consume, Integer> {
     @Query(value = "select cancel_consume(?1)", nativeQuery = true)
     Integer cancelConsume(Integer consumeId);
 
+    //按天统计
+    @Query(value = "select * from consume_day_view order by consume_day ", nativeQuery = true)
+    List<JSONObject> findAllDaily();
+
+    @Query(value = "select * from consume_day_view  where consume_day=?1 ", nativeQuery = true)
+    JSONObject findByDay(String day);
+
+    //按周统计
+    @Query(value = "select * from consume_week_view order by consume_week ", nativeQuery = true)
+    List<JSONObject> findAllWeekly();
+
+    @Query(value = "select * from consume_week_view  where consume_week=?1 ", nativeQuery = true)
+    JSONObject findByWeek(String week);
+
+    //按月统计
+    @Query(value = "select * from consume_month_view order by consume_month ", nativeQuery = true)
+    List<JSONObject> findAllMonthly();
+
+    @Query(value = "select * from consume_month_view  where consume_month=?1 ", nativeQuery = true)
+    JSONObject findByMonth(String month);
+
 }

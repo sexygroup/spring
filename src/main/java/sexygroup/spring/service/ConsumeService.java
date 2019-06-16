@@ -47,4 +47,19 @@ public interface ConsumeService extends BaseService<Consume> {
 
     //保存消费列表
     Boolean saveConsumeList(Integer cardId, Integer clientId, Integer staffId, Double totalDeduct, JSONArray serviceList);
+
+    //按天统计
+    List<JSONObject> findAllDaily();
+
+    JSONObject findByDay(String day);
+
+    //按周统计
+    List<JSONObject> findAllWeekly();
+
+    JSONObject findByWeek(String week);
+
+    //按月统计
+    List<JSONObject> findAllMonthly();
+
+    JSONObject findByMonth(String month);
 }

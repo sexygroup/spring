@@ -22,7 +22,7 @@ public class CostServiceImpl extends BaseServiceImpl<Cost, CostRepository> imple
 
     @Override
     public JSONObject findByDateEquals(String date) {
-        return costRepository.findByDateEquals(date);
+        return JsonUtil.convertJSONObject(costRepository.findByDateEquals(date));
     }
 
     @Override
@@ -34,4 +34,26 @@ public class CostServiceImpl extends BaseServiceImpl<Cost, CostRepository> imple
     public List<JSONObject> findByMoneyBetween(double min, double max) {
         return JsonUtil.convertList(costRepository.findByMoneyBetween(min, max));
     }
+
+    @Override
+    public List<JSONObject> findAllWeekly() {
+        return JsonUtil.convertList(costRepository.findAllWeekly());
+    }
+
+    @Override
+    public JSONObject findByWeek(String week) {
+        return JsonUtil.convertJSONObject(costRepository.findByWeek(week));
+    }
+
+    @Override
+    public List<JSONObject> findAllMonthly() {
+        return JsonUtil.convertList(costRepository.findAllMonthly());
+    }
+
+    @Override
+    public JSONObject findByMonth(String month) {
+        return JsonUtil.convertJSONObject(costRepository.findByMonth(month));
+    }
+
+
 }

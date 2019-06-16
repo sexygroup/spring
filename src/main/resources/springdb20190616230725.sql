@@ -616,6 +616,63 @@ DELIMITER ;
 /*!50003 SET collation_connection = @saved_col_connection */;
 
 --
+-- Temporary view structure for view `consume_day_view`
+--
+
+DROP TABLE IF EXISTS `consume_day_view`;
+/*!50001 DROP VIEW IF EXISTS `consume_day_view`*/;
+SET @saved_cs_client = @@character_set_client;
+SET character_set_client = utf8mb4;
+/*!50001 CREATE VIEW `consume_day_view` AS
+SELECT 1 AS `consume_day`,
+       1 AS `day_consume_num`,
+       1 AS `day_consume_price`,
+       1 AS `day_consume_deduct`,
+       1 AS `day_consume_rebate`,
+       1 AS `day_client_num`,
+       1 AS `day_staff_num`,
+       1 AS `day_service_num`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `consume_month_view`
+--
+
+DROP TABLE IF EXISTS `consume_month_view`;
+/*!50001 DROP VIEW IF EXISTS `consume_month_view`*/;
+SET @saved_cs_client = @@character_set_client;
+SET character_set_client = utf8mb4;
+/*!50001 CREATE VIEW `consume_month_view` AS
+SELECT 1 AS `consume_month`,
+       1 AS `month_consume_num`,
+       1 AS `month_consume_price`,
+       1 AS `month_consume_deduct`,
+       1 AS `month_consume_rebate`,
+       1 AS `month_client_num`,
+       1 AS `month_staff_num`,
+       1 AS `month_service_num`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `consume_week_view`
+--
+
+DROP TABLE IF EXISTS `consume_week_view`;
+/*!50001 DROP VIEW IF EXISTS `consume_week_view`*/;
+SET @saved_cs_client = @@character_set_client;
+SET character_set_client = utf8mb4;
+/*!50001 CREATE VIEW `consume_week_view` AS
+SELECT 1 AS `consume_week`,
+       1 AS `week_consume_num`,
+       1 AS `week_consume_price`,
+       1 AS `week_consume_deduct`,
+       1 AS `week_consume_rebate`,
+       1 AS `week_client_num`,
+       1 AS `week_staff_num`,
+       1 AS `week_service_num`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `cost`
 --
 
@@ -630,7 +687,7 @@ CREATE TABLE `cost`
     PRIMARY KEY (`cost_id`) USING BTREE,
     UNIQUE KEY `cost_date_UNIQUE` (`cost_date`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 9
+  AUTO_INCREMENT = 14
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -647,10 +704,42 @@ VALUES (1, 23.00, '2019-06-04'),
        (2, 20.00, '2019-06-11'),
        (4, 10.00, '2019-06-14'),
        (5, 21.00, '2019-06-16'),
-       (8, 23.00, '2019-06-05');
+       (8, 23.00, '2019-06-05'),
+       (9, 0.00, '2019-05-27'),
+       (11, 0.00, '2019-06-03'),
+       (12, 0.00, '2019-05-31'),
+       (13, 0.00, '2019-06-01');
 /*!40000 ALTER TABLE `cost`
     ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `cost_month_view`
+--
+
+DROP TABLE IF EXISTS `cost_month_view`;
+/*!50001 DROP VIEW IF EXISTS `cost_month_view`*/;
+SET @saved_cs_client = @@character_set_client;
+SET character_set_client = utf8mb4;
+/*!50001 CREATE VIEW `cost_month_view` AS
+SELECT 1 AS `cost_month`,
+       1 AS `month_cost_num`,
+       1 AS `month_cost_money`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `cost_week_view`
+--
+
+DROP TABLE IF EXISTS `cost_week_view`;
+/*!50001 DROP VIEW IF EXISTS `cost_week_view`*/;
+SET @saved_cs_client = @@character_set_client;
+SET character_set_client = utf8mb4;
+/*!50001 CREATE VIEW `cost_week_view` AS
+SELECT 1 AS `cost_week`,
+       1 AS `week_cost_num`,
+       1 AS `week_cost_money`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `image`
@@ -873,7 +962,7 @@ LOCK TABLES `staff` WRITE;
 /*!40000 ALTER TABLE `staff`
     DISABLE KEYS */;
 INSERT INTO `staff`
-VALUES (1, 1, '000001', '阿明', '18766316233', '你妈妈叫什么名字', '她呀', 0),
+VALUES (1, 1, '000001', '阿明', '18766316233', '你妈妈叫什么名字', '她呀', 1),
        (6, 0, '000006', '魏强', '18766316239', '你的母亲叫什么名字？', '呵呵', 0);
 /*!40000 ALTER TABLE `staff`
     ENABLE KEYS */;
@@ -1494,6 +1583,136 @@ from (`client`
 /*!50001 SET character_set_client = @saved_cs_client */;
 /*!50001 SET character_set_results = @saved_cs_results */;
 /*!50001 SET collation_connection = @saved_col_connection */;
+
+--
+-- Final view structure for view `consume_day_view`
+--
+
+/*!50001 DROP VIEW IF EXISTS `consume_day_view`*/;
+/*!50001 SET @saved_cs_client = @@character_set_client */;
+/*!50001 SET @saved_cs_results = @@character_set_results */;
+/*!50001 SET @saved_col_connection = @@collation_connection */;
+/*!50001 SET character_set_client = utf8mb4 */;
+/*!50001 SET character_set_results = utf8mb4 */;
+/*!50001 SET collation_connection = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM = UNDEFINED */
+    /*!50013 DEFINER =`root`@`%` SQL SECURITY DEFINER */
+    /*!50001 VIEW `consume_day_view` AS
+select date_format(`all_consume_detail_view`.`consume_date`, '%Y-%m-%d') AS `consume_day`,
+       count(`all_consume_detail_view`.`consume_id`)                     AS `day_consume_num`,
+       sum(`all_consume_detail_view`.`consume_price`)                    AS `day_consume_price`,
+       sum(`all_consume_detail_view`.`consume_deduct`)                   AS `day_consume_deduct`,
+       sum(`all_consume_detail_view`.`consume_rebate_price`)             AS `day_consume_rebate`,
+       count(distinct `all_consume_detail_view`.`client_id`)             AS `day_client_num`,
+       count(distinct `all_consume_detail_view`.`staff_id`)              AS `day_staff_num`,
+       count(distinct `all_consume_detail_view`.`service_id`)            AS `day_service_num`
+from `all_consume_detail_view`
+group by `consume_day` */;
+/*!50001 SET character_set_client = @saved_cs_client */;
+/*!50001 SET character_set_results = @saved_cs_results */;
+/*!50001 SET collation_connection = @saved_col_connection */;
+
+--
+-- Final view structure for view `consume_month_view`
+--
+
+/*!50001 DROP VIEW IF EXISTS `consume_month_view`*/;
+/*!50001 SET @saved_cs_client = @@character_set_client */;
+/*!50001 SET @saved_cs_results = @@character_set_results */;
+/*!50001 SET @saved_col_connection = @@collation_connection */;
+/*!50001 SET character_set_client = utf8mb4 */;
+/*!50001 SET character_set_results = utf8mb4 */;
+/*!50001 SET collation_connection = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM = UNDEFINED */
+    /*!50013 DEFINER =`root`@`%` SQL SECURITY DEFINER */
+    /*!50001 VIEW `consume_month_view` AS
+select date_format(`all_consume_detail_view`.`consume_date`, '%Y%u') AS `consume_month`,
+       count(`all_consume_detail_view`.`consume_id`)                 AS `month_consume_num`,
+       sum(`all_consume_detail_view`.`consume_price`)                AS `month_consume_price`,
+       sum(`all_consume_detail_view`.`consume_deduct`)               AS `month_consume_deduct`,
+       sum(`all_consume_detail_view`.`consume_rebate_price`)         AS `month_consume_rebate`,
+       count(distinct `all_consume_detail_view`.`client_id`)         AS `month_client_num`,
+       count(distinct `all_consume_detail_view`.`staff_id`)          AS `month_staff_num`,
+       count(distinct `all_consume_detail_view`.`service_id`)        AS `month_service_num`
+from `all_consume_detail_view`
+group by `consume_month` */;
+/*!50001 SET character_set_client = @saved_cs_client */;
+/*!50001 SET character_set_results = @saved_cs_results */;
+/*!50001 SET collation_connection = @saved_col_connection */;
+
+--
+-- Final view structure for view `consume_week_view`
+--
+
+/*!50001 DROP VIEW IF EXISTS `consume_week_view`*/;
+/*!50001 SET @saved_cs_client = @@character_set_client */;
+/*!50001 SET @saved_cs_results = @@character_set_results */;
+/*!50001 SET @saved_col_connection = @@collation_connection */;
+/*!50001 SET character_set_client = utf8mb4 */;
+/*!50001 SET character_set_results = utf8mb4 */;
+/*!50001 SET collation_connection = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM = UNDEFINED */
+    /*!50013 DEFINER =`root`@`%` SQL SECURITY DEFINER */
+    /*!50001 VIEW `consume_week_view` AS
+select date_format(`all_consume_detail_view`.`consume_date`, '%Y%u') AS `consume_week`,
+       count(`all_consume_detail_view`.`consume_id`)                 AS `week_consume_num`,
+       sum(`all_consume_detail_view`.`consume_price`)                AS `week_consume_price`,
+       sum(`all_consume_detail_view`.`consume_deduct`)               AS `week_consume_deduct`,
+       sum(`all_consume_detail_view`.`consume_rebate_price`)         AS `week_consume_rebate`,
+       count(distinct `all_consume_detail_view`.`client_id`)         AS `week_client_num`,
+       count(distinct `all_consume_detail_view`.`staff_id`)          AS `week_staff_num`,
+       count(distinct `all_consume_detail_view`.`service_id`)        AS `week_service_num`
+from `all_consume_detail_view`
+group by `consume_week` */;
+/*!50001 SET character_set_client = @saved_cs_client */;
+/*!50001 SET character_set_results = @saved_cs_results */;
+/*!50001 SET collation_connection = @saved_col_connection */;
+
+--
+-- Final view structure for view `cost_month_view`
+--
+
+/*!50001 DROP VIEW IF EXISTS `cost_month_view`*/;
+/*!50001 SET @saved_cs_client = @@character_set_client */;
+/*!50001 SET @saved_cs_results = @@character_set_results */;
+/*!50001 SET @saved_col_connection = @@collation_connection */;
+/*!50001 SET character_set_client = utf8mb4 */;
+/*!50001 SET character_set_results = utf8mb4 */;
+/*!50001 SET collation_connection = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM = UNDEFINED */
+    /*!50013 DEFINER =`root`@`%` SQL SECURITY DEFINER */
+    /*!50001 VIEW `cost_month_view` AS
+select date_format(`cost`.`cost_date`, '%Y%m') AS `cost_month`,
+       count(0)                                AS `month_cost_num`,
+       sum(`cost`.`cost_money`)                AS `month_cost_money`
+from `cost`
+group by `cost_month` */;
+/*!50001 SET character_set_client = @saved_cs_client */;
+/*!50001 SET character_set_results = @saved_cs_results */;
+/*!50001 SET collation_connection = @saved_col_connection */;
+
+--
+-- Final view structure for view `cost_week_view`
+--
+
+/*!50001 DROP VIEW IF EXISTS `cost_week_view`*/;
+/*!50001 SET @saved_cs_client = @@character_set_client */;
+/*!50001 SET @saved_cs_results = @@character_set_results */;
+/*!50001 SET @saved_col_connection = @@collation_connection */;
+/*!50001 SET character_set_client = utf8mb4 */;
+/*!50001 SET character_set_results = utf8mb4 */;
+/*!50001 SET collation_connection = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM = UNDEFINED */
+    /*!50013 DEFINER =`root`@`%` SQL SECURITY DEFINER */
+    /*!50001 VIEW `cost_week_view` AS
+select date_format(`cost`.`cost_date`, '%Y%u') AS `cost_week`,
+       count(0)                                AS `week_cost_num`,
+       sum(`cost`.`cost_money`)                AS `week_cost_money`
+from `cost`
+group by `cost_week` */;
+/*!50001 SET character_set_client = @saved_cs_client */;
+/*!50001 SET character_set_results = @saved_cs_results */;
+/*!50001 SET collation_connection = @saved_col_connection */;
 /*!40103 SET TIME_ZONE = @OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE = @OLD_SQL_MODE */;
@@ -1504,4 +1723,4 @@ from (`client`
 /*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-16 18:04:03
+-- Dump completed on 2019-06-16 23:07:26

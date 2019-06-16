@@ -134,4 +134,40 @@ public class ConsumeController extends BaseController<Consume, ConsumeService> {
         JSONArray serviceList = consumeList.getJSONArray("serviceList");
         return consumeService.saveConsumeList(cardId, clientId, staffId, totalDeduct, serviceList);
     }
+
+    @GetMapping("/findAllDaily")
+    @ApiOperation(value = "按天统计", notes = "return List")
+    public List<JSONObject> findAllDaily() {
+        return consumeService.findAllDaily();
+    }
+
+    @GetMapping("/findByDay")
+    @ApiOperation(value = "查询某天（统计）", notes = "return JSON")
+    public Optional<JSONObject> findByDay(String day) {
+        return Optional.ofNullable(consumeService.findByDay(day));
+    }
+
+    @GetMapping("/findAllWeekly")
+    @ApiOperation(value = "按周统计", notes = "return List")
+    public List<JSONObject> findAllWeekly() {
+        return consumeService.findAllWeekly();
+    }
+
+    @GetMapping("/findByWeek")
+    @ApiOperation(value = "查询某周（统计）", notes = "return JSON")
+    public Optional<JSONObject> findByWeek(String week) {
+        return Optional.ofNullable(consumeService.findByWeek(week));
+    }
+
+    @GetMapping("/findAllMonthly")
+    @ApiOperation(value = "按月统计", notes = "return List")
+    public List<JSONObject> findAllMonthly() {
+        return consumeService.findAllMonthly();
+    }
+
+    @GetMapping("/findByMonth")
+    @ApiOperation(value = "查询某月（统计）", notes = "return JSON")
+    public Optional<JSONObject> findByMonth(String month) {
+        return Optional.ofNullable(consumeService.findByMonth(month));
+    }
 }

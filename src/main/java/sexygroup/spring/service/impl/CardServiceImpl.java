@@ -110,7 +110,7 @@ public class CardServiceImpl extends BaseServiceImpl<Card, CardRepository> imple
         JSONObject jsonObject1 = (JSONObject) JSONObject.toJSON(savedCard);
         JSONObject jsonObject2 = (JSONObject) JSONObject.toJSON(savedClient);
         jsonObject1.putAll(jsonObject2);
-        return jsonObject1;
+        return JsonUtil.convertJSONObject(jsonObject1);
     }
 
     @Override

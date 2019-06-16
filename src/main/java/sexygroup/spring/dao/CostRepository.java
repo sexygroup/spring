@@ -22,4 +22,18 @@ public interface CostRepository extends BaseRepository<Cost, Integer> {
     //通过金额范围查询
     @Query(value = "select * from cost  where cost_money between ?1 and ?2 order by cost_id desc ", nativeQuery = true)
     List<JSONObject> findByMoneyBetween(double min, double max);
+
+    //按周统计
+    @Query(value = "select * from cost_week_view order by cost_week ", nativeQuery = true)
+    List<JSONObject> findAllWeekly();
+
+    @Query(value = "select * from cost_week_view  where cost_week=?1 ", nativeQuery = true)
+    JSONObject findByWeek(String week);
+
+    //按月统计
+    @Query(value = "select * from cost_month_view order by cost_month ", nativeQuery = true)
+    List<JSONObject> findAllMonthly();
+
+    @Query(value = "select * from cost_month_view  where cost_month=?1 ", nativeQuery = true)
+    JSONObject findByMonth(String month);
 }

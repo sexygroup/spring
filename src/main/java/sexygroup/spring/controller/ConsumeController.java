@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import sexygroup.spring.common.controller.BaseController;
 import sexygroup.spring.pojo.Consume;
 import sexygroup.spring.service.ConsumeService;
+import sexygroup.spring.utils.DateUtil;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/consume")
@@ -29,14 +31,21 @@ public class ConsumeController extends BaseController<Consume, ConsumeService> {
     //通过消费信息查
     @GetMapping("/findByConsumeId")
     @ApiOperation(value = "通过消费id查", notes = "return JSON")
-    public JSONObject findByConsumeId(Integer id) {
-        return consumeService.findByConsumeId(id);
+    public Optional<JSONObject> findByConsumeId(Integer id) {
+        return Optional.ofNullable(consumeService.findByConsumeId(id));
     }
 
     @GetMapping("/findByDateBetween")
     @ApiOperation(value = "通过消费日期范围查询（日期格式：2019-01-01 00:00:00）", notes = "return List")
     public List<JSONObject> findByDateBetween(String startTime, String endTime) {
         return consumeService.findByDateBetween(startTime, endTime);
+    }
+
+    @GetMapping("/findByRelativeDateBetween")
+    @ApiOperation(value = "通过消费日期范围查询(相对于当前日期)", notes = "return List")
+    public List<JSONObject> findByRelativeDateBetween(int relYear1, int relMonth1, int relDay1, int relYear2, int relMonth2, int relDay2) {
+        String[] dateRange = DateUtil.getRelativeDateRange(relYear1, relMonth1, relDay1, relYear2, relMonth2, relDay2);
+        return consumeService.findByDateBetween(dateRange[0], dateRange[1]);
     }
 
     //通过员工信息查
@@ -117,7 +126,7 @@ public class ConsumeController extends BaseController<Consume, ConsumeService> {
 
     @PostMapping("/saveConsumeList")
     @ApiOperation(value = "保存消费列表", notes = "return boolean")
-    public boolean saveConsumeList(@RequestBody JSONObject consumeList) {
+    public Boolean saveConsumeList(@RequestBody JSONObject consumeList) {
         Integer cardId = consumeList.getInteger("cardId");
         Integer clientId = consumeList.getInteger("clientId");
         Integer staffId = consumeList.getInteger("staffId");

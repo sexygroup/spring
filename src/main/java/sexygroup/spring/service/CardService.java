@@ -44,5 +44,5 @@ public interface CardService extends BaseService<Card> {
     JSONObject addNewCard(Card card, Client client);
 
     //通过卡id删除卡、客户及其图片
-    boolean deleteCard(Integer cardId, String fileDir);
+    Boolean deleteCard(Integer cardId, String fileDir);
 }

@@ -47,7 +47,7 @@ public class ImageController extends BaseController<Image, ImageService> {
     //通过图片id删除图片
     @GetMapping("/deleteImage")
     @ApiOperation(value = "通过图片id删除图片及其信息", notes = "return boolean")
-    public boolean deleteImage(HttpServletRequest request, Integer imageId) {
+    public Boolean deleteImage(HttpServletRequest request, Integer imageId) {
         //获取文件保存路径
         String fileDir = request.getSession().getServletContext().getRealPath("/") + "upload/";
         return imageService.deleteImage(imageId, fileDir);

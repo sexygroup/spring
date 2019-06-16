@@ -114,7 +114,7 @@ public class CardServiceImpl extends BaseServiceImpl<Card, CardRepository> imple
     }
 
     @Override
-    public boolean deleteCard(Integer cardId, String fileDir) {
+    public Boolean deleteCard(Integer cardId, String fileDir) {
         //删除图片
         List<JSONObject> imageList = cardRepository.findClientByCardId(cardId);
         for (JSONObject image : imageList) {

@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sexygroup.spring.service.RebateService;
+import sexygroup.spring.utils.DateUtil;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/rebate")
@@ -27,14 +29,21 @@ public class RebateController {
     //通过消费信息查
     @GetMapping("/findByConsumeId")
     @ApiOperation(value = "通过消费id查", notes = "return JSON")
-    public JSONObject findByConsumeId(Integer id) {
-        return rebateService.findByConsumeId(id);
+    public Optional<JSONObject> findByConsumeId(Integer id) {
+        return Optional.ofNullable(rebateService.findByConsumeId(id));
     }
 
     @GetMapping("/findByDateBetween")
     @ApiOperation(value = "通过消费日期范围查询（日期格式：2019-01-01 00:00:00）", notes = "return List")
     public List<JSONObject> findByDateBetween(String startTime, String endTime) {
         return rebateService.findByDateBetween(startTime, endTime);
+    }
+
+    @GetMapping("/findByRelativeDateBetween")
+    @ApiOperation(value = "通过日期范围查询(相对于当前日期)", notes = "return List")
+    public List<JSONObject> findByRelativeDateBetween(int relYear1, int relMonth1, int relDay1, int relYear2, int relMonth2, int relDay2) {
+        String[] dateRange = DateUtil.getRelativeDateRange(relYear1, relMonth1, relDay1, relYear2, relMonth2, relDay2);
+        return rebateService.findByDateBetween(dateRange[0], dateRange[1]);
     }
 
     //通过员工信息查

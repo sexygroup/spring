@@ -28,5 +28,5 @@ public interface ClientService extends BaseService<Client> {
     List<JSONObject> findAllProfileByCardId(Integer id);
 
     //通过客户id删除客户及其图片
-    boolean deleteClient(Integer clientId, String fileDir);
+    Boolean deleteClient(Integer clientId, String fileDir);
 }

@@ -12,6 +12,7 @@ import sexygroup.spring.service.CardService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/card")
@@ -40,14 +41,14 @@ public class CardController extends BaseController<Card, CardService> {
 
     @GetMapping("/findHolderByCardId")
     @ApiOperation(value = "通过卡id查询持有人信息(包含卡和持卡人信息)", notes = "return JSON")
-    public JSONObject findHolderByCardId(Integer id) {
-        return cardService.findHolderByCardId(id);
+    public Optional<JSONObject> findHolderByCardId(Integer id) {
+        return Optional.ofNullable(cardService.findHolderByCardId(id));
     }
 
     @GetMapping("/findReferrerByCardId")
     @ApiOperation(value = "通过卡id查询推荐人信息(包含卡和客户信息)", notes = "return JSON")
-    public JSONObject findReferrerByCardId(Integer id) {
-        return cardService.findReferrerByCardId(id);
+    public Optional<JSONObject> findReferrerByCardId(Integer id) {
+        return Optional.ofNullable(cardService.findReferrerByCardId(id));
     }
 
     @GetMapping("/findByReferrer")
@@ -72,8 +73,8 @@ public class CardController extends BaseController<Card, CardService> {
     //通过客户条件查询
     @GetMapping("/findByClientId")
     @ApiOperation(value = "通过客户id查卡信息(包含卡和客户信息)", notes = "return JSON")
-    public JSONObject findByClientId(Integer id) {
-        return cardService.findByClientId(id);
+    public Optional<JSONObject> findByClientId(Integer id) {
+        return Optional.ofNullable(cardService.findByClientId(id));
     }
 
     @GetMapping("/findByClientName")
@@ -115,13 +116,13 @@ public class CardController extends BaseController<Card, CardService> {
 
     @PostMapping("/addNewCard")
     @ApiOperation(value = "添加新卡（需要卡信息和客户信息）", notes = "return boolean")
-    public JSONObject addNewCard(@RequestBody Card card, @RequestBody Client client) {
-        return cardService.addNewCard(card, client);
+    public Optional<JSONObject> addNewCard(@RequestBody Card card, @RequestBody Client client) {
+        return Optional.ofNullable(cardService.addNewCard(card, client));
     }
 
     @GetMapping("/deleteCard")
     @ApiOperation(value = "通过卡id删除卡、客户及其图片", notes = "return boolean")
-    public boolean deleteCard(HttpServletRequest request, Integer cardId) {
+    public Boolean deleteCard(HttpServletRequest request, Integer cardId) {
         //获取文件保存路径
         String fileDir = request.getSession().getServletContext().getRealPath("/") + "upload/";
         return cardService.deleteCard(cardId, fileDir);

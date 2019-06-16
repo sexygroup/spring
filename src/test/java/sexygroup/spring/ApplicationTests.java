@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import sexygroup.spring.utils.DateUtil;
 
 import java.net.InetAddress;
 
@@ -29,6 +30,11 @@ public class ApplicationTests {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void testDateUtil() {
+        System.out.println(DateUtil.getRelativeDate(1, 1, 1));
     }
 
 }

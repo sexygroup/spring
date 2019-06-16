@@ -96,7 +96,7 @@ public class ConsumeServiceImpl extends BaseServiceImpl<Consume, ConsumeReposito
     }
 
     @Override
-    public boolean saveConsumeList(Integer cardId, Integer clientId, Integer staffId, Double totalDeduct, JSONArray serviceList) {
+    public Boolean saveConsumeList(Integer cardId, Integer clientId, Integer staffId, Double totalDeduct, JSONArray serviceList) {
         for (int i = 0; i < serviceList.size(); ++i) {
             JSONObject service = serviceList.getJSONObject(i);
             Integer serviceId = service.getInteger("serviceId");

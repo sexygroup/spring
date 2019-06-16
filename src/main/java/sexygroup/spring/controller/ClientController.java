@@ -13,6 +13,7 @@ import sexygroup.spring.service.ClientService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/client")
@@ -30,8 +31,8 @@ public class ClientController extends BaseController<Client, ClientService> {
     //通过图片信息查
     @GetMapping("/findByImageId")
     @ApiOperation(value = "通过图片id查（包含客户和图片信息）", notes = "return JSON")
-    public JSONObject findByImageId(Integer id) {
-        return clientService.findByImageId(id);
+    public Optional<JSONObject> findByImageId(Integer id) {
+        return Optional.ofNullable(clientService.findByImageId(id));
     }
 
     @GetMapping("/findByImageDateBetween")
@@ -62,8 +63,8 @@ public class ClientController extends BaseController<Client, ClientService> {
     //查头像
     @GetMapping("/findProfileByClientId")
     @ApiOperation(value = "通过客户id查询客户头像(包含客户和图片信息)", notes = "return JSON")
-    public JSONObject findProfileByClientId(Integer id) {
-        return clientService.findProfileByClientId(id);
+    public Optional<JSONObject> findProfileByClientId(Integer id) {
+        return Optional.ofNullable(clientService.findProfileByClientId(id));
     }
 
     @GetMapping("/findAllProfileByCardId")
@@ -74,7 +75,7 @@ public class ClientController extends BaseController<Client, ClientService> {
 
     @GetMapping("/deleteClient")
     @ApiOperation(value = "通过客户id删除客户及其图片", notes = "return boolean")
-    public boolean deleteClient(HttpServletRequest request, Integer clientId) {
+    public Boolean deleteClient(HttpServletRequest request, Integer clientId) {
         //获取文件保存路径
         String fileDir = request.getSession().getServletContext().getRealPath("/") + "upload/";
         return clientService.deleteClient(clientId, fileDir);

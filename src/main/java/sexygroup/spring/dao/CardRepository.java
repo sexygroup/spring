@@ -72,6 +72,6 @@ public interface CardRepository extends BaseRepository<Card, Integer> {
     List<JSONObject> findByPointBetween(double min, double max);
 
     //通过卡id查卡下所有客户的信息(包含客户和图片信息)
-    @Query(value = "select * from client_image_view where card_id=?1 order by client_id,image_id desc ", nativeQuery = true)
+    @Query(value = "select * from client_image_left_view where card_id=?1 order by client_id,image_id desc ", nativeQuery = true)
     List<JSONObject> findClientByCardId(Integer id);
 }

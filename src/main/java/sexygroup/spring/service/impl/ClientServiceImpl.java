@@ -61,7 +61,7 @@ public class ClientServiceImpl extends BaseServiceImpl<Client, ClientRepository>
     }
 
     @Override
-    public boolean deleteClient(Integer clientId, String fileDir) {
+    public Boolean deleteClient(Integer clientId, String fileDir) {
         //删除图片
         List<JSONObject> imageList = clientRepository.findByClientId(clientId);
         for (JSONObject image : imageList) {

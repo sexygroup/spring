@@ -21,7 +21,7 @@ public class ImageServiceImpl extends BaseServiceImpl<Image, ImageRepository> im
     private ImageRepository imageRepository;
 
     @Override
-    public boolean saveImage(Integer clientId, String comment, MultipartFile multipartFile, String savePath) throws IOException {
+    public Boolean saveImage(Integer clientId, String comment, MultipartFile multipartFile, String savePath) throws IOException {
         Image image = new Image();
         image.setClientId(clientId);
         image.setImageComment(comment);
@@ -45,7 +45,7 @@ public class ImageServiceImpl extends BaseServiceImpl<Image, ImageRepository> im
     }
 
     @Override
-    public boolean deleteImage(Integer imageId, String fileDir) {
+    public Boolean deleteImage(Integer imageId, String fileDir) {
         //获取图片名
         Optional<Image> imageOptional = imageRepository.findById(imageId);
         if (!imageOptional.isPresent()) {

@@ -385,7 +385,7 @@ CREATE TABLE `card_level`
     `card_level_price` decimal(10, 2) unsigned NOT NULL DEFAULT '0.00',
     PRIMARY KEY (`card_level_id`) USING BTREE
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 3
+  AUTO_INCREMENT = 4
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -399,7 +399,8 @@ LOCK TABLES `card_level` WRITE;
     DISABLE KEYS */;
 INSERT INTO `card_level`
 VALUES (1, 50.00),
-       (2, 100.00);
+       (2, 100.00),
+       (3, 10.00);
 /*!40000 ALTER TABLE `card_level`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -625,10 +626,11 @@ CREATE TABLE `cost`
 (
     `cost_id`    int(11)                 NOT NULL AUTO_INCREMENT,
     `cost_money` decimal(10, 2) unsigned NOT NULL DEFAULT '0.00',
-    `cost_date`  datetime                NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (`cost_id`) USING BTREE
+    `cost_date`  date                    NOT NULL,
+    PRIMARY KEY (`cost_id`) USING BTREE,
+    UNIQUE KEY `cost_date_UNIQUE` (`cost_date`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 4
+  AUTO_INCREMENT = 9
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -641,8 +643,11 @@ LOCK TABLES `cost` WRITE;
 /*!40000 ALTER TABLE `cost`
     DISABLE KEYS */;
 INSERT INTO `cost`
-VALUES (1, 10.00, '2019-06-04 15:57:18'),
-       (2, 20.00, '2019-06-11 16:52:29');
+VALUES (1, 23.00, '2019-06-04'),
+       (2, 20.00, '2019-06-11'),
+       (4, 10.00, '2019-06-14'),
+       (5, 21.00, '2019-06-16'),
+       (8, 23.00, '2019-06-05');
 /*!40000 ALTER TABLE `cost`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -685,8 +690,7 @@ VALUES (1, 1, '1.jpg', '嗷嗷', '2019-06-04 11:16:03'),
        (43, 1, '43.jpg', 'comment', '2019-06-11 17:30:36'),
        (44, 1, '44.jpg', 'comment', '2019-06-11 17:32:55'),
        (45, 1, '45.jpg', 'comment', '2019-06-11 17:34:14'),
-       (46, 1, '46.jpg', 'comment', '2019-06-11 17:35:09'),
-       (47, 1, '47.jpg', 'comment', '2019-06-11 18:01:06');
+       (46, 1, '46.jpg', 'comment', '2019-06-11 17:35:09');
 /*!40000 ALTER TABLE `image`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -720,9 +724,9 @@ LOCK TABLES `recharge` WRITE;
 /*!40000 ALTER TABLE `recharge`
     DISABLE KEYS */;
 INSERT INTO `recharge`
-VALUES (1, 1, 100.00, 100.00, '2019-06-07 21:50:16'),
+VALUES (1, 1, 100.00, 100.00, '2019-06-07 21:50:17'),
        (2, 2, 100.00, 200.00, '2019-06-11 15:12:14'),
-       (3, 3, 100.00, 95.00, '2019-06-11 16:52:18');
+       (3, 3, 100.00, 91.00, '2019-06-11 16:52:18');
 /*!40000 ALTER TABLE `recharge`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1500,4 +1504,4 @@ from (`client`
 /*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-14 10:53:09
+-- Dump completed on 2019-06-16 17:54:24

@@ -46,5 +46,5 @@ public interface ConsumeService extends BaseService<Consume> {
     Integer cancelConsume(Integer consumeId);
 
     //保存消费列表
-    boolean saveConsumeList(Integer cardId, Integer clientId, Integer staffId, Double totalDeduct, JSONArray serviceList);
+    Boolean saveConsumeList(Integer cardId, Integer clientId, Integer staffId, Double totalDeduct, JSONArray serviceList);
 }

@@ -1,12 +1,12 @@
 package sexygroup.spring.pojo;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 @Data
 @Entity
@@ -18,6 +18,7 @@ public class Cost {
 
     private Double costMoney;
 
-    @CreatedDate
-    private Timestamp costDate;
+    //@CreatedDate
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date costDate;
 }

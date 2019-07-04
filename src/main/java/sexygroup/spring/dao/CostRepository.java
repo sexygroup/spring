@@ -16,11 +16,11 @@ public interface CostRepository extends BaseRepository<Cost, Integer> {
     JSONObject findByDateEquals(String date);
 
     //通过日期范围查询（日期格式：2019-01-01）
-    @Query(value = "select * from cost  where cost_date between ?1 and ?2 order by cost_id desc ", nativeQuery = true)
+    @Query(value = "select * from cost  where cost_date between ?1 and ?2 order by cost_date desc ", nativeQuery = true)
     List<JSONObject> findByDateBetween(String startTime, String endTime);
 
     //通过金额范围查询
-    @Query(value = "select * from cost  where cost_money between ?1 and ?2 order by cost_id desc ", nativeQuery = true)
+    @Query(value = "select * from cost  where cost_money between ?1 and ?2 order by cost_date desc ", nativeQuery = true)
     List<JSONObject> findByMoneyBetween(double min, double max);
 
     //按周统计

@@ -116,7 +116,21 @@ public class CardController extends BaseController<Card, CardService> {
 
     @PostMapping("/addNewCard")
     @ApiOperation(value = "添加新卡（需要卡信息和客户信息）", notes = "return boolean")
-    public Optional<JSONObject> addNewCard(@RequestBody Card card, @RequestBody Client client) {
+    public Optional<JSONObject> addNewCard(@RequestBody JSONObject jsonObject) {
+        Card card = new Card();
+        card.setCardQuestion(jsonObject.getString("cardQuestion"));
+        card.setCardAnswer(jsonObject.getString("cardAnswer"));
+        card.setCardMoney(jsonObject.getDouble("cardMoney"));
+        card.setCardPassword(jsonObject.getString("cardPassword"));
+        card.setCardReferrer(jsonObject.getInteger("cardReferrer"));
+
+        Client client = new Client();
+        client.setClientAge(jsonObject.getString("clientAge"));
+        client.setClientGender(jsonObject.getString("clientGender"));
+        client.setClientPhone(jsonObject.getString("clientPhone"));
+        client.setClientName(jsonObject.getString("clientName"));
+        System.out.println(card);
+        System.out.println(client);
         return Optional.ofNullable(cardService.addNewCard(card, client));
     }
 

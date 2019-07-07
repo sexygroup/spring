@@ -80,4 +80,10 @@ public class ClientController extends BaseController<Client, ClientService> {
         String fileDir = request.getSession().getServletContext().getRealPath("/") + "upload/";
         return clientService.deleteClient(clientId, fileDir);
     }
+
+    @GetMapping("/findByClientAge")
+    @ApiOperation(value = "通过客户年龄查（包含客户和图片信息）", notes = "return List")
+    public List<JSONObject> findByClientAge(String age) {
+        return clientService.findByClientAge(age);
+    }
 }

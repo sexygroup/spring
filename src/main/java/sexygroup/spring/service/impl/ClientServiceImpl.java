@@ -75,4 +75,9 @@ public class ClientServiceImpl extends BaseServiceImpl<Client, ClientRepository>
         clientRepository.deleteById(clientId);
         return true;
     }
+
+    @Override
+    public List<JSONObject> findByClientAge(String age) {
+        return JsonUtil.convertList(clientRepository.findByClientAge(age));
+    }
 }

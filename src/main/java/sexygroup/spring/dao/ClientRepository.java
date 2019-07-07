@@ -47,4 +47,7 @@ public interface ClientRepository extends BaseRepository<Client, Integer> {
             " order by client_id ", nativeQuery = true)
     List<JSONObject> findAllProfileByCardId(Integer id);
 
+    //通过客户年龄查
+    @Query(value = "select * from client_image_left_view where client_age=?1 order by client_id,image_id desc ", nativeQuery = true)
+    List<JSONObject> findByClientAge(String age);
 }

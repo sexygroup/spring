@@ -170,4 +170,16 @@ public class ConsumeController extends BaseController<Consume, ConsumeService> {
     public Optional<JSONObject> findByMonth(String month) {
         return Optional.ofNullable(consumeService.findByMonth(month));
     }
+
+    @GetMapping("/findAgeByDayBetween")
+    @ApiOperation(value = "分年龄段统计 时间段查询", notes = "return List")
+    public List<JSONObject> findAgeByDayBetween(String startDate, String endDate) {
+        return consumeService.findAgeByDayBetween(startDate, endDate);
+    }
+
+    @GetMapping("/findAgeByDay")
+    @ApiOperation(value = "分年龄段统计 查询某天", notes = "return JSON")
+    public Optional<JSONObject> findAgeByDay(String day) {
+        return Optional.ofNullable(consumeService.findAgeByDay(day));
+    }
 }

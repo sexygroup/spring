@@ -152,4 +152,14 @@ public class ConsumeServiceImpl extends BaseServiceImpl<Consume, ConsumeReposito
     public JSONObject findByMonth(String month) {
         return JsonUtil.convertJSONObject(consumeRepository.findByMonth(month));
     }
+
+    @Override
+    public List<JSONObject> findAgeByDayBetween(String startDate, String endDate) {
+        return JsonUtil.convertList(consumeRepository.findAgeByDayBetween(startDate, endDate));
+    }
+
+    @Override
+    public JSONObject findAgeByDay(String day) {
+        return JsonUtil.convertJSONObject(consumeRepository.findAgeByDay(day));
+    }
 }

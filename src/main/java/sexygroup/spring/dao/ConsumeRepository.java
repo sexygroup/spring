@@ -72,24 +72,32 @@ public interface ConsumeRepository extends BaseRepository<Consume, Integer> {
     Integer cancelConsume(Integer consumeId);
 
     //按天统计
-    @Query(value = "select * from consume_day_view order by consume_day ", nativeQuery = true)
+    @Query(value = "select * from consume_day_view order by consume_day desc ", nativeQuery = true)
     List<JSONObject> findAllDaily();
 
     @Query(value = "select * from consume_day_view  where consume_day=?1 ", nativeQuery = true)
     JSONObject findByDay(String day);
 
     //按周统计
-    @Query(value = "select * from consume_week_view order by consume_week ", nativeQuery = true)
+    @Query(value = "select * from consume_week_view order by consume_week desc ", nativeQuery = true)
     List<JSONObject> findAllWeekly();
 
     @Query(value = "select * from consume_week_view  where consume_week=?1 ", nativeQuery = true)
     JSONObject findByWeek(String week);
 
     //按月统计
-    @Query(value = "select * from consume_month_view order by consume_month ", nativeQuery = true)
+    @Query(value = "select * from consume_month_view order by consume_month desc ", nativeQuery = true)
     List<JSONObject> findAllMonthly();
 
     @Query(value = "select * from consume_month_view  where consume_month=?1 ", nativeQuery = true)
     JSONObject findByMonth(String month);
 
+    //所有年龄段
+    //按时间段统计
+    @Query(value = "select * from consume_age_union_day_view where consume_day between ?1 and ?2 order by consume_day desc ", nativeQuery = true)
+    List<JSONObject> findAgeByDayBetween(String startDate, String endDate);
+
+    //按天统计
+    @Query(value = "select * from consume_age_union_day_view where consume_day=?1 ", nativeQuery = true)
+    JSONObject findAgeByDay(String day);
 }

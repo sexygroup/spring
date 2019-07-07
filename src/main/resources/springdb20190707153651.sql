@@ -269,7 +269,7 @@ CREATE TABLE `card`
     KEY `card_ibfk_1` (`card_referrer`),
     CONSTRAINT `card_ibfk_1` FOREIGN KEY (`card_referrer`) REFERENCES `card` (`card_id`) ON DELETE SET NULL ON UPDATE RESTRICT
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 7
+  AUTO_INCREMENT = 9
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -282,9 +282,11 @@ LOCK TABLES `card` WRITE;
 /*!40000 ALTER TABLE `card`
     DISABLE KEYS */;
 INSERT INTO `card`
-VALUES (1, NULL, '0000', '嘤嘤嘤？', '嘤嘤嘤！', 92.00, 88.00),
-       (2, 1, '0000', '嘤嘤嘤？', '嘤嘤嘤！', 190.00, 100.00),
-       (3, 1, '0000', '测试', '测试', 95.00, -5.00);
+VALUES (1, NULL, '0000', '嘤嘤嘤？', '嘤嘤嘤！', 92.00, 128.00),
+       (2, 1, '0000', '嘤嘤嘤？', '嘤嘤嘤！', 110.00, 100.00),
+       (3, 1, '0000', '测试', '测试', 95.00, -5.00),
+       (7, 1, '', 'aa?', 'aa!', 100.01, 0.00),
+       (8, NULL, '', 'aa?', 'aa!', 100.01, 0.00);
 /*!40000 ALTER TABLE `card`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -425,7 +427,7 @@ CREATE TABLE `client`
     KEY `card_id` (`card_id`),
     CONSTRAINT `client_ibfk_1` FOREIGN KEY (`card_id`) REFERENCES `card` (`card_id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 6
+  AUTO_INCREMENT = 8
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -440,7 +442,9 @@ LOCK TABLES `client` WRITE;
 INSERT INTO `client`
 VALUES (1, 1, 1, '客户名1', '男', '儿童', '17863100001'),
        (2, 2, 0, '客户名2', '女', '青年', '17863100002'),
-       (3, 3, 1, '测试', '男', '中年', '17863100003');
+       (3, 3, 1, '测试', '男', '中年', '17863100003'),
+       (6, 7, 1, NULL, NULL, NULL, NULL),
+       (7, 8, 1, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `client`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -548,7 +552,7 @@ CREATE TABLE `consume`
     `consume_date`         datetime       NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '消费时间(auto)',
     PRIMARY KEY (`consume_id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 29
+  AUTO_INCREMENT = 37
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -565,7 +569,15 @@ VALUES (1, 1, 1, 1, 1, 10.00, 10.00, 100.00, 90.00, 0.00, 0.00, '2019-06-11 15:1
        (2, 1, 2, 2, 1, 10.00, 0.00, 190.00, 100.00, 5.00, 95.00, '2019-06-11 15:14:09'),
        (3, 3, 3, 3, 3, 10.00, 5.00, -5.00, -5.00, 5.00, 100.00, '2019-06-11 16:51:59'),
        (27, 1, 1, 1, 1, 10.00, 10.00, 100.00, 90.00, 0.00, 0.00, '2019-06-11 18:01:06'),
-       (28, 1, 1, 1, 1, 10.00, 2.00, 92.00, 88.00, 0.00, 0.00, '2019-06-12 21:30:09');
+       (28, 1, 1, 1, 1, 10.00, 2.00, 92.00, 88.00, 0.00, 0.00, '2019-06-12 21:30:09'),
+       (29, 1, 2, 2, 1, 10.00, 0.00, 180.00, 100.00, 5.00, 93.00, '2019-06-28 22:41:11'),
+       (30, 1, 2, 2, 1, 10.00, 0.00, 170.00, 100.00, 5.00, 98.00, '2019-06-30 22:42:46'),
+       (31, 1, 2, 2, 1, 10.00, 0.00, 160.00, 100.00, 5.00, 103.00, '2019-07-01 22:42:57'),
+       (32, 1, 2, 2, 1, 10.00, 0.00, 150.00, 100.00, 5.00, 108.00, '2019-07-01 22:43:23'),
+       (33, 1, 2, 2, 1, 10.00, 0.00, 140.00, 100.00, 5.00, 113.00, '2019-07-02 22:43:32'),
+       (34, 1, 2, 2, 1, 10.00, 0.00, 130.00, 100.00, 5.00, 118.00, '2019-07-04 22:43:44'),
+       (35, 1, 2, 2, 1, 10.00, 0.00, 120.00, 100.00, 5.00, 123.00, '2019-07-06 22:43:55'),
+       (36, 1, 2, 2, 1, 10.00, 0.00, 110.00, 100.00, 5.00, 128.00, '2019-07-06 22:44:16');
 /*!40000 ALTER TABLE `consume`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -616,6 +628,168 @@ DELIMITER ;
 /*!50003 SET collation_connection = @saved_col_connection */;
 
 --
+-- Temporary view structure for view `consume_age1_day_view`
+--
+
+DROP TABLE IF EXISTS `consume_age1_day_view`;
+/*!50001 DROP VIEW IF EXISTS `consume_age1_day_view`*/;
+SET @saved_cs_client = @@character_set_client;
+SET character_set_client = utf8mb4;
+/*!50001 CREATE VIEW `consume_age1_day_view` AS
+SELECT 1 AS `consume_day`,
+       1 AS `client_age`,
+       1 AS `day_consume_num`,
+       1 AS `day_consume_price`,
+       1 AS `day_consume_deduct`,
+       1 AS `day_consume_rebate`,
+       1 AS `day_consume_profit`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `consume_age2_day_view`
+--
+
+DROP TABLE IF EXISTS `consume_age2_day_view`;
+/*!50001 DROP VIEW IF EXISTS `consume_age2_day_view`*/;
+SET @saved_cs_client = @@character_set_client;
+SET character_set_client = utf8mb4;
+/*!50001 CREATE VIEW `consume_age2_day_view` AS
+SELECT 1 AS `consume_day`,
+       1 AS `client_age`,
+       1 AS `day_consume_num`,
+       1 AS `day_consume_price`,
+       1 AS `day_consume_deduct`,
+       1 AS `day_consume_rebate`,
+       1 AS `day_consume_profit`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `consume_age3_day_view`
+--
+
+DROP TABLE IF EXISTS `consume_age3_day_view`;
+/*!50001 DROP VIEW IF EXISTS `consume_age3_day_view`*/;
+SET @saved_cs_client = @@character_set_client;
+SET character_set_client = utf8mb4;
+/*!50001 CREATE VIEW `consume_age3_day_view` AS
+SELECT 1 AS `consume_day`,
+       1 AS `client_age`,
+       1 AS `day_consume_num`,
+       1 AS `day_consume_price`,
+       1 AS `day_consume_deduct`,
+       1 AS `day_consume_rebate`,
+       1 AS `day_consume_profit`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `consume_age4_day_view`
+--
+
+DROP TABLE IF EXISTS `consume_age4_day_view`;
+/*!50001 DROP VIEW IF EXISTS `consume_age4_day_view`*/;
+SET @saved_cs_client = @@character_set_client;
+SET character_set_client = utf8mb4;
+/*!50001 CREATE VIEW `consume_age4_day_view` AS
+SELECT 1 AS `consume_day`,
+       1 AS `client_age`,
+       1 AS `day_consume_num`,
+       1 AS `day_consume_price`,
+       1 AS `day_consume_deduct`,
+       1 AS `day_consume_rebate`,
+       1 AS `day_consume_profit`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `consume_age_day_view`
+--
+
+DROP TABLE IF EXISTS `consume_age_day_view`;
+/*!50001 DROP VIEW IF EXISTS `consume_age_day_view`*/;
+SET @saved_cs_client = @@character_set_client;
+SET character_set_client = utf8mb4;
+/*!50001 CREATE VIEW `consume_age_day_view` AS
+SELECT 1 AS `consume_day`,
+       1 AS `client_age`,
+       1 AS `day_consume_num`,
+       1 AS `day_consume_price`,
+       1 AS `day_consume_deduct`,
+       1 AS `day_consume_rebate`,
+       1 AS `day_consume_profit`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `consume_age_union_day_view`
+--
+
+DROP TABLE IF EXISTS `consume_age_union_day_view`;
+/*!50001 DROP VIEW IF EXISTS `consume_age_union_day_view`*/;
+SET @saved_cs_client = @@character_set_client;
+SET character_set_client = utf8mb4;
+/*!50001 CREATE VIEW `consume_age_union_day_view` AS
+SELECT 1 AS `consume_day`,
+       1 AS `day_consume_num`,
+       1 AS `day_consume_price`,
+       1 AS `day_consume_deduct`,
+       1 AS `day_consume_profit`,
+       1 AS `client_age1`,
+       1 AS `day_consume_num1`,
+       1 AS `day_consume_price1`,
+       1 AS `day_consume_deduct1`,
+       1 AS `day_consume_profit1`,
+       1 AS `client_age2`,
+       1 AS `day_consume_num2`,
+       1 AS `day_consume_price2`,
+       1 AS `day_consume_deduct2`,
+       1 AS `day_consume_profit2`,
+       1 AS `client_age3`,
+       1 AS `day_consume_num3`,
+       1 AS `day_consume_price3`,
+       1 AS `day_consume_deduct3`,
+       1 AS `day_consume_profit3`,
+       1 AS `client_age4`,
+       1 AS `day_consume_num4`,
+       1 AS `day_consume_price4`,
+       1 AS `day_consume_deduct4`,
+       1 AS `day_consume_profit4`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `consume_age_union_view`
+--
+
+DROP TABLE IF EXISTS `consume_age_union_view`;
+/*!50001 DROP VIEW IF EXISTS `consume_age_union_view`*/;
+SET @saved_cs_client = @@character_set_client;
+SET character_set_client = utf8mb4;
+/*!50001 CREATE VIEW `consume_age_union_view` AS
+SELECT 1 AS `consume_day`,
+       1 AS `client_age1`,
+       1 AS `day_consume_num1`,
+       1 AS `day_consume_price1`,
+       1 AS `day_consume_deduct1`,
+       1 AS `day_consume_profit1`,
+       1 AS `day_consume_rebate1`,
+       1 AS `client_age2`,
+       1 AS `day_consume_num2`,
+       1 AS `day_consume_price2`,
+       1 AS `day_consume_deduct2`,
+       1 AS `day_consume_profit2`,
+       1 AS `day_consume_rebate2`,
+       1 AS `client_age3`,
+       1 AS `day_consume_num3`,
+       1 AS `day_consume_price3`,
+       1 AS `day_consume_deduct3`,
+       1 AS `day_consume_profit3`,
+       1 AS `day_consume_rebate3`,
+       1 AS `client_age4`,
+       1 AS `day_consume_num4`,
+       1 AS `day_consume_price4`,
+       1 AS `day_consume_deduct4`,
+       1 AS `day_consume_profit4`,
+       1 AS `day_consume_rebate4`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Temporary view structure for view `consume_day_view`
 --
 
@@ -629,6 +803,7 @@ SELECT 1 AS `consume_day`,
        1 AS `day_consume_price`,
        1 AS `day_consume_deduct`,
        1 AS `day_consume_rebate`,
+       1 AS `day_consume_profit`,
        1 AS `day_client_num`,
        1 AS `day_staff_num`,
        1 AS `day_service_num`*/;
@@ -687,7 +862,7 @@ CREATE TABLE `cost`
     PRIMARY KEY (`cost_id`) USING BTREE,
     UNIQUE KEY `cost_date_UNIQUE` (`cost_date`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 14
+  AUTO_INCREMENT = 17
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -708,7 +883,10 @@ VALUES (1, 23.00, '2019-06-04'),
        (9, 0.00, '2019-05-27'),
        (11, 0.00, '2019-06-03'),
        (12, 0.00, '2019-05-31'),
-       (13, 0.00, '2019-06-01');
+       (13, 0.00, '2019-06-01'),
+       (14, 1.00, '2019-01-01'),
+       (15, 2.00, '2018-12-31'),
+       (16, 3.00, '2019-01-06');
 /*!40000 ALTER TABLE `cost`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1585,6 +1763,249 @@ from (`client`
 /*!50001 SET collation_connection = @saved_col_connection */;
 
 --
+-- Final view structure for view `consume_age1_day_view`
+--
+
+/*!50001 DROP VIEW IF EXISTS `consume_age1_day_view`*/;
+/*!50001 SET @saved_cs_client = @@character_set_client */;
+/*!50001 SET @saved_cs_results = @@character_set_results */;
+/*!50001 SET @saved_col_connection = @@collation_connection */;
+/*!50001 SET character_set_client = utf8mb4 */;
+/*!50001 SET character_set_results = utf8mb4 */;
+/*!50001 SET collation_connection = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM = UNDEFINED */
+    /*!50013 DEFINER =`root`@`%` SQL SECURITY DEFINER */
+    /*!50001 VIEW `consume_age1_day_view` AS
+select date_format(`all_consume_detail_view`.`consume_date`, '%Y-%m-%d')                                  AS `consume_day`,
+       `all_consume_detail_view`.`client_age`                                                             AS `client_age`,
+       count(`all_consume_detail_view`.`consume_id`)                                                      AS `day_consume_num`,
+       sum(`all_consume_detail_view`.`consume_price`)                                                     AS `day_consume_price`,
+       sum(`all_consume_detail_view`.`consume_deduct`)                                                    AS `day_consume_deduct`,
+       sum(`all_consume_detail_view`.`consume_rebate_price`)                                              AS `day_consume_rebate`,
+       (sum(`all_consume_detail_view`.`consume_price`) -
+        sum(`all_consume_detail_view`.`consume_deduct`))                                                  AS `day_consume_profit`
+from `all_consume_detail_view`
+where (`all_consume_detail_view`.`client_age` = '儿童')
+group by `consume_day` */;
+/*!50001 SET character_set_client = @saved_cs_client */;
+/*!50001 SET character_set_results = @saved_cs_results */;
+/*!50001 SET collation_connection = @saved_col_connection */;
+
+--
+-- Final view structure for view `consume_age2_day_view`
+--
+
+/*!50001 DROP VIEW IF EXISTS `consume_age2_day_view`*/;
+/*!50001 SET @saved_cs_client = @@character_set_client */;
+/*!50001 SET @saved_cs_results = @@character_set_results */;
+/*!50001 SET @saved_col_connection = @@collation_connection */;
+/*!50001 SET character_set_client = utf8mb4 */;
+/*!50001 SET character_set_results = utf8mb4 */;
+/*!50001 SET collation_connection = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM = UNDEFINED */
+    /*!50013 DEFINER =`root`@`%` SQL SECURITY DEFINER */
+    /*!50001 VIEW `consume_age2_day_view` AS
+select date_format(`all_consume_detail_view`.`consume_date`, '%Y-%m-%d')                                  AS `consume_day`,
+       `all_consume_detail_view`.`client_age`                                                             AS `client_age`,
+       count(`all_consume_detail_view`.`consume_id`)                                                      AS `day_consume_num`,
+       sum(`all_consume_detail_view`.`consume_price`)                                                     AS `day_consume_price`,
+       sum(`all_consume_detail_view`.`consume_deduct`)                                                    AS `day_consume_deduct`,
+       sum(`all_consume_detail_view`.`consume_rebate_price`)                                              AS `day_consume_rebate`,
+       (sum(`all_consume_detail_view`.`consume_price`) -
+        sum(`all_consume_detail_view`.`consume_deduct`))                                                  AS `day_consume_profit`
+from `all_consume_detail_view`
+where (`all_consume_detail_view`.`client_age` = '青年')
+group by `consume_day` */;
+/*!50001 SET character_set_client = @saved_cs_client */;
+/*!50001 SET character_set_results = @saved_cs_results */;
+/*!50001 SET collation_connection = @saved_col_connection */;
+
+--
+-- Final view structure for view `consume_age3_day_view`
+--
+
+/*!50001 DROP VIEW IF EXISTS `consume_age3_day_view`*/;
+/*!50001 SET @saved_cs_client = @@character_set_client */;
+/*!50001 SET @saved_cs_results = @@character_set_results */;
+/*!50001 SET @saved_col_connection = @@collation_connection */;
+/*!50001 SET character_set_client = utf8mb4 */;
+/*!50001 SET character_set_results = utf8mb4 */;
+/*!50001 SET collation_connection = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM = UNDEFINED */
+    /*!50013 DEFINER =`root`@`%` SQL SECURITY DEFINER */
+    /*!50001 VIEW `consume_age3_day_view` AS
+select date_format(`all_consume_detail_view`.`consume_date`, '%Y-%m-%d')                                  AS `consume_day`,
+       `all_consume_detail_view`.`client_age`                                                             AS `client_age`,
+       count(`all_consume_detail_view`.`consume_id`)                                                      AS `day_consume_num`,
+       sum(`all_consume_detail_view`.`consume_price`)                                                     AS `day_consume_price`,
+       sum(`all_consume_detail_view`.`consume_deduct`)                                                    AS `day_consume_deduct`,
+       sum(`all_consume_detail_view`.`consume_rebate_price`)                                              AS `day_consume_rebate`,
+       (sum(`all_consume_detail_view`.`consume_price`) -
+        sum(`all_consume_detail_view`.`consume_deduct`))                                                  AS `day_consume_profit`
+from `all_consume_detail_view`
+where (`all_consume_detail_view`.`client_age` = '中年')
+group by `consume_day` */;
+/*!50001 SET character_set_client = @saved_cs_client */;
+/*!50001 SET character_set_results = @saved_cs_results */;
+/*!50001 SET collation_connection = @saved_col_connection */;
+
+--
+-- Final view structure for view `consume_age4_day_view`
+--
+
+/*!50001 DROP VIEW IF EXISTS `consume_age4_day_view`*/;
+/*!50001 SET @saved_cs_client = @@character_set_client */;
+/*!50001 SET @saved_cs_results = @@character_set_results */;
+/*!50001 SET @saved_col_connection = @@collation_connection */;
+/*!50001 SET character_set_client = utf8mb4 */;
+/*!50001 SET character_set_results = utf8mb4 */;
+/*!50001 SET collation_connection = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM = UNDEFINED */
+    /*!50013 DEFINER =`root`@`%` SQL SECURITY DEFINER */
+    /*!50001 VIEW `consume_age4_day_view` AS
+select date_format(`all_consume_detail_view`.`consume_date`, '%Y-%m-%d')                                  AS `consume_day`,
+       `all_consume_detail_view`.`client_age`                                                             AS `client_age`,
+       count(`all_consume_detail_view`.`consume_id`)                                                      AS `day_consume_num`,
+       sum(`all_consume_detail_view`.`consume_price`)                                                     AS `day_consume_price`,
+       sum(`all_consume_detail_view`.`consume_deduct`)                                                    AS `day_consume_deduct`,
+       sum(`all_consume_detail_view`.`consume_rebate_price`)                                              AS `day_consume_rebate`,
+       (sum(`all_consume_detail_view`.`consume_price`) -
+        sum(`all_consume_detail_view`.`consume_deduct`))                                                  AS `day_consume_profit`
+from `all_consume_detail_view`
+where (`all_consume_detail_view`.`client_age` = '老年')
+group by `consume_day` */;
+/*!50001 SET character_set_client = @saved_cs_client */;
+/*!50001 SET character_set_results = @saved_cs_results */;
+/*!50001 SET collation_connection = @saved_col_connection */;
+
+--
+-- Final view structure for view `consume_age_day_view`
+--
+
+/*!50001 DROP VIEW IF EXISTS `consume_age_day_view`*/;
+/*!50001 SET @saved_cs_client = @@character_set_client */;
+/*!50001 SET @saved_cs_results = @@character_set_results */;
+/*!50001 SET @saved_col_connection = @@collation_connection */;
+/*!50001 SET character_set_client = utf8mb4 */;
+/*!50001 SET character_set_results = utf8mb4 */;
+/*!50001 SET collation_connection = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM = UNDEFINED */
+    /*!50013 DEFINER =`root`@`%` SQL SECURITY DEFINER */
+    /*!50001 VIEW `consume_age_day_view` AS
+select date_format(`all_consume_detail_view`.`consume_date`, '%Y-%m-%d')                                  AS `consume_day`,
+       `all_consume_detail_view`.`client_age`                                                             AS `client_age`,
+       count(`all_consume_detail_view`.`consume_id`)                                                      AS `day_consume_num`,
+       sum(`all_consume_detail_view`.`consume_price`)                                                     AS `day_consume_price`,
+       sum(`all_consume_detail_view`.`consume_deduct`)                                                    AS `day_consume_deduct`,
+       sum(`all_consume_detail_view`.`consume_rebate_price`)                                              AS `day_consume_rebate`,
+       (sum(`all_consume_detail_view`.`consume_price`) -
+        sum(`all_consume_detail_view`.`consume_deduct`))                                                  AS `day_consume_profit`
+from `all_consume_detail_view`
+group by `consume_day`, `all_consume_detail_view`.`client_age`
+order by `all_consume_detail_view`.`consume_date` desc, `all_consume_detail_view`.`client_age` */;
+/*!50001 SET character_set_client = @saved_cs_client */;
+/*!50001 SET character_set_results = @saved_cs_results */;
+/*!50001 SET collation_connection = @saved_col_connection */;
+
+--
+-- Final view structure for view `consume_age_union_day_view`
+--
+
+/*!50001 DROP VIEW IF EXISTS `consume_age_union_day_view`*/;
+/*!50001 SET @saved_cs_client = @@character_set_client */;
+/*!50001 SET @saved_cs_results = @@character_set_results */;
+/*!50001 SET @saved_col_connection = @@collation_connection */;
+/*!50001 SET character_set_client = utf8mb4 */;
+/*!50001 SET character_set_results = utf8mb4 */;
+/*!50001 SET collation_connection = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM = UNDEFINED */
+    /*!50013 DEFINER =`root`@`%` SQL SECURITY DEFINER */
+    /*!50001 VIEW `consume_age_union_day_view` AS
+select `consume_day_view`.`consume_day`             AS `consume_day`,
+       `consume_day_view`.`day_consume_num`         AS `day_consume_num`,
+       `consume_day_view`.`day_consume_price`       AS `day_consume_price`,
+       `consume_day_view`.`day_consume_deduct`      AS `day_consume_deduct`,
+       `consume_day_view`.`day_consume_profit`      AS `day_consume_profit`,
+       '儿童'                                         AS `client_age1`,
+       `consume_age1_day_view`.`day_consume_num`    AS `day_consume_num1`,
+       `consume_age1_day_view`.`day_consume_price`  AS `day_consume_price1`,
+       `consume_age1_day_view`.`day_consume_deduct` AS `day_consume_deduct1`,
+       `consume_age1_day_view`.`day_consume_profit` AS `day_consume_profit1`,
+       '青年'                                         AS `client_age2`,
+       `consume_age2_day_view`.`day_consume_num`    AS `day_consume_num2`,
+       `consume_age2_day_view`.`day_consume_price`  AS `day_consume_price2`,
+       `consume_age2_day_view`.`day_consume_deduct` AS `day_consume_deduct2`,
+       `consume_age2_day_view`.`day_consume_profit` AS `day_consume_profit2`,
+       '中年'                                         AS `client_age3`,
+       `consume_age3_day_view`.`day_consume_num`    AS `day_consume_num3`,
+       `consume_age3_day_view`.`day_consume_price`  AS `day_consume_price3`,
+       `consume_age3_day_view`.`day_consume_deduct` AS `day_consume_deduct3`,
+       `consume_age3_day_view`.`day_consume_profit` AS `day_consume_profit3`,
+       '老年'                                         AS `client_age4`,
+       `consume_age4_day_view`.`day_consume_num`    AS `day_consume_num4`,
+       `consume_age4_day_view`.`day_consume_price`  AS `day_consume_price4`,
+       `consume_age4_day_view`.`day_consume_deduct` AS `day_consume_deduct4`,
+       `consume_age4_day_view`.`day_consume_profit` AS `day_consume_profit4`
+from ((((`consume_day_view` left join `consume_age1_day_view` on ((`consume_day_view`.`consume_day` =
+                                                                   `consume_age1_day_view`.`consume_day`))) left join `consume_age2_day_view` on ((
+        `consume_day_view`.`consume_day` =
+        `consume_age2_day_view`.`consume_day`))) left join `consume_age3_day_view` on ((
+        `consume_day_view`.`consume_day` = `consume_age3_day_view`.`consume_day`)))
+         left join `consume_age4_day_view`
+                   on ((`consume_day_view`.`consume_day` = `consume_age4_day_view`.`consume_day`))) */;
+/*!50001 SET character_set_client = @saved_cs_client */;
+/*!50001 SET character_set_results = @saved_cs_results */;
+/*!50001 SET collation_connection = @saved_col_connection */;
+
+--
+-- Final view structure for view `consume_age_union_view`
+--
+
+/*!50001 DROP VIEW IF EXISTS `consume_age_union_view`*/;
+/*!50001 SET @saved_cs_client = @@character_set_client */;
+/*!50001 SET @saved_cs_results = @@character_set_results */;
+/*!50001 SET @saved_col_connection = @@collation_connection */;
+/*!50001 SET character_set_client = utf8mb4 */;
+/*!50001 SET character_set_results = utf8mb4 */;
+/*!50001 SET collation_connection = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM = UNDEFINED */
+    /*!50013 DEFINER =`root`@`%` SQL SECURITY DEFINER */
+    /*!50001 VIEW `consume_age_union_view` AS
+select `a`.`consume_day`        AS `consume_day`,
+       '儿童'                     AS `client_age1`,
+       `a`.`day_consume_num`    AS `day_consume_num1`,
+       `a`.`day_consume_price`  AS `day_consume_price1`,
+       `a`.`day_consume_deduct` AS `day_consume_deduct1`,
+       `a`.`day_consume_profit` AS `day_consume_profit1`,
+       `a`.`day_consume_rebate` AS `day_consume_rebate1`,
+       '青年'                     AS `client_age2`,
+       `b`.`day_consume_num`    AS `day_consume_num2`,
+       `b`.`day_consume_price`  AS `day_consume_price2`,
+       `b`.`day_consume_deduct` AS `day_consume_deduct2`,
+       `b`.`day_consume_profit` AS `day_consume_profit2`,
+       `b`.`day_consume_rebate` AS `day_consume_rebate2`,
+       '中年'                     AS `client_age3`,
+       `c`.`day_consume_num`    AS `day_consume_num3`,
+       `c`.`day_consume_price`  AS `day_consume_price3`,
+       `c`.`day_consume_deduct` AS `day_consume_deduct3`,
+       `c`.`day_consume_profit` AS `day_consume_profit3`,
+       `c`.`day_consume_rebate` AS `day_consume_rebate3`,
+       '老年'                     AS `client_age4`,
+       `d`.`day_consume_num`    AS `day_consume_num4`,
+       `d`.`day_consume_price`  AS `day_consume_price4`,
+       `d`.`day_consume_deduct` AS `day_consume_deduct4`,
+       `d`.`day_consume_profit` AS `day_consume_profit4`,
+       `d`.`day_consume_rebate` AS `day_consume_rebate4`
+from (((`consume_age_day_view` `a` left join `consume_age_day_view` `b` on (((`a`.`consume_day` = `b`.`consume_day`) and
+                                                                             (`a`.`client_age` = '儿童') and
+                                                                             (`b`.`client_age` = '青年')))) left join `consume_age_day_view` `c` on (((`a`.`consume_day` = `c`.`consume_day`) and (`c`.`client_age` = '中年'))))
+         left join `consume_age_day_view` `d`
+                   on (((`a`.`consume_day` = `d`.`consume_day`) and (`d`.`client_age` = '老年')))) */;
+/*!50001 SET character_set_client = @saved_cs_client */;
+/*!50001 SET character_set_results = @saved_cs_results */;
+/*!50001 SET collation_connection = @saved_col_connection */;
+
+--
 -- Final view structure for view `consume_day_view`
 --
 
@@ -1598,14 +2019,16 @@ from (`client`
 /*!50001 CREATE ALGORITHM = UNDEFINED */
     /*!50013 DEFINER =`root`@`%` SQL SECURITY DEFINER */
     /*!50001 VIEW `consume_day_view` AS
-select date_format(`all_consume_detail_view`.`consume_date`, '%Y-%m-%d') AS `consume_day`,
-       count(`all_consume_detail_view`.`consume_id`)                     AS `day_consume_num`,
-       sum(`all_consume_detail_view`.`consume_price`)                    AS `day_consume_price`,
-       sum(`all_consume_detail_view`.`consume_deduct`)                   AS `day_consume_deduct`,
-       sum(`all_consume_detail_view`.`consume_rebate_price`)             AS `day_consume_rebate`,
-       count(distinct `all_consume_detail_view`.`client_id`)             AS `day_client_num`,
-       count(distinct `all_consume_detail_view`.`staff_id`)              AS `day_staff_num`,
-       count(distinct `all_consume_detail_view`.`service_id`)            AS `day_service_num`
+select date_format(`all_consume_detail_view`.`consume_date`, '%Y-%m-%d')                                  AS `consume_day`,
+       count(`all_consume_detail_view`.`consume_id`)                                                      AS `day_consume_num`,
+       sum(`all_consume_detail_view`.`consume_price`)                                                     AS `day_consume_price`,
+       sum(`all_consume_detail_view`.`consume_deduct`)                                                    AS `day_consume_deduct`,
+       sum(`all_consume_detail_view`.`consume_rebate_price`)                                              AS `day_consume_rebate`,
+       (sum(`all_consume_detail_view`.`consume_price`) -
+        sum(`all_consume_detail_view`.`consume_deduct`))                                                  AS `day_consume_profit`,
+       count(distinct `all_consume_detail_view`.`client_id`)                                              AS `day_client_num`,
+       count(distinct `all_consume_detail_view`.`staff_id`)                                               AS `day_staff_num`,
+       count(distinct `all_consume_detail_view`.`service_id`)                                             AS `day_service_num`
 from `all_consume_detail_view`
 group by `consume_day` */;
 /*!50001 SET character_set_client = @saved_cs_client */;
@@ -1654,7 +2077,7 @@ group by `consume_month` */;
 /*!50001 CREATE ALGORITHM = UNDEFINED */
     /*!50013 DEFINER =`root`@`%` SQL SECURITY DEFINER */
     /*!50001 VIEW `consume_week_view` AS
-select date_format(`all_consume_detail_view`.`consume_date`, '%Y%u') AS `consume_week`,
+select date_format(`all_consume_detail_view`.`consume_date`, '%Y%U') AS `consume_week`,
        count(`all_consume_detail_view`.`consume_id`)                 AS `week_consume_num`,
        sum(`all_consume_detail_view`.`consume_price`)                AS `week_consume_price`,
        sum(`all_consume_detail_view`.`consume_deduct`)               AS `week_consume_deduct`,
@@ -1705,7 +2128,7 @@ group by `cost_month` */;
 /*!50001 CREATE ALGORITHM = UNDEFINED */
     /*!50013 DEFINER =`root`@`%` SQL SECURITY DEFINER */
     /*!50001 VIEW `cost_week_view` AS
-select date_format(`cost`.`cost_date`, '%Y%u') AS `cost_week`,
+select date_format(`cost`.`cost_date`, '%Y%U') AS `cost_week`,
        count(0)                                AS `week_cost_num`,
        sum(`cost`.`cost_money`)                AS `week_cost_money`
 from `cost`
@@ -1723,4 +2146,4 @@ group by `cost_week` */;
 /*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-16 23:07:26
+-- Dump completed on 2019-07-07 15:36:52

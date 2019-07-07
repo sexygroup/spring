@@ -62,4 +62,11 @@ public interface ConsumeService extends BaseService<Consume> {
     List<JSONObject> findAllMonthly();
 
     JSONObject findByMonth(String month);
+
+    //按天 分年龄段统计
+    //时间段
+    List<JSONObject> findAgeByDayBetween(String startDate, String endDate);
+
+    //按天统计
+    JSONObject findAgeByDay(String day);
 }

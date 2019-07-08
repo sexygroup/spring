@@ -16,9 +16,12 @@ public interface ClientService extends BaseService<Client> {
     List<JSONObject> findByImageDateBetween(String startTime, String endTime);
 
     //通过客户信息查
-    List<JSONObject> findByClientId(Integer id);
+    JSONObject findByClientId(Integer id);
 
     List<JSONObject> findByClientName(String name);
+
+    //通过客户年龄查
+    List<JSONObject> findByClientAge(String age);
 
     List<JSONObject> findByClientPhone(String phone);
 
@@ -30,6 +33,5 @@ public interface ClientService extends BaseService<Client> {
     //通过客户id删除客户及其图片
     Boolean deleteClient(Integer clientId, String fileDir);
 
-    //通过客户年龄查
-    List<JSONObject> findByClientAge(String age);
+
 }

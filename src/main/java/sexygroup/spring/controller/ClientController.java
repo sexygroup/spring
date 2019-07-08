@@ -43,15 +43,21 @@ public class ClientController extends BaseController<Client, ClientService> {
 
     //通过客户信息查
     @GetMapping("/findByClientId")
-    @ApiOperation(value = "通过客户id查所有图片信息（包含客户和图片信息）", notes = "return List")
-    public List<JSONObject> findByClientId(Integer id) {
+    @ApiOperation(value = "通过客户id查所有图片信息", notes = "return JSON")
+    public JSONObject findByClientId(Integer id) {
         return clientService.findByClientId(id);
     }
 
     @GetMapping("/findByClientName")
-    @ApiOperation(value = "通过客户名称查所有图片信息（模糊查询）（包含客户和图片信息）", notes = "return List")
+    @ApiOperation(value = "通过客户名称查所有图片信息（模糊查询）", notes = "return List")
     public List<JSONObject> findByClientName(String name) {
         return clientService.findByClientName(name);
+    }
+
+    @GetMapping("/findByClientAge")
+    @ApiOperation(value = "通过客户年龄查（包含客户和图片信息）", notes = "return List")
+    public List<JSONObject> findByClientAge(String age) {
+        return clientService.findByClientAge(age);
     }
 
     @GetMapping("/findByClientPhone")
@@ -81,9 +87,5 @@ public class ClientController extends BaseController<Client, ClientService> {
         return clientService.deleteClient(clientId, fileDir);
     }
 
-    @GetMapping("/findByClientAge")
-    @ApiOperation(value = "通过客户年龄查（包含客户和图片信息）", notes = "return List")
-    public List<JSONObject> findByClientAge(String age) {
-        return clientService.findByClientAge(age);
-    }
+
 }

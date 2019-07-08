@@ -36,13 +36,18 @@ public class ClientServiceImpl extends BaseServiceImpl<Client, ClientRepository>
     }
 
     @Override
-    public List<JSONObject> findByClientId(Integer id) {
-        return JsonUtil.convertList(clientRepository.findByClientId(id));
+    public JSONObject findByClientId(Integer id) {
+        return JsonUtil.convertJSONObject(clientRepository.findByClientId(id));
     }
 
     @Override
     public List<JSONObject> findByClientName(String name) {
         return JsonUtil.convertList(clientRepository.findByClientName(name));
+    }
+
+    @Override
+    public List<JSONObject> findByClientAge(String age) {
+        return JsonUtil.convertList(clientRepository.findByClientAge(age));
     }
 
     @Override
@@ -63,7 +68,7 @@ public class ClientServiceImpl extends BaseServiceImpl<Client, ClientRepository>
     @Override
     public Boolean deleteClient(Integer clientId, String fileDir) {
         //删除图片
-        List<JSONObject> imageList = clientRepository.findByClientId(clientId);
+        List<JSONObject> imageList = clientRepository.findImageByClientId(clientId);
         for (JSONObject image : imageList) {
             File file = new File(fileDir + image.getString("image_name"));
             //删除文件
@@ -76,8 +81,5 @@ public class ClientServiceImpl extends BaseServiceImpl<Client, ClientRepository>
         return true;
     }
 
-    @Override
-    public List<JSONObject> findByClientAge(String age) {
-        return JsonUtil.convertList(clientRepository.findByClientAge(age));
-    }
+
 }

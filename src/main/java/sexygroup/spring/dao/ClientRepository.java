@@ -16,7 +16,7 @@ public interface ClientRepository extends BaseRepository<Client, Integer> {
     List<JSONObject> findAllDetail();
 
     //通过图片id查(包含客户和图片信息)
-    @Query(value = "select * from client_image_left_view where client_id=?1 ", nativeQuery = true)
+    @Query(value = "select * from client_image_left_view where image_id=?1 ", nativeQuery = true)
     JSONObject findByImageId(Integer id);
 
     //通过图片上传时间段查(包含客户和图片信息)
@@ -25,11 +25,19 @@ public interface ClientRepository extends BaseRepository<Client, Integer> {
 
     //通过客户id查所有图片信息(包含客户和图片信息)
     @Query(value = "select * from client_image_left_view where client_id=?1 order by image_id desc ", nativeQuery = true)
-    List<JSONObject> findByClientId(Integer id);
+    List<JSONObject> findImageByClientId(Integer id);
 
-    //通过客户名称查所有图片信息（模糊查询）(包含客户和图片信息)
-    @Query(value = "select * from client_image_left_view where client_name like CONCAT('%',?1,'%') order by client_id,image_id desc ", nativeQuery = true)
+    //通过客户id查所有图片信息
+    @Query(value = "select * from client where client_id=?1 ", nativeQuery = true)
+    JSONObject findByClientId(Integer id);
+
+    //通过客户名称查所有图片信息（模糊查询）
+    @Query(value = "select * from client where client_name like CONCAT('%',?1,'%') order by client_id ", nativeQuery = true)
     List<JSONObject> findByClientName(String name);
+
+    //通过客户年龄查
+    @Query(value = "select * from client where client_age=?1 order by client_id ", nativeQuery = true)
+    List<JSONObject> findByClientAge(String age);
 
     //通过客户手机号查(包含客户和图片信息)
     @Query(value = "select * from client_image_left_view where client_phone=?1 order by client_id,image_id desc ", nativeQuery = true)
@@ -47,7 +55,5 @@ public interface ClientRepository extends BaseRepository<Client, Integer> {
             " order by client_id ", nativeQuery = true)
     List<JSONObject> findAllProfileByCardId(Integer id);
 
-    //通过客户年龄查
-    @Query(value = "select * from client_image_left_view where client_age=?1 order by client_id,image_id desc ", nativeQuery = true)
-    List<JSONObject> findByClientAge(String age);
+
 }

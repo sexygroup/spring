@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="index,follow" name="robots">
+
+    <title>cost_analyse</title>
+
+    <!-- Bootstrap CSS-->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS-->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Icon fontastic CSS-->
+    <link href="icons-reference/styles.css" rel="stylesheet">
+    <!-- Favicon Icon-->
+    <link href="img/favicon.ico" rel="shortcut icon">
+    <!-- Element-ui CSS-->
+    <link href="vendor/element-ui/index.css" rel="stylesheet">
+    <!-- V-charts CSS   图表专用-->
+    <link href="vendor/v-charts/style.min.css" rel="stylesheet">
+    <!-- Theme stylesheet-->
+    <link href="css/style.default.css" rel="stylesheet">
+
+    <!-- Vue JS-->
+    <script src="vendor/vue/vue.js"></script>
+    <!-- Element-ui JS-->
+    <script src="vendor/element-ui/index.js"></script>
+    <!-- Echarts JS    图表专用-->
+    <script src="vendor/echarts/echarts.min.js"></script>
+    <!-- V-charts JS   图表专用-->
+    <script src="vendor/v-charts/index.min.js"></script>
+    <!-- Axios JS-->
+    <script src="vendor/axios/axios.min.js"></script>
+    <!-- Lodash JS-->
+    <script src="vendor/lodash/lodash.js"></script>
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- My JS-->
+    <script src="js/deal_cost_analyse.js"></script>
+</head>
+
+<body>
+<div class="page" id="app">
+    <!-- Main Navbar-->
+    <header>
+        <nav class="navbar">
+            <div class="container-fluid">
+                <div class="navbar-holder d-flex align-items-center justify-content-between">
+                    <!-- Navbar Header-->
+                    <div class="navbar-header">
+                        <!-- Navbar Brand -->
+                        <a class="navbar-brand d-none d-sm-inline-block" href="work.html">
+                            <div class="brand-text d-none d-lg-inline-block">
+                                <span>Spring<strong>&nbsp;春天造型</strong></span></div>
+                            <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div>
+                            <!--Update：收藏网站时显示在前面的图标。-->
+                        </a>
+                    </div>
+                    <!-- Navbar Logout -->
+                    <ul class="nav-logout list-unstyled d-flex flex-md-row align-items-md-center">
+                        <li class="nav-item">
+                            <a @click="exit()" class="nav-link logout" href="#"> <span
+                                    class="d-none d-sm-inline">退出系统</span><i class="fa fa-sign-out"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- page content-->
+    <div class="page-content d-flex align-items-stretch">
+        <!-- Side Navbar -->
+        <nav class="side-navbar">
+            <!-- Sidebar Header-->
+            <div class="sidebar-header d-flex align-items-center"></div>
+            <!-- Sidebar Navidation Menus-->
+            <el-menu :unique-opened="true" active-text-color="#ffd04b" background-color="#545c64" default-active="3-4"
+                     text-color="#ffffff">
+                <el-submenu index="1">
+                    <template slot="title">
+                        <i class="el-icon-s-home"></i>
+                        <span>工作模块</span>
+                    </template>
+                    <el-menu-item @click="select_one()" index="1-1"><i class="el-icon-shopping-cart-2"></i>收银模块
+                    </el-menu-item>
+                    <el-menu-item @click="select_two()" index="1-2"><i class="el-icon-s-finance"></i>办卡模块</el-menu-item>
+                </el-submenu>
+                <el-submenu index="2">
+                    <template slot="title">
+                        <i class="el-icon-menu"></i>
+                        <span>信息模块</span>
+                    </template>
+                    <el-menu-item @click="select_three()" index="2-1"><i class="el-icon-s-finance"></i>会员卡管理
+                    </el-menu-item>
+                    <el-menu-item @click="select_four()" index="2-2"><i class="el-icon-user-solid"></i>消费者管理
+                    </el-menu-item>
+                    <el-menu-item @click="select_five()" index="2-3"><i class="el-icon-picture"></i>照片管理</el-menu-item>
+                    <el-menu-item @click="select_six()" index="2-4"><i class="el-icon-user-solid"></i>员工管理
+                    </el-menu-item>
+                </el-submenu>
+                <el-submenu index="3">
+                    <template slot="title">
+                        <i class="el-icon-s-claim"></i>
+                        <span>营业模块</span>
+                    </template>
+                    <el-menu-item-group title="营业分析">
+                        <el-menu-item @click="select_seven()" index="3-1"><i class="el-icon-s-marketing"></i>消费分析
+                        </el-menu-item>
+                        <el-menu-item @click="select_eight()" index="3-2"><i class="el-icon-s-marketing"></i>返利分析
+                        </el-menu-item>
+                        <el-menu-item @click="select_nine()" index="3-3"><i class="el-icon-s-marketing"></i>充值分析
+                        </el-menu-item>
+                        <el-menu-item @click="select_ten()" index="3-4"><i class="el-icon-s-marketing"></i>成本分析
+                        </el-menu-item>
+                    </el-menu-item-group>
+                    <el-menu-item-group title="营业记录">
+                        <el-menu-item @click="select_eleven()" index="3-5"><i class="el-icon-s-order"></i>营业记录
+                        </el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
+                <el-menu-item @click="select_twelve()" index="4">
+                    <i class="el-icon-s-tools"></i>
+                    <span slot="title">系统设置</span>
+                </el-menu-item>
+            </el-menu>
+        </nav>
+
+        <!-- Page -->
+        <div class="content-inner">
+            <!-- Page Header-->
+            <header class="page-header">
+                <div class="container-fluid">
+                    <h1 class="no-margin-bottom">成本分析</h1>
+                </div>
+            </header>
+
+            <!--Page Section-->
+            <section>
+                <el-row>
+                    <el-col :offset="1" :span="22">
+                        <el-tabs type="border-card" v-model="activeName">
+                            <!--金额相关-->
+                            <el-tab-pane label="金额" name="money">
+                                <!--按月查看-->
+                                <div v-if="money_monthShow">
+                                    <!--分割线以上-->
+                                    <el-row class="addTop">
+                                        <el-col :offset="2" :span="12">
+                                            <el-date-picker format="yyyy年MM月" placeholder="请选择月份" style="width:30%"
+                                                            type="month" v-model="money_findByMonthDate"
+                                                            value-format="yyyy-MM"></el-date-picker>
+                                            <el-button @click="clickMonthButton(money_findByMonthDate)"
+                                                       icon="el-icon-search">查询
+                                            </el-button>
+                                        </el-col>
+                                        <el-col :offset="6" :span="2">
+                                            <el-button @click="monthChange()" round type="primary">图表切换</el-button>
+                                        </el-col>
+                                    </el-row>
+
+                                    <!--分割线-->
+                                    <el-row>
+                                        <el-col :offset="1" :span="22">
+                                            <el-divider><i class="el-icon-data-line"></i>&nbsp;金额相关</el-divider>
+                                        </el-col>
+                                    </el-row>
+
+                                    <!--分割线以下-->
+                                    <el-row>
+                                        <el-col :span="18">
+                                            <ve-histogram :colors="money_colors" :data="money_monthData"
+                                                          :extend="money_extend" :grid="money_grid"
+                                                          :legend-visible="false" :settings="money_histogramSets"
+                                                          height="430px" ref="money_monthH"
+                                                          v-if="money_monthHShow"></ve-histogram>
+                                            <ve-line :colors="money_colors" :data="money_monthData"
+                                                     :extend="money_extend" :grid="money_grid" :legend-visible="false"
+                                                     :settings="money_lineSets" height="430px" ref="money_monthL"
+                                                     v-if="money_monthLShow"></ve-line>
+                                        </el-col>
+                                        <el-col :span="5" class="addTop-40">
+                                            <div class="information d-flex align-items-center bg-whitegray has-shadow-mini">
+                                                <div class="text"><strong>{{money_currentMonth}}</strong><br>
+                                                    <small>当前显示月份</small>
+                                                </div>
+                                            </div>
+                                            <div class="information d-flex align-items-center bg-whitegray has-shadow-mini">
+                                                <div class="text"><strong>{{money_totalMonthCost}}元</strong><br>
+                                                    <small>当前月份总成本</small>
+                                                </div>
+                                            </div>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="addBottom">
+                                        <el-col :offset="7" :span="5">
+                                            <el-radio-group v-model="money_select">
+                                                <el-radio-button label="按月查看"></el-radio-button>
+                                                <el-radio-button label="按周查看"></el-radio-button>
+                                            </el-radio-group>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+
+                                <!--按周查看-->
+                                <div v-if="money_weekShow">
+                                    <!--分割线以上-->
+                                    <el-row class="addTop">
+                                        <el-col :offset="2" :span="12">
+                                            <el-date-picker format="yyyy年WW周" placeholder="请选择周次" style="width:30%"
+                                                            type="week" v-model="money_findByWeekDate"></el-date-picker>
+                                            <el-button @click="clickWeekButton(money_findByWeekDate)"
+                                                       icon="el-icon-search">查询
+                                            </el-button>
+                                        </el-col>
+                                        <el-col :offset="6" :span="2">
+                                            <el-button @click="weekChange()" round type="primary">图表切换</el-button>
+                                        </el-col>
+                                    </el-row>
+
+                                    <!--分割线-->
+                                    <el-row>
+                                        <el-col :offset="1" :span="22">
+                                            <el-divider><i class="el-icon-data-line"></i>&nbsp;金额相关</el-divider>
+                                        </el-col>
+                                    </el-row>
+
+                                    <!--分割线以下-->
+                                    <el-row>
+                                        <el-col :span="18">
+                                            <ve-histogram :colors="money_colors" :data="money_weekData"
+                                                          :extend="money_extend" :grid="money_grid"
+                                                          :legend-visible="false" :settings="money_histogramSets"
+                                                          height="430px" ref="money_weekH"
+                                                          v-if="money_weekHShow"></ve-histogram>
+                                            <ve-line :colors="money_colors" :data="money_weekData"
+                                                     :extend="money_extend" :grid="money_grid" :legend-visible="false"
+                                                     :settings="money_lineSets" height="430px" ref="money_weekL"
+                                                     v-if="money_weekLShow"></ve-line>
+                                        </el-col>
+                                        <el-col :span="5" class="addTop-40">
+                                            <div class="information d-flex align-items-center bg-whitegray has-shadow-mini">
+                                                <div class="text"><strong>{{money_currentWeek}}</strong><br>
+                                                    <small>当前显示周次</small>
+                                                </div>
+                                            </div>
+                                            <div class="information d-flex align-items-center bg-whitegray has-shadow-mini">
+                                                <div class="text"><strong>{{money_totalWeekCost}}元</strong><br>
+                                                    <small>当前周次总成本</small>
+                                                </div>
+                                            </div>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="addBottom">
+                                        <el-col :offset="7" :span="5">
+                                            <el-radio-group v-model="money_select">
+                                                <el-radio-button label="按月查看"></el-radio-button>
+                                                <el-radio-button label="按周查看"></el-radio-button>
+                                            </el-radio-group>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                            </el-tab-pane>
+
+
+                            <!--笔数相关-->
+                            <el-tab-pane label="笔数" name="num">
+                                <!--按月查看-->
+                                <div v-if="num_monthShow">
+                                    <!--分割线以上-->
+                                    <el-row class="addTop">
+                                        <el-col :offset="2" :span="12">
+                                            <el-date-picker format="yyyy年MM月" placeholder="请选择月份" style="width:30%"
+                                                            type="month" v-model="num_findByMonthDate"
+                                                            value-format="yyyy-MM"></el-date-picker>
+                                            <el-button @click="clickMonthButton(num_findByMonthDate)"
+                                                       icon="el-icon-search">查询
+                                            </el-button>
+                                        </el-col>
+                                        <el-col :offset="6" :span="2">
+                                            <el-button @click="monthChange()" round type="primary">图表切换</el-button>
+                                        </el-col>
+                                    </el-row>
+
+                                    <!--分割线-->
+                                    <el-row>
+                                        <el-col :offset="1" :span="22">
+                                            <el-divider><i class="el-icon-data-line"></i>&nbsp;笔数相关</el-divider>
+                                        </el-col>
+                                    </el-row>
+
+                                    <!--分割线以下-->
+                                    <el-row>
+                                        <el-col :span="18">
+                                            <ve-histogram :colors="num_colors" :data="num_monthData"
+                                                          :extend="num_extend" :grid="num_grid" :legend-visible="false"
+                                                          :settings="num_histogramSets" height="430px" ref="num_monthH"
+                                                          v-if="num_monthHShow"></ve-histogram>
+                                            <ve-line :colors="num_colors" :data="num_monthData" :extend="num_extend"
+                                                     :grid="num_grid" :legend-visible="false" :settings="num_lineSets"
+                                                     height="430px" ref="num_monthL" v-if="num_monthLShow"></ve-line>
+                                        </el-col>
+                                        <el-col :span="5" class="addTop-40">
+                                            <div class="information d-flex align-items-center bg-whitegray has-shadow-mini">
+                                                <div class="text"><strong>{{num_currentMonth}}</strong><br>
+                                                    <small>当前显示月份</small>
+                                                </div>
+                                            </div>
+                                            <div class="information d-flex align-items-center bg-whitegray has-shadow-mini">
+                                                <div class="text"><strong>{{num_totalMonthCost}}笔</strong><br>
+                                                    <small>当前月份总笔数</small>
+                                                </div>
+                                            </div>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="addBottom">
+                                        <el-col :offset="7" :span="5">
+                                            <el-radio-group fill="#F56C6C" v-model="num_select">
+                                                <el-radio-button label="按月查看" type="danger"></el-radio-button>
+                                                <el-radio-button label="按周查看" type="danger"></el-radio-button>
+                                            </el-radio-group>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+
+                                <!--按周查看-->
+                                <div v-if="num_weekShow">
+                                    <!--分割线以上-->
+                                    <el-row class="addTop">
+                                        <el-col :offset="2" :span="12">
+                                            <el-date-picker format="yyyy年WW周" placeholder="请选择周次" style="width:30%"
+                                                            type="week" v-model="num_findByWeekDate"></el-date-picker>
+                                            <el-button @click="clickWeekButton(num_findByWeekDate)"
+                                                       icon="el-icon-search">查询
+                                            </el-button>
+                                        </el-col>
+                                        <el-col :offset="6" :span="2">
+                                            <el-button @click="weekChange()" round type="primary">图表切换</el-button>
+                                        </el-col>
+                                    </el-row>
+
+                                    <!--分割线-->
+                                    <el-row>
+                                        <el-col :offset="1" :span="22">
+                                            <el-divider><i class="el-icon-data-line"></i>&nbsp;笔数相关</el-divider>
+                                        </el-col>
+                                    </el-row>
+
+                                    <!--分割线以下-->
+                                    <el-row>
+                                        <el-col :span="18">
+                                            <ve-histogram :colors="num_colors" :data="num_weekData" :extend="num_extend"
+                                                          :grid="num_grid" :legend-visible="false"
+                                                          :settings="num_histogramSets" height="430px" ref="num_weekH"
+                                                          v-if="num_weekHShow"></ve-histogram>
+                                            <ve-line :colors="num_colors" :data="num_weekData" :extend="num_extend"
+                                                     :grid="num_grid" :legend-visible="false" :settings="num_lineSets"
+                                                     height="430px" ref="num_weekL" v-if="num_weekLShow"></ve-line>
+                                        </el-col>
+                                        <el-col :span="5" class="addTop-40">
+                                            <div class="information d-flex align-items-center bg-whitegray has-shadow-mini">
+                                                <div class="text"><strong>{{num_currentWeek}}</strong><br>
+                                                    <small>当前显示周次</small>
+                                                </div>
+                                            </div>
+                                            <div class="information d-flex align-items-center bg-whitegray has-shadow-mini">
+                                                <div class="text"><strong>{{num_totalWeekCost}}笔</strong><br>
+                                                    <small>当前周次总笔数</small>
+                                                </div>
+                                            </div>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row class="addBottom">
+                                        <el-col :offset="7" :span="5">
+                                            <el-radio-group fill="#F56C6C" v-model="num_select">
+                                                <el-radio-button label="按月查看"></el-radio-button>
+                                                <el-radio-button label="按周查看"></el-radio-button>
+                                            </el-radio-group>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                            </el-tab-pane>
+                        </el-tabs>
+                    </el-col>
+                </el-row>
+            </section>
+
+            <!-- Page Footer-->
+            <footer class="main-footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p>Your company &copy; 2019-2020</p>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <p>Design by Three Boys from HIT &nbsp;&nbsp;<a href="#"
+                                                                            title="贺明QQ：957039243； 贾少杰QQ：1710951735； 刘猛QQ：2921978909。">联系我们</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="index,follow" name="robots">
+
+    <title>deal_record</title>
+
+    <!-- Bootstrap CSS-->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS-->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Icon fontastic CSS-->
+    <link href="icons-reference/styles.css" rel="stylesheet">
+    <!-- Favicon Icon-->
+    <link href="img/favicon.ico" rel="shortcut icon">
+    <!-- Element-ui CSS-->
+    <link href="vendor/element-ui/index.css" rel="stylesheet">
+    <!-- Theme stylesheet-->
+    <link href="css/style.default.css" rel="stylesheet">
+
+    <!-- Vue JS-->
+    <script src="vendor/vue/vue.js"></script>
+    <!-- Element-ui JS-->
+    <script src="vendor/element-ui/index.js"></script>
+    <!-- Axios JS-->
+    <script src="vendor/axios/axios.min.js"></script>
+    <!-- Lodash JS-->
+    <script src="vendor/lodash/lodash.js"></script>
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- My JS-->
+    <script src="js/deal_record.js"></script>
+</head>
+
+<body>
+<div class="page" id="app">
+    <!-- Main Navbar-->
+    <header>
+        <nav class="navbar">
+            <div class="container-fluid">
+                <div class="navbar-holder d-flex align-items-center justify-content-between">
+                    <!-- Navbar Header-->
+                    <div class="navbar-header">
+                        <!-- Navbar Brand -->
+                        <a class="navbar-brand d-none d-sm-inline-block" href="work.html">
+                            <div class="brand-text d-none d-lg-inline-block">
+                                <span>Spring<strong>&nbsp;春天造型</strong></span></div>
+                            <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div>
+                            <!--Update：收藏网站时显示在前面的图标。-->
+                        </a>
+                    </div>
+                    <!-- Navbar Logout -->
+                    <ul class="nav-logout list-unstyled d-flex flex-md-row align-items-md-center">
+                        <li class="nav-item">
+                            <a @click="exit()" class="nav-link logout" href="#"> <span
+                                    class="d-none d-sm-inline">退出系统</span><i class="fa fa-sign-out"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- page content-->
+    <div class="page-content d-flex align-items-stretch">
+        <!-- Side Navbar -->
+        <nav class="side-navbar">
+            <!-- Sidebar Header-->
+            <div class="sidebar-header d-flex align-items-center"></div>
+            <!-- Sidebar Navidation Menus-->
+            <el-menu :unique-opened="true" active-text-color="#ffd04b" background-color="#545c64" default-active="3-5"
+                     text-color="#ffffff">
+                <el-submenu index="1">
+                    <template slot="title">
+                        <i class="el-icon-s-home"></i>
+                        <span>工作模块</span>
+                    </template>
+                    <el-menu-item @click="select_one()" index="1-1"><i class="el-icon-shopping-cart-2"></i>收银模块
+                    </el-menu-item>
+                    <el-menu-item @click="select_two()" index="1-2"><i class="el-icon-s-finance"></i>办卡模块</el-menu-item>
+                </el-submenu>
+                <el-submenu index="2">
+                    <template slot="title">
+                        <i class="el-icon-menu"></i>
+                        <span>信息模块</span>
+                    </template>
+                    <el-menu-item @click="select_three()" index="2-1"><i class="el-icon-s-finance"></i>会员卡管理
+                    </el-menu-item>
+                    <el-menu-item @click="select_four()" index="2-2"><i class="el-icon-user-solid"></i>消费者管理
+                    </el-menu-item>
+                    <el-menu-item @click="select_five()" index="2-3"><i class="el-icon-picture"></i>照片管理</el-menu-item>
+                    <el-menu-item @click="select_six()" index="2-4"><i class="el-icon-user-solid"></i>员工管理
+                    </el-menu-item>
+                </el-submenu>
+                <el-submenu index="3">
+                    <template slot="title">
+                        <i class="el-icon-s-claim"></i>
+                        <span>营业模块</span>
+                    </template>
+                    <el-menu-item-group title="营业分析">
+                        <el-menu-item @click="select_seven()" index="3-1"><i class="el-icon-s-marketing"></i>消费分析
+                        </el-menu-item>
+                        <el-menu-item @click="select_eight()" index="3-2"><i class="el-icon-s-marketing"></i>返利分析
+                        </el-menu-item>
+                        <el-menu-item @click="select_nine()" index="3-3"><i class="el-icon-s-marketing"></i>充值分析
+                        </el-menu-item>
+                        <el-menu-item @click="select_ten()" index="3-4"><i class="el-icon-s-marketing"></i>成本分析
+                        </el-menu-item>
+                    </el-menu-item-group>
+                    <el-menu-item-group title="营业记录">
+                        <el-menu-item @click="select_eleven()" index="3-5"><i class="el-icon-s-order"></i>营业记录
+                        </el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
+                <el-menu-item @click="select_twelve()" index="4">
+                    <i class="el-icon-s-tools"></i>
+                    <span slot="title">系统设置</span>
+                </el-menu-item>
+            </el-menu>
+        </nav>
+
+        <!-- Page -->
+        <div class="content-inner">
+            <!-- Page Header-->
+            <header class="page-header">
+                <div class="container-fluid">
+                    <h1 class="no-margin-bottom">营业记录</h1>
+                </div>
+            </header>
+
+            <!--Page Section-->
+            <section>
+                <el-row>
+                    <el-col :offset="1" :span="22">
+                        <el-tabs type="border-card" v-model="activeName">
+                            <!--消费记录-->
+                            <el-tab-pane label="消费记录" name="consume">
+                                <el-row class="addTop">
+                                    <el-col :offset="1" :span="12">
+                                        <el-date-picker end-placeholder="结束日期" format="yyyy年MM月dd日" range-separator="-"
+                                                        start-placeholder="开始日期" style="width:50%" type="daterange"
+                                                        v-model="consume_findByDate"
+                                                        value-format="yyyy-MM-dd"></el-date-picker>
+                                        <el-button @click="Consume_clickDateButton(consume_findByDate)"
+                                                   icon="el-icon-search">查询
+                                        </el-button>
+                                    </el-col>
+                                    <el-col :offset="1" :span="9">
+                                        <el-input class="input-with-select" placeholder="请输入内容" v-model="consume_input">
+                                            <el-select placeholder="请选择" slot="prepend" v-model="consume_select">
+                                                <el-option label="近三月记录" value="all"></el-option>
+                                                <el-option label="消费记录编号" value="consume"></el-option>
+                                                <el-option label="会员卡编号" value="card"></el-option>
+                                                <el-option label="客户编号" value="client"></el-option>
+                                                <el-option label="员工编号" value="staff"></el-option>
+                                            </el-select>
+                                            <el-button @click="Consume_clickSelectButton(consume_select,consume_input)"
+                                                       icon="el-icon-search" slot="append">查询
+                                            </el-button>
+                                        </el-input>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :offset="1" :span="22">
+                                        <el-divider><i class="el-icon-date"></i>&nbsp;消费记录</el-divider>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :offset="1" :span="22">
+                                        <el-table
+                                                :data="consumeDetails.slice((consume_currentPage-1)*consume_pagesize,consume_currentPage*consume_pagesize)"
+                                                :default-sort="{prop: 'date', order: 'descending'}" border fit
+                                                highlight-current-row
+                                                style="width:100%;  font-size:15px;">
+                                            <el-table-column label="#" sortable type="index"
+                                                             width="50%"></el-table-column>
+                                            <el-table-column label="记录编号" sortable width="115%">
+                                                <template slot-scope="scope">
+                                                    {{idToCode6(scope.row.consumeId)}}
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column label="日期" prop="consumeDate" sortable
+                                                             width="200%"></el-table-column>
+                                            <el-table-column label="应付" prop="consumePrice" sortable></el-table-column>
+                                            <el-table-column label="抵扣" prop="consumeDeduct" sortable></el-table-column>
+                                            <el-table-column label="实收" sortable>
+                                                <template slot-scope="scope">
+                                                    {{scope.row.consumePrice-scope.row.consumeDeduct}}
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column label="余额" prop="consumeMoney" sortable></el-table-column>
+                                            <el-table-column label="积分" prop="consumePoint" sortable></el-table-column>
+                                            <el-table-column label="员工" prop="staffName" width="115%"></el-table-column>
+                                            <el-table-column label="会员卡" width="115%">
+                                                <template slot-scope="scope">
+                                                    <el-popover placement="top" trigger="hover" width="200">
+                                                        <el-form>
+                                                            <el-form-item label="推荐人:">{{
+                                                                referrerToShow(scope.row.cardReferrer) }}
+                                                            </el-form-item>
+                                                            <el-form-item label="余额:">{{ scope.row.cardMoney }}
+                                                            </el-form-item>
+                                                            <el-form-item label="积分:">{{ scope.row.cardPoint }}
+                                                            </el-form-item>
+                                                        </el-form>
+                                                        <div class="name-wrapper" slot="reference">
+                                                            <el-tag size="medium" type="info">{{
+                                                                idToCode6(scope.row.cardId)}}
+                                                            </el-tag>
+                                                        </div>
+                                                    </el-popover>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column label="客户" width="115%">
+                                                <template slot-scope="scope">
+                                                    <el-popover placement="top" trigger="hover" width="250">
+                                                        <el-form>
+                                                            <el-form-item label="姓名:">{{ scope.row.clientName }}
+                                                            </el-form-item>
+                                                            <el-form-item label="性别:">{{ scope.row.clientGender }}
+                                                            </el-form-item>
+                                                            <el-form-item label="年龄:">{{ scope.row.clientAge }}
+                                                            </el-form-item>
+                                                            <el-form-item label="电话:">{{ scope.row.clientPhone }}
+                                                            </el-form-item>
+                                                            <el-form-item label="是否为持有人:">{{
+                                                                holderToShow(scope.row.clientIsHolder) }}
+                                                            </el-form-item>
+                                                        </el-form>
+                                                        <div class="name-wrapper" slot="reference">
+                                                            <el-tag size="medium" type="primary">{{
+                                                                idToCode6(scope.row.clientId)}}
+                                                            </el-tag>
+                                                        </div>
+                                                    </el-popover>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column label="服务" width="115%">
+                                                <template slot-scope="scope">
+                                                    <el-popover placement="top" trigger="hover" width="200">
+                                                        <el-form>
+                                                            <el-form-item label="服务名称:">{{ scope.row.serviceName }}
+                                                            </el-form-item>
+                                                            <el-form-item label="价格:">{{ scope.row.servicePrice }}
+                                                            </el-form-item>
+                                                            <el-form-item label="返利折扣:">{{ scope.row.serviceRebate }}
+                                                            </el-form-item>
+                                                        </el-form>
+                                                        <div class="name-wrapper" slot="reference">
+                                                            <el-tag size="medium" type="success">{{
+                                                                idToCode6(scope.row.serviceId)}}
+                                                            </el-tag>
+                                                        </div>
+                                                    </el-popover>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column label="操作" width="100px">
+                                                <template slot-scope="scope">
+                                                    <el-button @click="Consume_clickCancelButton(scope.row.consumeId)"
+                                                               icon="delete" size="small" type="danger">撤销
+                                                    </el-button>
+                                                </template>
+                                            </el-table-column>
+                                        </el-table>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :offset="7" :span="12">
+                                        <el-pagination
+                                                :current-page="consume_currentPage"
+                                                :page-size="consume_pagesize"
+                                                :page-sizes="[5, 10, 15, 20]"
+                                                :total="consume_totalCount"
+                                                @current-change="consume_handleCurrentChange"
+                                                @size-change="consume_handleSizeChange"
+                                                layout="total, sizes, prev, pager, next, jumper">
+                                        </el-pagination>
+                                    </el-col>
+                                </el-row>
+                            </el-tab-pane>
+
+
+                            <!--返利记录-->
+                            <el-tab-pane label="返利记录" name="rebate">
+                                <el-row class="addTop">
+                                    <el-col :offset="1" :span="12">
+                                        <el-date-picker end-placeholder="结束日期" format="yyyy年MM月dd日" range-separator="-"
+                                                        start-placeholder="开始日期" style="width:50%" type="daterange"
+                                                        v-model="rebate_findByDate"
+                                                        value-format="yyyy-MM-dd"></el-date-picker>
+                                        <el-button @click="Rebate_clickDateButton(rebate_findByDate)"
+                                                   icon="el-icon-search">查询
+                                        </el-button>
+                                    </el-col>
+                                    <el-col :offset="1" :span="9">
+                                        <el-input class="input-with-select" placeholder="请输入内容" v-model="rebate_input">
+                                            <el-select placeholder="请选择" slot="prepend" v-model="rebate_select">
+                                                <el-option label="近三月记录" value="all"></el-option>
+                                                <el-option label="消费记录编号" value="consume"></el-option>
+                                                <el-option label="消费者卡编号" value="card"></el-option>
+                                                <el-option label="获利者卡编号" value="referrerCard"></el-option>
+                                            </el-select>
+                                            <el-button @click="Rebate_clickSelectButton(rebate_select,rebate_input)"
+                                                       icon="el-icon-search" slot="append">查询
+                                            </el-button>
+                                        </el-input>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :offset="1" :span="22">
+                                        <el-divider><i class="el-icon-date"></i>&nbsp;返利记录</el-divider>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :offset="1" :span="22">
+                                        <el-table
+                                                :data="rebateDetails.slice((rebate_currentPage-1)*rebate_pagesize,rebate_currentPage*rebate_pagesize)"
+                                                :default-sort="{prop: 'date', order: 'descending'}" border fit
+                                                highlight-current-row
+                                                style="width:100%;  font-size:15px;">
+                                            <el-table-column label="#" sortable type="index"
+                                                             width="50%"></el-table-column>
+                                            <el-table-column label="记录编号" sortable width="115%">
+                                                <template slot-scope="scope">
+                                                    {{idToCode6(scope.row.consumeId)}}
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column label="日期" prop="consumeDate" sortable
+                                                             width="200%"></el-table-column>
+                                            <el-table-column label="返利积分" prop="consumeRebatePrice" sortable
+                                                             width="130%"></el-table-column>
+                                            <el-table-column label="利后积分" prop="consumeRebatePoint" sortable
+                                                             width="130%"></el-table-column>
+                                            <el-table-column label="服务" width="115%">
+                                                <template slot-scope="scope">
+                                                    <el-popover placement="top" trigger="hover" width="200">
+                                                        <el-form>
+                                                            <el-form-item label="服务名称:">{{ scope.row.serviceName }}
+                                                            </el-form-item>
+                                                            <el-form-item label="价格:">{{ scope.row.servicePrice }}
+                                                            </el-form-item>
+                                                            <el-form-item label="返利折扣:">{{ scope.row.serviceRebate }}
+                                                            </el-form-item>
+                                                        </el-form>
+                                                        <div class="name-wrapper" slot="reference">
+                                                            <el-tag size="medium" type="success">{{
+                                                                idToCode6(scope.row.serviceId)}}
+                                                            </el-tag>
+                                                        </div>
+                                                    </el-popover>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column label="消费者" width="115%">
+                                                <template slot-scope="scope">
+                                                    <el-popover placement="top" trigger="hover" width="250">
+                                                        <el-form>
+                                                            <el-form-item label="姓名:">{{ scope.row.clientName }}
+                                                            </el-form-item>
+                                                            <el-form-item label="性别:">{{ scope.row.clientGender }}
+                                                            </el-form-item>
+                                                            <el-form-item label="年龄:">{{ scope.row.clientAge }}
+                                                            </el-form-item>
+                                                            <el-form-item label="电话:">{{ scope.row.clientPhone }}
+                                                            </el-form-item>
+                                                            <el-form-item label="是否为持有人:">{{
+                                                                holderToShow(scope.row.clientIsHolder) }}
+                                                            </el-form-item>
+                                                        </el-form>
+                                                        <div class="name-wrapper" slot="reference">
+                                                            <el-tag size="medium" type="primary">{{
+                                                                idToCode6(scope.row.clientId)}}
+                                                            </el-tag>
+                                                        </div>
+                                                    </el-popover>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column label="获利者" width="115%">
+                                                <template slot-scope="scope">
+                                                    <el-popover placement="top" trigger="hover" width="250">
+                                                        <el-form>
+                                                            <el-form-item label="姓名:">{{ scope.row.referrerClientName
+                                                                }}
+                                                            </el-form-item>
+                                                            <el-form-item label="性别:">{{ scope.row.referrerClientGender
+                                                                }}
+                                                            </el-form-item>
+                                                            <el-form-item label="年龄:">{{ scope.row.referrerClientAge
+                                                                }}
+                                                            </el-form-item>
+                                                            <el-form-item label="电话:">{{ scope.row.referrerClientPhone
+                                                                }}
+                                                            </el-form-item>
+                                                            <el-form-item label="是否为持有人:">{{
+                                                                holderToShow(scope.row.referrerClientIsHolder) }}
+                                                            </el-form-item>
+                                                        </el-form>
+                                                        <div class="name-wrapper" slot="reference">
+                                                            <el-tag size="medium" type="primary">{{
+                                                                idToCode6(scope.row.referrerClientId)}}
+                                                            </el-tag>
+                                                        </div>
+                                                    </el-popover>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column label="获利会员卡" width="115%">
+                                                <template slot-scope="scope">
+                                                    <el-popover placement="top" trigger="hover" width="200">
+                                                        <el-form>
+                                                            <el-form-item label="推荐人:">{{
+                                                                referrerToShow(scope.row.referrerCardReferrer) }}
+                                                            </el-form-item>
+                                                            <el-form-item label="余额:">{{ scope.row.referrerCardMoney
+                                                                }}
+                                                            </el-form-item>
+                                                            <el-form-item label="积分:">{{ scope.row.referrerCardPoint
+                                                                }}
+                                                            </el-form-item>
+                                                        </el-form>
+                                                        <div class="name-wrapper" slot="reference">
+                                                            <el-tag size="medium" type="info">{{
+                                                                idToCode6(scope.row.referrerCardId)}}
+                                                            </el-tag>
+                                                        </div>
+                                                    </el-popover>
+                                                </template>
+                                            </el-table-column>
+                                        </el-table>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :offset="7" :span="12">
+                                        <el-pagination
+                                                :current-page="rebate_currentPage"
+                                                :page-size="rebate_pagesize"
+                                                :page-sizes="[5, 10, 15, 20]"
+                                                :total="rebate_totalCount"
+                                                @current-change="rebate_handleCurrentChange"
+                                                @size-change="rebate_handleSizeChange"
+                                                layout="total, sizes, prev, pager, next, jumper">
+                                        </el-pagination>
+                                    </el-col>
+                                </el-row>
+                            </el-tab-pane>
+
+
+                            <!--充值记录-->
+                            <el-tab-pane label="充值记录" name="recharge">
+                                <el-row class="addTop">
+                                    <el-col :offset="1" :span="12">
+                                        <el-date-picker end-placeholder="结束日期" format="yyyy年MM月dd日" range-separator="-"
+                                                        start-placeholder="开始日期" style="width:50%" type="daterange"
+                                                        v-model="recharge_findByDate"
+                                                        value-format="yyyy-MM-dd"></el-date-picker>
+                                        <el-button @click="Recharge_clickDateButton(recharge_findByDate)"
+                                                   icon="el-icon-search">查询
+                                        </el-button>
+                                    </el-col>
+                                    <el-col :offset="1" :span="9">
+                                        <el-input class="input-with-select" placeholder="请输入内容"
+                                                  v-model="recharge_input">
+                                            <el-select placeholder="请选择" slot="prepend" v-model="recharge_select">
+                                                <el-option label="近三月记录" value="all"></el-option>
+                                                <el-option label="充值记录编号" value="recharge"></el-option>
+                                                <el-option label="会员卡编号" value="card"></el-option>
+                                            </el-select>
+                                            <el-button
+                                                    @click="Recharge_clickSelectButton(recharge_select,recharge_input)"
+                                                    icon="el-icon-search" slot="append">查询
+                                            </el-button>
+                                        </el-input>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :offset="1" :span="22">
+                                        <el-divider><i class="el-icon-date"></i>&nbsp;充值记录</el-divider>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :offset="3" :span="19">
+                                        <el-table
+                                                :data="rechargeDetails.slice((recharge_currentPage-1)*recharge_pagesize,recharge_currentPage*recharge_pagesize)"
+                                                :default-sort="{prop: 'date', order: 'descending'}" border fit
+                                                highlight-current-row
+                                                style="width:100%;  font-size:15px;">
+                                            <el-table-column label="#" sortable type="index"
+                                                             width="50%"></el-table-column>
+                                            <el-table-column label="记录编号" sortable width="115%">
+                                                <template slot-scope="scope">
+                                                    {{idToCode6(scope.row.rechargeId)}}
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column label="日期" prop="rechargeDate" sortable
+                                                             width="200%"></el-table-column>
+                                            <el-table-column label="充值金额" prop="rechargePrice"
+                                                             sortablewidth="115%"></el-table-column>
+                                            <el-table-column label="充值后余额" prop="rechargeMoney" sortable
+                                                             width="140%"></el-table-column>
+                                            <el-table-column label="会员卡编号" width="115%">
+                                                <template slot-scope="scope">
+                                                    <el-popover placement="top" trigger="hover" width="200">
+                                                        <el-form>
+                                                            <el-form-item label="推荐人:">{{
+                                                                referrerToShow(scope.row.card_referrer) }}
+                                                            </el-form-item>
+                                                            <el-form-item label="余额:">{{ scope.row.cardMoney }}
+                                                            </el-form-item>
+                                                            <el-form-item label="积分:">{{ scope.row.cardPoint }}
+                                                            </el-form-item>
+                                                        </el-form>
+                                                        <div class="name-wrapper" slot="reference">
+                                                            <el-tag size="medium" type="info">{{
+                                                                idToCode6(scope.row.cardId)}}
+                                                            </el-tag>
+                                                        </div>
+                                                    </el-popover>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column label="操作" width="100px">
+                                                <template slot-scope="scope">
+                                                    <el-button @click="Recharge_clickCancelButton(scope.row.rechargeId)"
+                                                               icon="delete" size="small" type="danger">撤销
+                                                    </el-button>
+                                                </template>
+                                            </el-table-column>
+                                        </el-table>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :offset="7" :span="12">
+                                        <el-pagination
+                                                :current-page="recharge_currentPage"
+                                                :page-size="recharge_pagesize"
+                                                :page-sizes="[5, 10, 15, 20]"
+                                                :total="recharge_totalCount"
+                                                @current-change="recharge_handleCurrentChange"
+                                                @size-change="recharge_handleSizeChange"
+                                                layout="total, sizes, prev, pager, next, jumper">
+                                        </el-pagination>
+                                    </el-col>
+                                </el-row>
+                            </el-tab-pane>
+
+
+                            <!--成本记录-->
+                            <el-tab-pane label="成本记录" name="cost">
+                                <el-row class="addTop">
+                                    <el-col :offset="1" :span="12">
+                                        <el-date-picker end-placeholder="结束日期" format="yyyy年MM月dd日" range-separator="-"
+                                                        start-placeholder="开始日期" style="width:50%" type="daterange"
+                                                        v-model="cost_findByDate"
+                                                        value-format="yyyy-MM-dd"></el-date-picker>
+                                        <el-button @click="Cost_clickDateButton(cost_findByDate)" icon="el-icon-search">
+                                            查询
+                                        </el-button>
+                                    </el-col>
+                                    <el-col :offset="7" :span="2">
+                                        <el-button @click="clickAddButton()" round type="primary">新增成本</el-button>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :offset="1" :span="22">
+                                        <el-divider><i class="el-icon-date"></i>&nbsp;成本记录</el-divider>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :offset="5" :span="14">
+                                        <el-table
+                                                :data="costDetails.slice((cost_currentPage-1)*cost_pagesize,cost_currentPage*cost_pagesize)"
+                                                :default-sort="{prop: 'date', order: 'descending'}" border fit
+                                                highlight-current-row
+                                                style="width:100%;  font-size:15px;">
+                                            <el-table-column label="#" type="index" width="75px"></el-table-column>
+                                            <el-table-column label="日期" prop="costDate" sortable
+                                                             width="170%"></el-table-column>
+                                            <el-table-column label="成本" prop="costMoney" sortable></el-table-column>
+                                            <el-table-column label="操作" width="200px">
+                                                <template slot-scope="scope">
+                                                    <el-button @click="clickEditButton(scope.row)" icon="edit"
+                                                               size="medium" type="warning">修改
+                                                    </el-button>
+                                                    <el-button @click="Cost_clickDeleteButton(scope.row.costId)"
+                                                               icon="delete" size="medium" type="danger">删除
+                                                    </el-button>
+                                                </template>
+                                            </el-table-column>
+                                        </el-table>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :offset="7" :span="12">
+                                        <el-pagination
+                                                :current-page="cost_currentPage"
+                                                :page-size="cost_pagesize"
+                                                :page-sizes="[5, 10, 15, 20]"
+                                                :total="cost_totalCount"
+                                                @current-change="cost_handleCurrentChange"
+                                                @size-change="cost_handleSizeChange"
+                                                layout="total, sizes, prev, pager, next, jumper">
+                                        </el-pagination>
+                                    </el-col>
+                                </el-row>
+                            </el-tab-pane>
+                        </el-tabs>
+                    </el-col>
+                </el-row>
+            </section>
+
+            <!-- Page Footer-->
+            <footer class="main-footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p>Your company &copy; 2019-2020</p>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <p>Design by Three Boys from HIT &nbsp;&nbsp;<a href="#"
+                                                                            title="贺明QQ：957039243； 贾少杰QQ：1710951735； 刘猛QQ：2921978909。">联系我们</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+            <el-dialog :visible.sync="showDialogFormVisible_1" title="消费记录" width="50%">
+                <el-row>
+                    <el-col :offset="1" :span="10">
+                        <el-form :model="consumeDetail" label-position="left" label-width="70px">
+                            <el-form-item label="消费日期">
+                                <el-input :disabled="true" v-model="consumeDetail.consumeDate"></el-input>
+                            </el-form-item>
+                            <el-form-item label="应付金额">
+                                <el-input :disabled="true" v-model="consumeDetail.consumePrice"></el-input>
+                            </el-form-item>
+                            <el-form-item label="抵扣积分">
+                                <el-input :disabled="true" v-model="consumeDetail.consumeDeduct"></el-input>
+                            </el-form-item>
+                            <el-form-item label="实付金额">
+                                <el-input :disabled="true"
+                                          v-model="consumeDetail.consumePrice - consumeDetail.consumeDeduct"></el-input>
+                            </el-form-item>
+                            <el-form-item label="余额">
+                                <el-input :disabled="true" v-model="consumeDetail.consumeMoney"></el-input>
+                            </el-form-item>
+                            <el-form-item label="积分">
+                                <el-input :disabled="true" v-model="consumeDetail.consumePoint"></el-input>
+                            </el-form-item>
+                        </el-form>
+                    </el-col>
+                    <el-col :offset="1" :span="11">
+                        <el-form :model="consumeDetail" label-position="left" label-width="85px">
+                            <el-form-item label="服务编号">
+                                <el-input :disabled="true" v-model="consumeDetail.serviceCode"></el-input>
+                            </el-form-item>
+                            <el-form-item label="服务名称">
+                                <el-input :disabled="true" v-model="consumeDetail.serviceName"></el-input>
+                            </el-form-item>
+                            <el-form-item label="员工姓名">
+                                <el-input :disabled="true" v-model="consumeDetail.staffName"></el-input>
+                            </el-form-item>
+                            <el-form-item label="会员卡编号">
+                                <el-input :disabled="true" v-model="consumeDetail.cardCode"></el-input>
+                            </el-form-item>
+                            <el-form-item label="客户编号">
+                                <el-input :disabled="true" v-model="consumeDetail.clientCode"></el-input>
+                            </el-form-item>
+                            <el-form-item label="客户姓名">
+                                <el-input :disabled="true" v-model="consumeDetail.clientName"></el-input>
+                            </el-form-item>
+                        </el-form>
+                    </el-col>
+                </el-row>
+            </el-dialog>
+            <!--充值记录-显示-->
+            <el-dialog :visible.sync="showDialogFormVisible_2" title="充值记录" width="30%">
+                <el-form :model="rechargeDetail">
+                    <el-form-item label="充值日期">
+                        <el-input :disabled="true" v-model="rechargeDetail.rechargeDate"></el-input>
+                    </el-form-item>
+                    <el-form-item label="充值金额">
+                        <el-input :disabled="true" v-model="rechargeDetail.rechargePrice"></el-input>
+                    </el-form-item>
+                    <el-form-item label="充值后余额">
+                        <el-input :disabled="true" v-model="rechargeDetail.rechargeMoney"></el-input>
+                    </el-form-item>
+                    <el-form-item label="会员卡编号">
+                        <el-input :disabled="true" v-model="rechargeDetail.cardCode"></el-input>
+                    </el-form-item>
+                </el-form>
+            </el-dialog>
+            <!--返利记录-显示-->
+            <el-dialog :visible.sync="showDialogFormVisible_3" title="返利记录" width="50%">
+                <el-row>
+                    <el-col :offset="1" :span="10">
+                        <el-form :model="rebateDetail" label-position="left" label-width="70px">
+                            <el-form-item label="返利日期">
+                                <el-input :disabled="true" v-model="rebateDetail.consumeDate"></el-input>
+                            </el-form-item>
+                            <el-form-item label="返利积分">
+                                <el-input :disabled="true" v-model="rebateDetail.consumeRebatePrice"></el-input>
+                            </el-form-item>
+                            <el-form-item label="利后积分">
+                                <el-input :disabled="true" v-model="rebateDetail.consumeRebatePoint"></el-input>
+                            </el-form-item>
+                            <el-form-item label="服务编号">
+                                <el-input :disabled="true" v-model="rebateDetail.serviceCode"></el-input>
+                            </el-form-item>
+                            <el-form-item label="服务名称">
+                                <el-input :disabled="true" v-model="rebateDetail.serviceName"></el-input>
+                            </el-form-item>
+                        </el-form>
+                    </el-col>
+                    <el-col :offset="1" :span="11">
+                        <el-form :model="rebateDetail" label-position="left" label-width="85px">
+                            <el-form-item label="消费者编号">
+                                <el-input :disabled="true" v-model="rebateDetail.clientCode"></el-input>
+                            </el-form-item>
+                            <el-form-item label="消费者姓名">
+                                <el-input :disabled="true" v-model="rebateDetail.clientName"></el-input>
+                            </el-form-item>
+                            <el-form-item label="获利者编号">
+                                <el-input :disabled="true" v-model="rebateDetail.referrerClientCode"></el-input>
+                            </el-form-item>
+                            <el-form-item label="获利者姓名">
+                                <el-input :disabled="true" v-model="rebateDetail.referrerClientName"></el-input>
+                            </el-form-item>
+                            <el-form-item label="获利会员卡">
+                                <el-input :disabled="true" v-model="rebateDetail.referrerCardCode"></el-input>
+                            </el-form-item>
+                        </el-form>
+                    </el-col>
+                </el-row>
+            </el-dialog>
+            <!--成本记录-新增-->
+            <el-dialog :visible.sync="addDialogFormVisible" title="新增成本" width="30%">
+                <el-form :model="costDetail" :rules="rules" label-position="top" ref="addForm">
+                    <el-form-item label="日期">
+                        <el-date-picker format="yyyy 年 MM 月 dd 日" placeholder="选择日期 " type="date"
+                                        v-model="costDetail.costDate" value-format="yyyy-MM-dd"></el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="成本" prop="costMoney">
+                        <el-input auto-complete="off" v-model="costDetail.costMoney"></el-input>
+                    </el-form-item>
+                </el-form>
+                <div class="dialog-footer" slot="footer">
+                    <el-button @click="resetAddForm('addForm')" icon="close">取 消</el-button>
+                    <el-button @click="addForm('addForm')" icon="edit" type="primary">确定</el-button>
+                </div>
+            </el-dialog>
+            <!--成本记录-修改-->
+            <el-dialog :visible.sync="editDialogFormVisible" title="修改成本" width="30%">
+                <el-form :model="costDetail" :rules="rules" ref="editForm">
+                    <el-form-item label="成本" prop="costMoney">
+                        <el-input auto-complete="off" v-model="costDetail.costMoney"></el-input>
+                    </el-form-item>
+                </el-form>
+                <div class="dialog-footer" slot="footer">
+                    <el-button @click="resetEditForm('editForm')" icon="close">取 消</el-button>
+                    <el-button @click="editForm('editForm')" icon="edit" type="primary">确定</el-button>
+                </div>
+            </el-dialog>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

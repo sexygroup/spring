@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="index,follow" name="robots">
+
+    <title>work</title>
+
+    <!-- Bootstrap CSS-->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS-->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Icon fontastic CSS-->
+    <link href="icons-reference/styles.css" rel="stylesheet">
+    <!-- Favicon Icon-->
+    <link href="img/favicon.ico" rel="shortcut icon">
+    <!-- Element-ui CSS-->
+    <link href="vendor/element-ui/index.css" rel="stylesheet">
+    <!-- Theme stylesheet-->
+    <link href="css/style.default.css" rel="stylesheet">
+
+    <!-- Vue JS-->
+    <script src="vendor/vue/vue.js"></script>
+    <!-- Element-ui JS-->
+    <script src="vendor/element-ui/index.js"></script>
+    <!-- Axios JS-->
+    <script src="vendor/axios/axios.min.js"></script>
+    <!-- Lodash JS-->
+    <script src="vendor/lodash/lodash.js"></script>
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+<!-- 布局：  page-> "Main Navbar"													  					  		-->
+<!--          -> "page content"-> "Side Navbar" 									  		-->
+<!--                           -> "Page"-> "Page Header"               	-->
+<!--                                    -> "Page Section" 							-->
+<!--                                    -> "Page Footer"           			-->
+<!--    	Dialog对话框 																		          			-->
+<div class="page" id="app">
+    <!-- Main Navbar-->
+    <header>
+        <nav class="navbar">
+            <div class="container-fluid">
+                <div class="navbar-holder d-flex align-items-center justify-content-between">
+                    <!-- Navbar Header-->
+                    <div class="navbar-header">
+                        <!-- Navbar Brand -->
+                        <a class="navbar-brand d-none d-sm-inline-block" href="work.html">
+                            <div class="brand-text d-none d-lg-inline-block">
+                                <span>Spring<strong>&nbsp;春天造型</strong></span></div>
+                            <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div>
+                            <!--Update：收藏网站时显示在前面的图标。-->
+                        </a>
+                    </div>
+                    <!-- Navbar Logout -->
+                    <ul class="nav-logout list-unstyled d-flex flex-md-row align-items-md-center">
+                        <li class="nav-item">
+                            <a @click="exit()" class="nav-link logout" href="#"> <span
+                                    class="d-none d-sm-inline">退出系统</span><i class="fa fa-sign-out"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- page content-->
+    <div class="page-content d-flex align-items-stretch">
+        <!-- Side Navbar -->
+        <nav class="side-navbar">
+            <!-- Sidebar Header-->
+            <div class="sidebar-header d-flex align-items-center"></div>
+            <!-- Sidebar Navidation Menus-->
+            <el-menu :unique-opened="true" active-text-color="#ffd04b" background-color="#545c64" default-active="1-1"
+                     text-color="#ffffff">
+                <el-submenu index="1">
+                    <template slot="title">
+                        <i class="el-icon-s-home"></i>
+                        <span>工作模块</span>
+                    </template>
+                    <el-menu-item @click="select_one()" index="1-1"><i class="el-icon-shopping-cart-2"></i>收银模块
+                    </el-menu-item>
+                    <el-menu-item @click="select_two()" index="1-2"><i class="el-icon-s-finance"></i>办卡模块</el-menu-item>
+                </el-submenu>
+
+            </el-menu>
+        </nav>
+
+        <!-- Page -->
+        <div class="content-inner">
+            <!-- Page Header-->
+            <header class="page-header">
+                <div class="container-fluid">
+                    <h1 class="no-margin-bottom">工作模块</h1>
+                </div>
+            </header>
+
+
+            <!-- Works Section-->
+            <section class="forms ">
+                <div class="container-fluid">
+                    <div class="row " draggable="true">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header d-flex align-items-center">
+                                    <h3 class="h4">账户信息</h3>
+
+                                    <span style="position:absolute; right:2%;">
+                                                    <el-switch
+                                                            active-color="#A9A9A9"
+                                                            inactive-color="#696969"
+                                                            v-model="flagshowwork"
+                                                    ></el-switch>
+                                                </span>
+
+                                </div>
+                                <div class="card-body" id="work">
+                                    <form>
+                                        <div class="form-group row">
+                                            <div class="col-sm-12">
+                                                <label class="form-control-label">卡号：</label>
+                                                <el-input
+                                                        clearable
+                                                        placeholder="请输入卡号或电话号"
+                                                        prefix-icon="el-icon-search"
+                                                        style="width:60%"
+                                                        type="number"
+                                                        v-model="cardCode"
+                                                >
+                                                </el-input>
+                                                <el-button @click="check()">查询</el-button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="form-control-label">余额：</label>
+                                                        <div>
+                                                            <el-input
+                                                                    :disabled="true"
+                                                                    style="width:40%"
+                                                                    v-model="card.cardMoney">
+                                                            </el-input>
+
+
+                                                            <el-button :disabled='load'
+                                                                       @click="dialogFormVisibleRecharge = true">
+                                                                充值
+                                                            </el-button>
+
+
+                                                            <el-dialog :visible.sync="dialogFormVisibleRecharge"
+                                                                       title="输入充值金额"
+
+                                                            >
+                                                                <el-input
+                                                                        onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')"
+                                                                        placeholder="请输入充值金额" v-model="rechargePrice">
+                                                                    充值金额
+                                                                </el-input>
+                                                                <div class="dialog-footer" slot="footer">
+                                                                    <el-button
+                                                                            @click="dialogFormVisibleRecharge = false">
+                                                                        取 消
+                                                                    </el-button>
+                                                                    <el-button
+                                                                            @click="dialogFormVisibleRecharge = false,recharge()"
+                                                                            type="primary">
+                                                                        确 定
+                                                                    </el-button>
+                                                                </div>
+                                                            </el-dialog>
+
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <label class="form-control-label">积分：</label>
+                                                        <div>
+                                                            <el-input
+                                                                    :disabled="true"
+                                                                    style="width:40%"
+                                                                    v-model="card.cardPoint">
+                                                            </el-input>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </form>
+                                </div>
+
+
+                                <div class="card-body" id="work1">
+                                    <form class="form-horizontal">
+                                        <div class="form-group row">
+
+
+                                            <div class="col-sm-6">
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <div>
+
+                                                                <label>消费项目：</label>
+                                                                <el-select :disabled="load"
+                                                                           v-model="services[index].name">
+                                                                    <el-option
+                                                                            :key="item.serviceId"
+                                                                            :value="item.serviceName"
+                                                                            v-for="item,index in services"
+                                                                    >
+                                                                        <a @click="setservice(item,index);"
+                                                                           style="width:100%">{{item.serviceName}}</a>
+                                                                    </el-option>
+                                                                </el-select>
+
+
+                                                                <label>服务人员：</label>
+                                                                <el-select :disabled="load"
+                                                                           v-model="staff.staffName">
+                                                                    <el-option
+                                                                            :key="item.staffId"
+                                                                            :value="item.staffName"
+                                                                            v-for="item in staffs"
+                                                                    >
+                                                                        <a @click="setStaff(item);"
+                                                                           style="width:100%">
+                                                                            {{item.staffName}}</a>
+                                                                    </el-option>
+                                                                </el-select>
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                                <table class="table">
+                                                    <tr v-if="servicechosedshow.length!=0">
+                                                        <th>服务ID</th>
+                                                        <th>服务名称</th>
+                                                        <th>价格(元)</th>
+                                                        <th>操作</th>
+                                                    </tr>
+
+                                                    <tr v-for="item,index in servicechosedshow">
+                                                        <td>{{item.serviceId}}</td>
+                                                        <td>{{item.serviceName}}</td>
+                                                        <td>{{item.servicePrice}}</td>
+                                                        <td>
+                                                            <el-button @click="deleteService(item,index)"
+                                                                       type="button">删除
+                                                            </el-button>
+                                                        </td>
+
+                                                    </tr>
+
+                                                </table>
+
+                                                <div>
+                                                    <label>请输入抵扣金额(元)：</label>
+                                                    <el-input :disabled="load"
+                                                              placeholder="请输入抵扣金额"
+                                                              type="number"
+                                                              v-model="totalDeduct"></el-input>
+
+
+                                                    <div><label>总计(元)：</label>
+                                                        <el-input :disabled="true"
+                                                                  v-model="totalmoney"></el-input>
+
+
+                                                        <label>上传图片：</label>
+
+                                                        <el-button @click="dialogFormVisibleQRCode = true"
+                                                        >（手机上传请点击）
+                                                        </el-button>
+
+                                                        <el-dialog :visible.sync="dialogFormVisibleQRCode"
+                                                                   title="二维码预览"
+                                                        >
+                                                            <el-image :src="myurl1"
+                                                                      style="width: 50%; height: 50%"
+                                                            ></el-image>
+
+                                                        </el-dialog>
+
+                                                        <el-upload
+                                                                :auto-upload="false"
+                                                                :disabled="load"
+                                                                :file-list="files"
+                                                                :on-change="fileChange"
+                                                                :on-preview="handlePictureCardPreview"
+                                                                :on-remove="handleRemove"
+                                                                accept="image/jpeg, image/png"
+                                                                action="#"
+                                                                list-type="picture-card">
+                                                            <i class="el-icon-plus"> </i>
+                                                        </el-upload>
+
+
+                                                        <div v-for="item,index in files">
+                                                            {{'评论'+(index+1)+':'}}
+                                                            <el-input :rows="2" type="textarea"
+                                                                      v-model="comments[index]"></el-input>
+                                                        </div>
+
+                                                        <el-dialog :visible.sync="dialogVisible">
+                                                            <el-image :src="dialogImageUrl" width="100%"></el-image>
+
+                                                        </el-dialog>
+
+
+                                                        <el-button :disabled='load'
+                                                                   @click="checkdeal()">支付
+                                                        </el-button>
+
+                                                        <el-dialog :visible.sync="dialogFormVisiblePassword"
+                                                                   title="确认密码">
+                                                            <el-input :show-password=true
+                                                                      type="password" v-model="password"></el-input>
+                                                            <div class="dialog-footer" slot="footer">
+                                                                <el-button
+                                                                        @click="dialogFormVisiblePassword = false">
+                                                                    取 消
+                                                                </el-button>
+                                                                <el-button
+                                                                        @click="dialogFormVisiblePassword = false,deal()"
+                                                                        type="primary">
+                                                                    确 定
+                                                                </el-button>
+                                                            </div>
+                                                        </el-dialog>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6" v-if="clients.length!='0'">
+                                                <label class="form-control-label"
+                                                       v-if="clients.length!='0'">用户列表：</label>
+                                                <el-select :disabled="load" v-if="clients.length!='0'"
+                                                           v-model="client.clientName">
+                                                    <el-option
+                                                            :key="item.clientId"
+                                                            :value="item.clientName"
+                                                            v-for="item in clients"
+                                                    >
+                                                        <a @click="setClient(item)"
+                                                           style="width:100%">{{item.clientName}}</a>
+                                                    </el-option>
+                                                </el-select>
+
+                                                <el-button @click="clientVisible=true" type="primary">添加用户</el-button>
+
+
+                                                <el-dialog :visible.sync="clientVisible" title="添加用户">
+                                                    <el-form :model="clientForm" :rules="rules" label-width="150px"
+                                                             ref="editForm">
+                                                        <el-form-item label="客户姓名" prop="clientName">
+                                                            <el-col :span="12">
+                                                                <el-input auto-complete="off"
+                                                                          v-model="clientForm.clientName"></el-input>
+                                                            </el-col>
+                                                        </el-form-item>
+                                                        <el-form-item label="客户电话" prop="clientPhone">
+                                                            <el-col :span="12">
+                                                                <el-input
+                                                                        auto-complete="off"
+                                                                        v-model="clientForm.clientPhone"></el-input>
+                                                            </el-col>
+                                                        </el-form-item>
+
+                                                        <el-form-item label="性别" prop="clientGender">
+                                                            <el-select v-model="clientForm.clientGender">
+                                                                <el-option :key="item.index" :value="item"
+                                                                           v-for="item in gender">
+                                                                    <a @click="setgender(item)" style="width:100%">{{item}}</a>
+                                                                </el-option>
+                                                            </el-select>
+                                                        </el-form-item>
+
+                                                        <el-form-item label="年龄段" prop="clientAge">
+                                                            <el-select v-model="clientForm.clientAge">
+                                                                <el-option :key="item.index" :value="item"
+                                                                           v-for="item in ages">
+                                                                    <a @click="setage(item)"
+                                                                       style="width:100%">{{item}}</a>
+                                                                </el-option>
+                                                            </el-select>
+                                                        </el-form-item>
+
+
+                                                    </el-form>
+                                                    <div class="dialog-footer" slot="footer">
+                                                        <el-button @click="addclient('editForm')" icon="edit"
+                                                                   type="primary">确认
+                                                        </el-button>
+                                                        <el-button @click="resetclient()" icon="close">取 消
+                                                        </el-button>
+                                                    </div>
+                                                </el-dialog>
+
+                                                <div class="daily-feeds card">
+                                                    <div class="card-body no-padding">
+                                                        <!-- 头像列表-->
+                                                        <div class="item" v-for="item in clients">
+
+                                                            <div class="feed d-flex justify-content-between">
+                                                                <div class="feed-body d-flex justify-content-between">
+                                                                    <input :value="item.clientId"
+                                                                           @click="setClient(item)"
+                                                                           name="info"
+                                                                           type="radio"
+                                                                           v-model="client.clientId"/>
+                                                                    <a @click="dialogFormVisibleImage = true,setImage(item)"
+                                                                       class="feed-profile">
+                                                                        <el-image :src="myurl+item.imageName"
+                                                                                  style="width: 100%; height: 100%"
+                                                                        ></el-image>
+                                                                    </a>
+                                                                    <div class="content">
+                                                                        <h5>姓名：{{item.clientName}}</h5><span>性别：{{item.clientGender}} </span>
+                                                                        <div class="full-date">
+                                                                            电话：{{item.clientPhone}}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <el-dialog :visible.sync="dialogFormVisibleImage"
+                                                                           title="图片预览"
+                                                                >
+                                                                    <el-image :src="myurl+selectImage.imageName"
+                                                                              style="width: 100%; height: 100%"
+                                                                    ></el-image>
+
+                                                                    <span>评论</span>
+                                                                    <el-input
+                                                                            :disabled=true
+                                                                            :rows="2"
+                                                                            type="textarea"
+                                                                            v-model="selectImage.imageComment"></el-input>
+
+                                                                </el-dialog>
+
+
+                                                                <div>
+                                                                    <el-button @click="deleteclient(item)"><h5>
+                                                                        删除</h5>
+                                                                    </el-button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </lable>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-sm-12">
+
+                                            </div>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row " draggable="true">
+                            <div class="col-lg-7">
+                                <div class="card">
+                                    <div class="card-header d-flex align-items-center">
+                                        <h3 class="h4">交易记录</h3>
+                                        <span style="position:absolute; right:2%;">
+                                                    <el-switch
+                                                            active-color="#A9A9A9"
+                                                            inactive-color="#696969"
+                                                            v-model="flagshowconsume"
+                                                    ></el-switch>
+                                                </span>
+
+                                    </div>
+                                    <div class="card-body" id="consume">
+                                        <form class="form-horizontal">
+                                            <div class="form-group row">
+
+                                                <div class="col-sm-12">
+
+                                                    <el-table
+                                                            :data="consumes.slice((currentPage1-1)*pagesize1,currentPage1*pagesize1)"
+                                                            :default-sort="{prop: 'consumeDate', order: 'descending'}"
+                                                            style="width: 100%"
+                                                    >
+                                                        <el-table-column
+                                                                label="日期"
+                                                                prop="consumeDate"
+                                                                sortable
+                                                                width="170%">
+                                                        </el-table-column>
+                                                        <el-table-column
+                                                                label="姓名"
+                                                                prop="clientName"
+                                                                width="100%">
+
+                                                        </el-table-column>
+                                                        <el-table-column
+                                                                label="消费项目"
+                                                                prop="serviceName"
+                                                        >
+                                                        </el-table-column>
+                                                        <el-table-column
+                                                                label="服务人员"
+                                                                prop="staffName"
+                                                        >
+                                                        </el-table-column>
+                                                        <el-table-column
+                                                                label="项目金额(元)"
+                                                                prop="consumePrice"
+                                                        >
+                                                        </el-table-column>
+
+                                                        <el-table-column
+                                                                label="抵扣金额(元)"
+                                                                prop="consumeDeduct"
+                                                        >
+                                                        </el-table-column>
+                                                        <el-table-column
+                                                                label="账户余额(元)"
+                                                                prop="consumeMoney"
+                                                        >
+                                                        </el-table-column>
+                                                    </el-table>
+
+                                                    <el-pagination
+                                                            :current-page="currentPage1"
+                                                            :page-size="pagesize1"
+                                                            :page-sizes="[4, 8, 12, 16]"
+                                                            :total="consumes.length"
+                                                            @current-change="handleCurrentChange1"
+                                                            @size-change="handleSizeChange1"
+                                                            layout="total, sizes, prev, pager, next, jumper">
+                                                    </el-pagination>
+
+
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-5">
+                                <div class="card">
+                                    <div class="card-header d-flex align-items-center">
+                                        <h3 class="h4">充值记录</h3>
+                                        <span style="position:absolute; right:2%;">
+                                                    <el-switch
+                                                            active-color="#A9A9A9"
+                                                            inactive-color="#696969"
+                                                            v-model="flagshowrecharge"
+                                                    ></el-switch>
+                                                </span>
+                                    </div>
+
+                                    <div class="card-body" id="recharge">
+                                        <form class="form-horizontal">
+                                            <div class="form-group row">
+
+                                                <div class="col-sm-12">
+                                                    <template>
+                                                        <el-table
+                                                                :data="recharges.slice((currentPage2-1)*pagesize2,currentPage2*pagesize2)"
+                                                                :default-sort="{prop: 'rechargeDate', order: 'descending'}"
+                                                                style="width: 100%"
+                                                        >
+                                                            <el-table-column
+                                                                    label="日期"
+                                                                    prop="rechargeDate"
+                                                                    sortable
+                                                                    width="170%">
+                                                            </el-table-column>
+
+                                                            <el-table-column
+                                                                    label="充值金额(元)"
+                                                                    prop="rechargePrice"
+
+                                                            >
+                                                            </el-table-column>
+                                                            <el-table-column
+                                                                    label="账户余额(元)"
+                                                                    prop="rechargeMoney"
+                                                            >
+                                                            </el-table-column>
+                                                        </el-table>
+
+
+                                                        <el-pagination
+                                                                :current-page="currentPage2"
+                                                                :page-size="pagesize2"
+                                                                :page-sizes="[4, 8, 12, 16]"
+                                                                :total="recharges.length"
+                                                                @current-change="handleCurrentChange2"
+                                                                @size-change="handleSizeChange2"
+                                                                layout="total, sizes, prev, pager, next, jumper">
+                                                        </el-pagination>
+
+
+                                                    </template>
+                                                </div>
+                                            </div>
+
+                                        </form>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Page Footer-->
+            <footer class="main-footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p>Your company &copy; 2019-2020</p>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <p>Design by Three Boys from HIT &nbsp;&nbsp;<a href="#"
+                                                                            title="贺明QQ：957039243； 贾少杰QQ：1710951735； 刘猛QQ：2921978909。">联系我们</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<script src="js/html-js/staff_work.js">
+
+</script>
+
+</body>
+</html>

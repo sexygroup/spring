@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="index,follow" name="robots">
+
+    <title>set</title>
+
+    <!-- Bootstrap CSS-->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS-->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Icon fontastic CSS-->
+    <link href="icons-reference/styles.css" rel="stylesheet">
+    <!-- Favicon Icon-->
+    <link href="img/favicon.ico" rel="shortcut icon">
+    <!-- Element-ui CSS-->
+    <link href="vendor/element-ui/index.css" rel="stylesheet">
+    <!-- Theme stylesheet-->
+    <link href="css/style.default.css" rel="stylesheet">
+
+    <!-- Vue JS-->
+    <script src="vendor/vue/vue.js"></script>
+    <!-- Element-ui JS-->
+    <script src="vendor/element-ui/index.js"></script>
+    <!-- Axios JS-->
+    <script src="vendor/axios/axios.min.js"></script>
+    <!-- Lodash JS-->
+    <script src="vendor/lodash/lodash.js"></script>
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<!-- 布局：  page-> "Main Navbar"													  					  		-->
+<!--          -> "page content"-> "Side Navbar" 									  		-->
+<!--                           -> "Page"-> "Page Header"               	-->
+<!--                                    -> "Page Section" 							-->
+<!--                                    -> "Page Footer"           			-->
+<!--    	Dialog对话框 																		          			-->
+<div class="page" id="app">
+    <!-- Main Navbar-->
+    <header>
+        <nav class="navbar">
+            <div class="container-fluid">
+                <div class="navbar-holder d-flex align-items-center justify-content-between">
+                    <!-- Navbar Header-->
+                    <div class="navbar-header">
+                        <!-- Navbar Brand -->
+                        <a class="navbar-brand d-none d-sm-inline-block" href="work.html">
+                            <div class="brand-text d-none d-lg-inline-block">
+                                <span>Spring<strong>&nbsp;春天造型</strong></span></div>
+                            <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div>
+                            <!--Update：收藏网站时显示在前面的图标。-->
+                        </a>
+                    </div>
+                    <!-- Navbar Logout -->
+                    <ul class="nav-logout list-unstyled d-flex flex-md-row align-items-md-center">
+                        <li class="nav-item">
+                            <a @click="exit()" class="nav-link logout" href="#"> <span
+                                    class="d-none d-sm-inline">退出系统</span><i class="fa fa-sign-out"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- page content-->
+    <div class="page-content d-flex align-items-stretch">
+        <!-- Side Navbar -->
+        <nav class="side-navbar">
+            <!-- Sidebar Header-->
+            <div class="sidebar-header d-flex align-items-center"></div>
+            <!-- Sidebar Navidation Menus-->
+            <el-menu :unique-opened="true" active-text-color="#ffd04b" background-color="#545c64" default-active="2-4"
+                     text-color="#ffffff">
+                <el-submenu index="1">
+                    <template slot="title">
+                        <i class="el-icon-s-home"></i>
+                        <span>工作模块</span>
+                    </template>
+                    <el-menu-item @click="select_one()" index="1-1"><i class="el-icon-shopping-cart-2"></i>收银模块
+                    </el-menu-item>
+                    <el-menu-item @click="select_two()" index="1-2"><i class="el-icon-s-finance"></i>办卡模块</el-menu-item>
+                </el-submenu>
+                <el-submenu index="2">
+                    <template slot="title">
+                        <i class="el-icon-menu"></i>
+                        <span>信息模块</span>
+                    </template>
+                    <el-menu-item @click="select_three()" index="2-1"><i class="el-icon-s-finance"></i>会员卡管理
+                    </el-menu-item>
+                    <el-menu-item @click="select_four()" index="2-2"><i class="el-icon-user-solid"></i>消费者管理
+                    </el-menu-item>
+                    <el-menu-item @click="select_five()" index="2-3"><i class="el-icon-picture"></i>照片管理</el-menu-item>
+                    <el-menu-item @click="select_six()" index="2-4"><i class="el-icon-user-solid"></i>员工管理
+                    </el-menu-item>
+                </el-submenu>
+                <el-submenu index="3">
+                    <template slot="title">
+                        <i class="el-icon-s-claim"></i>
+                        <span>营业模块</span>
+                    </template>
+                    <el-menu-item-group title="营业分析">
+                        <el-menu-item @click="select_seven()" index="3-1"><i class="el-icon-s-marketing"></i>消费分析
+                        </el-menu-item>
+                        <el-menu-item @click="select_eight()" index="3-2"><i class="el-icon-s-marketing"></i>返利分析
+                        </el-menu-item>
+                        <el-menu-item @click="select_nine()" index="3-3"><i class="el-icon-s-marketing"></i>充值分析
+                        </el-menu-item>
+                        <el-menu-item @click="select_ten()" index="3-4"><i class="el-icon-s-marketing"></i>成本分析
+                        </el-menu-item>
+                    </el-menu-item-group>
+                    <el-menu-item-group title="营业记录">
+                        <el-menu-item @click="select_eleven()" index="3-5"><i class="el-icon-s-order"></i>营业记录
+                        </el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
+                <el-menu-item @click="select_twelve()" index="4">
+                    <i class="el-icon-s-tools"></i>
+                    <span slot="title">系统设置</span>
+                </el-menu-item>
+            </el-menu>
+        </nav>
+
+        <!-- Page -->
+        <div class="content-inner">
+            <!-- Page Header-->
+            <header class="page-header">
+                <div class="container-fluid">
+                    <h1 class="no-margin-bottom">员工管理</h1>
+
+                </div>
+            </header>
+
+            <!--Page Section-->
+            <section>
+                <div class="container-fluid  align-items-center">
+
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header d-flex align-items-center">
+                                    <h2 class="h2">员工信息（共有{{leng}}个员工）</h2>
+                                    <el-button @click="addVisible=true" style="position:absolute; right:10%;"
+                                               type="primary">添加员工
+                                    </el-button>
+                                </div>
+                                <div class="card-body">
+
+                                    <el-row justify="center" type="flex">
+                                        <el-col :span="23">
+                                            <el-table
+                                                    :data="staffs.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+                                                    border fit highlight-current-row
+                                                    style="width:100%;  font-size:15px;"
+                                            >
+                                                <el-table-column label="#" sortable
+                                                                 type="index"></el-table-column>
+                                                <el-table-column label="员工编号" min-width="15%">
+                                                    <template slot-scope="scope">
+                                                        <p>{{idToCode6(scope.row.staffId)}}</p>
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column label="姓名" min-width="10%" prop="staffName"
+                                                ></el-table-column>
+                                                <el-table-column label="手机号码" min-width="25%" prop="staffPhone"
+                                                ></el-table-column>
+
+                                                <el-table-column label="操作" min-width="50%">
+                                                    <template slot-scope="scope">
+                                                        <el-button @click="showphone(scope.row)" icon="el-icon-edit"
+                                                                   size="small" type="warning">
+                                                            修改手机号
+                                                        </el-button>
+                                                        <el-button @click="showstaff(scope.row)" icon="el-icon-edit"
+                                                                   size="small" type="warning">修改密码
+                                                        </el-button>
+                                                        <el-button @click="deletestaff(scope.row.staffId)" icon="delete"
+                                                                   size="small"
+                                                                   type="danger">删除
+                                                        </el-button>
+                                                    </template>
+                                                </el-table-column>
+                                            </el-table>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row :gutter="3" justify="center" style="margin: 20px 5px 15px 5px;" type="flex">
+                                        <el-col :span="10">
+                                            <el-pagination
+                                                    :current-page="currentPage"
+                                                    :page-size="pagesize"
+                                                    :page-sizes="[5, 10, 15, 20]"
+                                                    :total="totalCount"
+                                                    @current-change="handleCurrentChange"
+                                                    @size-change="handleSizeChange"
+                                                    layout="total, sizes, prev, pager, next, jumper">
+                                            </el-pagination>
+                                        </el-col>
+                                    </el-row>
+
+                                    <el-row :gutter="3" justify="center" style="margin: 20px 5px 15px 5px;" type="flex">
+                                        <el-col :span="10">
+                                            <el-dialog :visible.sync="phoneVisible" @close="resetphone('editForm')"
+                                                       title="修改手机号信息">
+                                                <el-form :model="phoneForm" :rules="rules" ref="editForm">
+
+                                                    <el-form-item label="员工编号">
+                                                        <el-input :disabled="true"
+                                                                  auto-complete="off"
+                                                                  v-model="phoneForm.staffId"></el-input>
+                                                    </el-form-item>
+                                                    <el-form-item label="员工姓名">
+                                                        <el-input :disabled="true"
+                                                                  auto-complete="off"
+                                                                  v-model="phoneForm.staffName"></el-input>
+                                                    </el-form-item>
+                                                    <el-form-item label="手机号">
+                                                        <el-input auto-complete="off"
+                                                                  v-model="phoneForm.staffPhone"></el-input>
+                                                    </el-form-item>
+
+                                                </el-form>
+
+
+                                                <div class="dialog-footer" slot="footer">
+                                                    <el-button @click="editphone('editForm')" icon="edit"
+                                                               type="primary">确认
+                                                    </el-button>
+                                                    <el-button @click="resetphone('editForm')" icon="close">取 消
+                                                    </el-button>
+                                                </div>
+                                            </el-dialog>
+                                        </el-col>
+                                    </el-row>
+
+                                    <el-row :gutter="3" justify="center" style="margin: 20px 5px 15px 5px;" type="flex">
+                                        <el-col :span="10">
+                                            <el-dialog :visible.sync="staffVisible" title="修改密码"
+                                            >
+                                                <el-form :model="staffForm" :rules="rules" label-width="150px"
+                                                         ref="editForm">
+                                                    <el-form-item label="员工编号">
+                                                        <el-col :span="12">
+                                                            <el-input :disabled=true
+                                                                      auto-complete="off"
+                                                                      v-model="staffForm.staffId"></el-input>
+                                                        </el-col>
+                                                    </el-form-item>
+                                                    <el-form-item label="密保问题">
+                                                        <el-col :span="12">
+                                                            <el-input
+                                                                    :disabled=true
+                                                                    auto-complete="off"
+                                                                    v-model="staffForm.staffQuestion"></el-input>
+                                                        </el-col>
+                                                    </el-form-item>
+
+                                                    <el-form-item label="密保答案">
+                                                        <el-col :span="12">
+
+                                                            <el-input
+                                                                    :rows="2"
+                                                                    auto-complete="off"
+                                                                    type="textarea"
+                                                                    v-model="staffForm.staffAnswer"></el-input>
+                                                        </el-col>
+                                                    </el-form-item>
+                                                    <el-form-item label="新密码" prop="staff_new_password">
+                                                        <el-col :span="12">
+                                                            <el-input
+                                                                    auto-complete="off"
+                                                                    type="password"
+                                                                    v-model="staffForm.staff_new_password"></el-input>
+                                                        </el-col>
+                                                    </el-form-item>
+                                                    <el-form-item label="确认密码" prop="staff_again_password">
+                                                        <el-col :span="12">
+                                                            <el-input auto-complete="off"
+                                                                      type="password"
+                                                                      v-model="staffForm.staff_again_password"></el-input>
+                                                        </el-col>
+                                                    </el-form-item>
+                                                </el-form>
+                                                <div class="dialog-footer" slot="footer">
+                                                    <el-button @click="editstaff('editForm')" icon="edit"
+                                                               type="primary">确认
+                                                    </el-button>
+                                                    <el-button @click="resetstaff('editForm')" icon="close">取 消
+                                                    </el-button>
+                                                </div>
+                                            </el-dialog>
+                                        </el-col>
+                                    </el-row>
+
+                                    <el-dialog :visible.sync="addVisible" title="添加员工"
+                                    >
+                                        <el-form :model="addForm" :rules="rules" label-width="150px"
+                                                 ref="editForm">
+                                            <el-form-item label="员工姓名" prop="staffName">
+                                                <el-col :span="12">
+                                                    <el-input auto-complete="off"
+                                                              v-model="addForm.staffName"></el-input>
+                                                </el-col>
+                                            </el-form-item>
+                                            <el-form-item label="员工电话" prop="staffPhone">
+                                                <el-col :span="12">
+                                                    <el-input
+                                                            auto-complete="off"
+                                                            v-model="addForm.staffPhone"></el-input>
+                                                </el-col>
+                                            </el-form-item>
+
+                                            <el-form-item label="身份">
+                                                <el-select v-model="tshenfen">
+                                                    <el-option :key="item.index" :value="item" v-for="item in shenfen">
+                                                        <a @click="setshenfen(item)" style="width:100%">{{item}}</a>
+                                                    </el-option>
+                                                </el-select>
+                                            </el-form-item>
+
+                                            <el-form-item label="密保问题">
+                                                <el-select v-model="addForm.staffQuestion">
+                                                    <el-option :key="item.index" :value="item" v-for="item in question">
+                                                        <a @click="setquestion(item)" style="width:100%">{{item}}</a>
+                                                    </el-option>
+                                                </el-select>
+                                            </el-form-item>
+
+                                            <el-form-item label="密保答案">
+                                                <el-col :span="12">
+                                                    <el-input
+                                                            :rows="2"
+                                                            auto-complete="off"
+                                                            type="textarea"
+                                                            v-model="staffForm.staffAnswer"></el-input>
+                                                </el-col>
+                                            </el-form-item>
+                                            <el-form-item label="密码" prop="staffPassword">
+                                                <el-col :span="12">
+                                                    <el-input
+                                                            auto-complete="off"
+                                                            type="password"
+                                                            v-model="addForm.staffPassword"></el-input>
+                                                </el-col>
+                                            </el-form-item>
+
+                                        </el-form>
+                                        <div class="dialog-footer" slot="footer">
+                                            <el-button @click="addstaff('editForm')" icon="edit"
+                                                       type="primary">确认
+                                            </el-button>
+                                            <el-button @click="resetadd()" icon="close">取 消
+                                            </el-button>
+                                        </div>
+                                    </el-dialog>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+            </section>
+
+            <!-- Page Footer-->
+            <footer class="main-footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p>Your company &copy; 2019-2020</p>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <p>Design by Three Boys from HIT &nbsp;&nbsp;<a href="#"
+                                                                            title="贺明QQ：957039243； 贾少杰QQ：1710951735； 刘猛QQ：2921978909。">联系我们</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+<script src="js/html-js/staff_info.js"></script>
+</body>
+</html>

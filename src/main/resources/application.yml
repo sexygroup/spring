@@ -41,6 +41,6 @@ swagger:
   enabled: true
 #日志输出配置
 logging:
-  path: D:/春天造型管理系统/log/
+  path: C:/春天造型管理系统/log/
   file:
     max-size: 10MB

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="index,follow" name="robots">
+
+    <title>set</title>
+
+    <!-- Bootstrap CSS-->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS-->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Icon fontastic CSS-->
+    <link href="icons-reference/styles.css" rel="stylesheet">
+    <!-- Favicon Icon-->
+    <link href="img/favicon.ico" rel="shortcut icon">
+    <!-- Element-ui CSS-->
+    <link href="vendor/element-ui/index.css" rel="stylesheet">
+    <!-- Theme stylesheet-->
+    <link href="css/style.default.css" rel="stylesheet">
+
+    <!-- Vue JS-->
+    <script src="vendor/vue/vue.js"></script>
+    <!-- Element-ui JS-->
+    <script src="vendor/element-ui/index.js"></script>
+    <!-- Axios JS-->
+    <script src="vendor/axios/axios.min.js"></script>
+    <!-- Lodash JS-->
+    <script src="vendor/lodash/lodash.js"></script>
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- My JS-->
+    <script src="js/set.js"></script>
+</head>
+
+<body>
+<div class="page" id="app">
+    <!-- Main Navbar-->
+    <header>
+        <nav class="navbar">
+            <div class="container-fluid">
+                <div class="navbar-holder d-flex align-items-center justify-content-between">
+                    <!-- Navbar Header-->
+                    <div class="navbar-header">
+                        <!-- Navbar Brand -->
+                        <a class="navbar-brand d-none d-sm-inline-block" href="work.html">
+                            <div class="brand-text d-none d-lg-inline-block">
+                                <span>Spring<strong>&nbsp;春天造型</strong></span></div>
+                            <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div>
+                            <!--Update：收藏网站时显示在前面的图标。-->
+                        </a>
+                    </div>
+                    <!-- Navbar Logout -->
+                    <ul class="nav-logout list-unstyled d-flex flex-md-row align-items-md-center">
+                        <li class="nav-item">
+                            <a @click="exit()" class="nav-link logout" href="#"> <span
+                                    class="d-none d-sm-inline">退出系统</span><i class="fa fa-sign-out"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- page content-->
+    <div class="page-content d-flex align-items-stretch">
+        <!-- Side Navbar -->
+        <nav class="side-navbar">
+            <!-- Sidebar Header-->
+            <div class="sidebar-header d-flex align-items-center"></div>
+            <!-- Sidebar Navidation Menus-->
+            <el-menu :unique-opened="true" active-text-color="#ffd04b" background-color="#545c64" default-active="4"
+                     text-color="#ffffff">
+                <el-submenu index="1">
+                    <template slot="title">
+                        <i class="el-icon-s-home"></i>
+                        <span>工作模块</span>
+                    </template>
+                    <el-menu-item @click="select_one()" index="1-1"><i class="el-icon-shopping-cart-2"></i>收银模块
+                    </el-menu-item>
+                    <el-menu-item @click="select_two()" index="1-2"><i class="el-icon-s-finance"></i>办卡模块</el-menu-item>
+                </el-submenu>
+                <el-submenu index="2">
+                    <template slot="title">
+                        <i class="el-icon-menu"></i>
+                        <span>信息模块</span>
+                    </template>
+                    <el-menu-item @click="select_three()" index="2-1"><i class="el-icon-s-finance"></i>会员卡管理
+                    </el-menu-item>
+                    <el-menu-item @click="select_four()" index="2-2"><i class="el-icon-user-solid"></i>消费者管理
+                    </el-menu-item>
+                    <el-menu-item @click="select_five()" index="2-3"><i class="el-icon-picture"></i>照片管理</el-menu-item>
+                    <el-menu-item @click="select_six()" index="2-4"><i class="el-icon-user-solid"></i>员工管理
+                    </el-menu-item>
+                </el-submenu>
+                <el-submenu index="3">
+                    <template slot="title">
+                        <i class="el-icon-s-claim"></i>
+                        <span>营业模块</span>
+                    </template>
+                    <el-menu-item-group title="营业分析">
+                        <el-menu-item @click="select_seven()" index="3-1"><i class="el-icon-s-marketing"></i>消费分析
+                        </el-menu-item>
+                        <el-menu-item @click="select_eight()" index="3-2"><i class="el-icon-s-marketing"></i>返利分析
+                        </el-menu-item>
+                        <el-menu-item @click="select_nine()" index="3-3"><i class="el-icon-s-marketing"></i>充值分析
+                        </el-menu-item>
+                        <el-menu-item @click="select_ten()" index="3-4"><i class="el-icon-s-marketing"></i>成本分析
+                        </el-menu-item>
+                    </el-menu-item-group>
+                    <el-menu-item-group title="营业记录">
+                        <el-menu-item @click="select_eleven()" index="3-5"><i class="el-icon-s-order"></i>营业记录
+                        </el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
+                <el-menu-item @click="select_twelve()" index="4">
+                    <i class="el-icon-s-tools"></i>
+                    <span slot="title">系统设置</span>
+                </el-menu-item>
+            </el-menu>
+        </nav>
+
+        <!-- Page -->
+        <div class="content-inner">
+            <!-- Page Header-->
+            <header class="page-header">
+                <div class="container-fluid">
+                    <h1 class="no-margin-bottom">系统设置</h1>
+                </div>
+            </header>
+
+            <!--Page Section-->
+            <section>
+                <el-row>
+                    <el-col :offset="1" :span="22">
+                        <el-tabs type="border-card" v-model="activeName">
+                            <!--账户信息-->
+                            <el-tab-pane label="账户信息" name="info">
+                                <el-row>
+                                    <el-col :offset="10" :span="4">
+                                        <el-image src="img/holder.jpg" style="width: 250px; height: 250px"></el-image>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :offset="19" :span="5">
+                                        <el-button @click="clickEditButton_3()" round type="primary">修改密码</el-button>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :offset="2" :span="20">
+                                        <el-divider><i class="el-icon-user"></i>&nbsp;账户信息</el-divider>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :offset="5" :span="12">
+                                        <el-form :model="staffForm" label-position="left" label-width="150px">
+                                            <el-form-item label="管理员账号">
+                                                <el-input :disabled="true" placeholder="登录账号"
+                                                          v-model="staffForm.staffCode"></el-input>
+                                            </el-form-item>
+                                            <el-form-item label="管理员姓名">
+                                                <el-input :disabled="true" placeholder="管理员姓名"
+                                                          v-model="staffForm.staffName"></el-input>
+                                            </el-form-item>
+                                            <el-form-item label="管理员手机号">
+                                                <el-input :disabled="true" placeholder="管理员手机号"
+                                                          v-model="staffForm.staffPhone"></el-input>
+                                            </el-form-item>
+                                        </el-form>
+                                    </el-col>
+                                </el-row>
+                            </el-tab-pane>
+
+                            <!--会员卡等级设置-->
+                            <el-tab-pane label="会员卡等级设置" name="cardLevel">
+                                <el-row>
+                                    <el-col :offset="19" :span="5">
+                                        <el-button @click="clickAddButton_1()" class="addTop" round type="primary">
+                                            新增等级
+                                        </el-button>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :offset="2" :span="20">
+                                        <el-divider><i class="el-icon-bank-card"></i>&nbsp;会员卡等级</el-divider>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :offset="6" :span="12">
+                                        <el-table
+                                                :data="cardLevels.slice((c_currentPage-1)*c_pagesize,c_currentPage*c_pagesize)"
+                                                :default-sort="{prop: 'date', order: 'descending'}" border fit
+                                                highlight-current-row
+                                                style="width:100%;  font-size:15px;">
+                                            <el-table-column label="会员卡等级">
+                                                <template slot-scope="scope">
+                                                    等级&nbsp;{{scope.$index+1}}
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column label="充值金额" prop="cardLevelPrice"></el-table-column>
+                                            <el-table-column label="操作" width="200px">
+                                                <template slot-scope="scope">
+                                                    <el-button @click="clickEditButton_1(scope.row)" icon="edit"
+                                                               size="medium" type="warning">修改
+                                                    </el-button>
+                                                    <el-button @click="clickDeleteButton_1(scope.row.cardLevelId)"
+                                                               icon="delete" size="medium" type="danger">删除
+                                                    </el-button>
+                                                </template>
+                                            </el-table-column>
+                                        </el-table>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :offset="8" :span="12">
+                                        <el-pagination
+                                                :current-page="c_currentPage"
+                                                :page-size="c_pagesize"
+                                                :page-sizes="[5, 10, 15, 20]"
+                                                :total="c_totalCount"
+                                                @current-change="c_handleCurrentChange"
+                                                @size-change="c_handleSizeChange"
+                                                layout="total, sizes, prev, pager, next, jumper">
+                                        </el-pagination>
+                                    </el-col>
+                                </el-row>
+                            </el-tab-pane>
+
+                            <!--服务项目设置-->
+                            <el-tab-pane label="服务项目设置" name="service">
+                                <el-row>
+                                    <el-col :offset="19" :span="5">
+                                        <el-button @click="clickAddButton_2()" class="addTop" round type="primary">
+                                            新增服务
+                                        </el-button>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :offset="2" :span="20">
+                                        <el-divider><i class="el-icon-reading"></i>&nbsp;服务项目</el-divider>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :offset="4" :span="16">
+                                        <el-table
+                                                :data="services.slice((s_currentPage-1)*s_pagesize,s_currentPage*s_pagesize)"
+                                                :default-sort="{prop: 'date', order: 'descending'}" border fit
+                                                highlight-current-row
+                                                style="width:100%;  font-size:15px;">
+                                            <el-table-column label="服务项目">
+                                                <template slot-scope="scope">
+                                                    项目&nbsp;{{scope.$index+1}}
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column label="项目编号">
+                                                <template slot-scope="scope">
+                                                    {{idToCode6(scope.row.serviceId)}}
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column label="项目名称" prop="serviceName"></el-table-column>
+                                            <el-table-column label="价格" prop="servicePrice"></el-table-column>
+                                            <el-table-column label="返利折扣" prop="serviceRebate"></el-table-column>
+                                            <el-table-column label="操作" width="200px">
+                                                <template slot-scope="scope">
+                                                    <el-button @click="clickEditButton_2(scope.row)" icon="edit"
+                                                               size="medium" type="warning">修改
+                                                    </el-button>
+                                                    <el-button @click="clickDeleteButton_2(scope.row.serviceId)"
+                                                               icon="delete" size="medium" type="danger">删除
+                                                    </el-button>
+                                                </template>
+                                            </el-table-column>
+                                        </el-table>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :offset="8" :span="12">
+                                        <el-pagination
+                                                :current-page="s_currentPage"
+                                                :page-size="s_pagesize"
+                                                :page-sizes="[5, 10, 15, 20]"
+                                                :total="s_totalCount"
+                                                @current-change="s_handleCurrentChange"
+                                                @size-change="s_handleSizeChange"
+                                                layout="total, sizes, prev, pager, next, jumper">
+                                        </el-pagination>
+                                    </el-col>
+                                </el-row>
+                            </el-tab-pane>
+                        </el-tabs>
+                    </el-col>
+                </el-row>
+            </section>
+
+            <!-- Page Footer-->
+            <footer class="main-footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p>Your company &copy; 2019-2020</p>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <p>Design by Three Boys from HIT &nbsp;&nbsp;<a href="#"
+                                                                            title="贺明QQ：957039243； 贾少杰QQ：1710951735； 刘猛QQ：2921978909。">联系我们</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+            <el-dialog :visible.sync=" addDialogFormVisible_1" title="新增会员卡等级" width="30%">
+                <el-form :model="cardLevel" :rules="rules" ref="addForm_1">
+                    <el-form-item label="充值金额" prop="cardLevelPrice">
+                        <el-input auto-complete="off" v-model="cardLevel.cardLevelPrice"></el-input>
+                    </el-form-item>
+                </el-form>
+                <div class="dialog-footer" slot="footer">
+                    <el-button @click="resetAddForm_1('addForm_1')" icon="close">取 消</el-button>
+                    <el-button @click="addForm_1('addForm_1')" icon="edit" type="primary">确定</el-button>
+                </div>
+            </el-dialog>
+            <el-dialog :visible.sync="editDialogFormVisible_1" title="修改会员卡等级" width="30%">
+                <el-form :model="cardLevel" :rules="rules" ref="editForm_1">
+                    <el-form-item label="充值金额" prop="cardLevelPrice">
+                        <el-input auto-complete="off" v-model="cardLevel.cardLevelPrice"></el-input>
+                    </el-form-item>
+                </el-form>
+                <div class="dialog-footer" slot="footer">
+                    <el-button @click="resetEditForm_1('editForm_1')" icon="close">取 消</el-button>
+                    <el-button @click="editForm_1('editForm_1')" icon="edit" type="primary">确定</el-button>
+                </div>
+            </el-dialog>
+            <el-dialog :visible.sync=" addDialogFormVisible_2" title="新增服务项目" width="30%">
+                <el-form :model="service" :rules="rules" ref="addForm_2">
+                    <el-form-item label="项目名称" prop="serviceName">
+                        <el-input auto-complete="off" v-model="service.serviceName"></el-input>
+                    </el-form-item>
+                    <el-form-item label="项目价格" prop="servicePrice">
+                        <el-input auto-complete="off" v-model="service.servicePrice"></el-input>
+                    </el-form-item>
+                    <el-form-item label="返利折扣（0.05表示返利5%；0表示不返利）" prop="serviceRebate">
+                        <el-input auto-complete="off" v-model="service.serviceRebate"></el-input>
+                    </el-form-item>
+                </el-form>
+                <div class="dialog-footer" slot="footer">
+                    <el-button @click="resetAddForm_2('addForm_2')" icon="close">取 消</el-button>
+                    <el-button @click="addForm_2('addForm_2')" icon="edit" type="primary">确定</el-button>
+                </div>
+            </el-dialog>
+            <el-dialog :visible.sync="editDialogFormVisible_2" title="修改服务项目" width="30%">
+                <el-form :model="service" :rules="rules" ref="editForm_2">
+                    <el-form-item label="项目名称" prop="serviceName">
+                        <el-input auto-complete="off" v-model="service.serviceName"></el-input>
+                    </el-form-item>
+                    <el-form-item label="项目价格" prop="servicePrice">
+                        <el-input auto-complete="off" v-model="service.servicePrice"></el-input>
+                    </el-form-item>
+                    <el-form-item label="返利折扣（0.05表示返利5%；0表示不返利）" prop="serviceRebate">
+                        <el-input auto-complete="off" v-model="service.serviceRebate"></el-input>
+                    </el-form-item>
+                </el-form>
+                <div class="dialog-footer" slot="footer">
+                    <el-button @click="resetEditForm_2('editForm_2')" icon="close">取 消</el-button>
+                    <el-button @click="editForm_2('editForm_2')" icon="edit" type="primary">确定</el-button>
+                </div>
+            </el-dialog>
+            <el-dialog :visible.sync="editDialogFormVisible_3" title="修改密码" width="30%">
+                <el-form :model="staffForm" :rules="rules" ref="editForm_3">
+                    <el-form-item label="旧密码" prop="oldPassword">
+                        <el-input auto-complete="off" show-password v-model="staffForm.oldPassword"></el-input>
+                    </el-form-item>
+                    <el-form-item label="新密码" prop="newPassword">
+                        <el-input auto-complete="off" show-password v-model="staffForm.newPassword"></el-input>
+                    </el-form-item>
+                    <el-form-item label="确认密码" prop="againPassword">
+                        <el-input auto-complete="off" show-password v-model="staffForm.againPassword"></el-input>
+                    </el-form-item>
+                </el-form>
+                <div class="dialog-footer" slot="footer">
+                    <el-button @click="resetEditForm_3('editForm_3')" icon="close">取 消</el-button>
+                    <el-button @click="editForm_3('editForm_3')" icon="edit" type="primary">确定</el-button>
+                </div>
+            </el-dialog>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

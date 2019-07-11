@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="index,follow" name="robots">
+
+    <title>image</title>
+
+    <!-- Bootstrap CSS-->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS-->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Icon fontastic CSS-->
+    <link href="icons-reference/styles.css" rel="stylesheet">
+    <!-- Favicon Icon-->
+    <link href="img/favicon.ico" rel="shortcut icon">
+    <!-- Element-ui CSS-->
+    <link href="vendor/element-ui/index.css" rel="stylesheet">
+    <!-- Theme stylesheet-->
+    <link href="css/style.default.css" rel="stylesheet">
+
+    <!-- Vue JS-->
+    <script src="vendor/vue/vue.js"></script>
+    <!-- Element-ui JS-->
+    <script src="vendor/element-ui/index.js"></script>
+    <!-- Axios JS-->
+    <script src="vendor/axios/axios.min.js"></script>
+    <!-- Lodash JS-->
+    <script src="vendor/lodash/lodash.js"></script>
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- My JS-->
+</head>
+
+<body>
+<!-- 布局：  page-> "Main Navbar"													  					  		-->
+<!--          -> "page content"-> "Side Navbar" 									  		-->
+<!--                           -> "Page"-> "Page Header"               	-->
+<!--                                    -> "Page Section" 							-->
+<!--                                    -> "Page Footer"           			-->
+<!--    	Dialog对话框 																		          			-->
+<div class="page" id="app">
+
+    <!-- Main Navbar-->
+    <header>
+        <nav class="navbar">
+            <div class="container-fluid">
+                <div class="navbar-holder d-flex align-items-center justify-content-between">
+                    <!-- Navbar Header-->
+                    <div class="navbar-header">
+                        <!-- Navbar Brand -->
+                        <a class="navbar-brand d-none d-sm-inline-block" href="work.html">
+                            <div class="brand-text d-none d-lg-inline-block">
+                                <span>Spring<strong>&nbsp;春天造型</strong></span></div>
+                            <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div>
+                            <!--Update：收藏网站时显示在前面的图标。-->
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- page content-->
+    <div class="page-content d-flex align-items-stretch">
+        <!-- Side Navbar -->
+
+        <!-- Page -->
+        <div class="content-inner">
+            <!-- Page Header-->
+            <header class="page-header">
+                <div class="container-fluid">
+                    <h1 class="no-margin-bottom">图片信息管理</h1>
+                </div>
+            </header>
+
+            <!--Page Section-->
+            <section>
+
+                <div class="container-fluid  align-items-center">
+
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header d-flex align-items-center">
+                                    <h2 class="h2">图片信息</h2>
+                                    <el-button @click="jump()" style="position:absolute; right:10%;" type="primary">
+                                        上传图片
+                                    </el-button>
+                                </div>
+                                <div class="card-body" id="div">
+
+                                    <div style="margin-top: 15px;">
+                                        <el-input class="input-with-select" placeholder="请输入内容" v-model="input">
+                                            <el-select placeholder="请选择查询方式" slot="prepend"
+                                                       style="width:180px; text-align: center;" v-model="select">
+                                                <el-option label="按客户编号搜索" value="1"></el-option>
+                                                <el-option label="按客户名称" value="2"></el-option>
+                                                <el-option label="查询所有" value="3"></el-option>
+
+                                            </el-select>
+                                            <el-button @click="findImage()" slot="append">查询</el-button>
+                                        </el-input>
+                                    </div>
+
+
+                                    <el-row>
+
+                                        <el-col :key="index" :span="6" v-for="item,index in images">
+                                            <el-card :body-style="{ padding: '0px' }">
+                                                <template>
+                                                    <el-popover placement="top" trigger="hover">
+                                                        <el-form>
+                                                            <el-form-item label="客户姓名:">{{
+                                                                item.clientName }}
+                                                            </el-form-item>
+                                                            <el-form-item label="日期:">{{ item.imageDate}}
+                                                            </el-form-item>
+
+                                                        </el-form>
+                                                        <div class="name-wrapper" slot="reference">
+                                                            <a @click="dialogFormVisibleImage = true,setImage(item)">
+                                                                <el-image
+                                                                        :src="upload+item.imageName"
+                                                                        style="width: 100%; height: 200px"
+                                                                ></el-image>
+                                                            </a>
+                                                        </div>
+                                                    </el-popover>
+                                                </template>
+                                                <div style="padding: 14px;">
+                                                    <span>评论</span>
+                                                    <el-input
+                                                            :disabled=true
+                                                            :rows="2"
+                                                            type="textarea"
+                                                            v-model="item.imageComment"></el-input>
+                                                    <div class="bottom clearfix">
+                                                        <el-button @click="deleteImage(item.imageId,index)"
+                                                                   class="button" type="text">删除图片
+                                                        </el-button>
+                                                    </div>
+                                                </div>
+                                            </el-card>
+                                        </el-col>
+                                    </el-row>
+
+
+                                    <el-dialog :visible.sync="dialogFormVisibleImage"
+                                               title="图片预览"
+                                    >
+                                        <el-image :src="upload+selectImage.imageName" style="width: 100%; height: 100%"
+                                        ></el-image>
+
+                                    </el-dialog>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- Page Footer-->
+            <footer class="main-footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p>Your company &copy; 2019-2020</p>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <p>Design by Three Boys from HIT &nbsp;&nbsp;<a href="#"
+                                                                            title="贺明QQ：957039243； 贾少杰QQ：1710951735； 刘猛QQ：2921978909。">联系我们</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<script src="js/html-js/upload_image.js"></script>
+</body>
+</html>

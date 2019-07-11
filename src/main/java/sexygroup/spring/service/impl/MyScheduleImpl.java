@@ -31,7 +31,7 @@ public class MyScheduleImpl implements MySchedule {
         //要备份的数据库名
         String dbName = "springdb";
         //保存路径
-        String savePath = "D:/春天造型管理系统/数据库备份/";
+        String savePath = "C:/春天造型管理系统/数据库备份/";
         //生成文件夹
         File dirFile = new File(savePath);
         if (!dirFile.exists()) {

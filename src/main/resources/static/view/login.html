@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="index,follow" name="robots">
+
+    <title>login</title>
+
+    <!-- Bootstrap CSS-->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS-->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Icon fontastic CSS-->
+    <link href="icons-reference/styles.css" rel="stylesheet">
+    <!-- Favicon Icon-->
+    <link href="img/favicon.ico" rel="shortcut icon">
+    <!-- Element-ui CSS-->
+    <link href="vendor/element-ui/index.css" rel="stylesheet">
+    <!-- Theme stylesheet-->
+    <link href="css/style.default.css" rel="stylesheet">
+
+    <!-- Vue JS-->
+    <script src="vendor/vue/vue.js"></script>
+    <!-- Element-ui JS-->
+    <script src="vendor/element-ui/index.js"></script>
+    <!-- Axios JS-->
+    <script src="vendor/axios/axios.min.js"></script>
+    <!-- Lodash JS-->
+    <script src="vendor/lodash/lodash.js"></script>
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- My JS-->
+    <script src="js/login.js"></script>
+</head>
+
+<body>
+<div class="page login-page" id="app">
+    <div class="container d-flex align-items-center">
+        <div class="form-holder has-shadow">
+            <div class="row">
+                <div class="col-lg-6">
+                    <!-- Logo & Information Panel-->
+                    <div class="info d-flex align-items-center">
+                        <div class="content">
+                            <div class="logo">
+                                <h1>春天造型</h1>
+                            </div>
+                            <p>"Spring is when you feel like whistling even with a shoe full of slush."<br></p>
+                            <p class="right">—Doug Larson</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <!-- Form Panel -->
+                    <div class="form d-flex align-items-center">
+                        <div class="content">
+                            <h1>登录</h1>
+                            <el-form :model="staffForm" :rules="rules" label-position="left" label-width="120px"
+                                     ref="selectForm">
+                                <el-form-item label="登录账号" prop="staffCode">
+                                    <el-input placeholder="请输入登录账号" v-model="staffForm.staffCode"></el-input>
+                                </el-form-item>
+                                <el-form-item label="登录密码" prop="staffPassword">
+                                    <el-input autocomplete="off" placeholder="请输入登录密码" show-password
+                                              v-model="staffForm.staffPassword"></el-input>
+                                </el-form-item>
+                                <el-form-item label-width="0px">
+                                    <el-link :underline="false" href="forget.html" type="success">忘记密码</el-link>
+                                    <el-button @click="submitForm('selectForm')" type="success">登录</el-button>
+                                </el-form-item>
+                            </el-form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="creatrights text-center">
+        <p>Design by <a href="#" title="贺明QQ：957039243； 贾少杰QQ：1710951735； 刘猛QQ：2921978909。">Three Boys from HIT</a></p>
+    </div>
+</div>
+
+</body>
+</html>

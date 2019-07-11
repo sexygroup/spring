@@ -12,7 +12,7 @@ import java.util.List;
 public interface ClientRepository extends BaseRepository<Client, Integer> {
 
     //查询所有（包含客户和图片信息）
-    @Query(value = "select * from client_image_left_view order by client_id,image_id desc ", nativeQuery = true)
+    @Query(value = "select * from client_image_left_view order by image_id desc ", nativeQuery = true)
     List<JSONObject> findAllDetail();
 
     //通过图片id查(包含客户和图片信息)
@@ -27,7 +27,15 @@ public interface ClientRepository extends BaseRepository<Client, Integer> {
     @Query(value = "select * from client_image_left_view where client_id=?1 order by image_id desc ", nativeQuery = true)
     List<JSONObject> findImageByClientId(Integer id);
 
-    //通过客户id查所有图片信息
+    //通过客户名称查所有图片信息（模糊查询）
+    @Query(value = "select * from client_image_left_view where client_name like CONCAT('%',?1,'%') order by  image_id desc  ", nativeQuery = true)
+    List<JSONObject> findImageByClientName(String name);
+
+    //通过客户年龄查
+    @Query(value = "select * from client_image_left_view where client_age=?1 order by  image_id desc  ", nativeQuery = true)
+    List<JSONObject> findImageByClientAge(String age);
+
+    //通过客户id查客户信息
     @Query(value = "select * from client where client_id=?1 ", nativeQuery = true)
     JSONObject findByClientId(Integer id);
 

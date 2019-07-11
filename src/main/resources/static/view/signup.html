@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="index,follow" name="robots">
+
+    <title>set</title>
+
+    <!-- Bootstrap CSS-->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS-->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Icon fontastic CSS-->
+    <link href="icons-reference/styles.css" rel="stylesheet">
+    <!-- Favicon Icon-->
+    <link href="img/favicon.ico" rel="shortcut icon">
+    <!-- Element-ui CSS-->
+    <link href="vendor/element-ui/index.css" rel="stylesheet">
+    <!-- Theme stylesheet-->
+    <link href="css/style.default.css" rel="stylesheet">
+
+    <!-- Vue JS-->
+    <script src="vendor/vue/vue.js"></script>
+    <!-- Element-ui JS-->
+    <script src="vendor/element-ui/index.js"></script>
+    <!-- Axios JS-->
+    <script src="vendor/axios/axios.min.js"></script>
+    <!-- Lodash JS-->
+    <script src="vendor/lodash/lodash.js"></script>
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<!-- 布局：  page-> "Main Navbar"													  					  		-->
+<!--          -> "page content"-> "Side Navbar" 									  		-->
+<!--                           -> "Page"-> "Page Header"               	-->
+<!--                                    -> "Page Section" 							-->
+<!--                                    -> "Page Footer"           			-->
+<!--    	Dialog对话框 																		          			-->
+<div class="page" id="app">
+    <!-- Main Navbar-->
+    <header>
+        <nav class="navbar">
+            <div class="container-fluid">
+                <div class="navbar-holder d-flex align-items-center justify-content-between">
+                    <!-- Navbar Header-->
+                    <div class="navbar-header">
+                        <!-- Navbar Brand -->
+                        <a class="navbar-brand d-none d-sm-inline-block" href="work.html">
+                            <div class="brand-text d-none d-lg-inline-block">
+                                <span>Spring<strong>&nbsp;春天造型</strong></span></div>
+                            <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div>
+                            <!--Update：收藏网站时显示在前面的图标。-->
+                        </a>
+                    </div>
+                    <!-- Navbar Logout -->
+                    <ul class="nav-logout list-unstyled d-flex flex-md-row align-items-md-center">
+                        <li class="nav-item">
+                            <a @click="exit()" class="nav-link logout" href="#"> <span
+                                    class="d-none d-sm-inline">退出系统</span><i class="fa fa-sign-out"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- page content-->
+    <div class="page-content d-flex align-items-stretch">
+        <!-- Side Navbar -->
+        <nav class="side-navbar">
+            <!-- Sidebar Header-->
+            <div class="sidebar-header d-flex align-items-center"></div>
+            <!-- Sidebar Navidation Menus-->
+            <el-menu :unique-opened="true" active-text-color="#ffd04b" background-color="#545c64" default-active="1-2"
+                     text-color="#ffffff">
+                <el-submenu index="1">
+                    <template slot="title">
+                        <i class="el-icon-s-home"></i>
+                        <span>工作模块</span>
+                    </template>
+                    <el-menu-item @click="select_one()" index="1-1"><i class="el-icon-shopping-cart-2"></i>收银模块
+                    </el-menu-item>
+                    <el-menu-item @click="select_two()" index="1-2"><i class="el-icon-s-finance"></i>办卡模块</el-menu-item>
+                </el-submenu>
+                <el-submenu index="2">
+                    <template slot="title">
+                        <i class="el-icon-menu"></i>
+                        <span>信息模块</span>
+                    </template>
+                    <el-menu-item @click="select_three()" index="2-1"><i class="el-icon-s-finance"></i>会员卡管理
+                    </el-menu-item>
+                    <el-menu-item @click="select_four()" index="2-2"><i class="el-icon-user-solid"></i>消费者管理
+                    </el-menu-item>
+                    <el-menu-item @click="select_five()" index="2-3"><i class="el-icon-picture"></i>照片管理</el-menu-item>
+                    <el-menu-item @click="select_six()" index="2-4"><i class="el-icon-user-solid"></i>员工管理
+                    </el-menu-item>
+                </el-submenu>
+                <el-submenu index="3">
+                    <template slot="title">
+                        <i class="el-icon-s-claim"></i>
+                        <span>营业模块</span>
+                    </template>
+                    <el-menu-item-group title="营业分析">
+                        <el-menu-item @click="select_seven()" index="3-1"><i class="el-icon-s-marketing"></i>消费分析
+                        </el-menu-item>
+                        <el-menu-item @click="select_eight()" index="3-2"><i class="el-icon-s-marketing"></i>返利分析
+                        </el-menu-item>
+                        <el-menu-item @click="select_nine()" index="3-3"><i class="el-icon-s-marketing"></i>充值分析
+                        </el-menu-item>
+                        <el-menu-item @click="select_ten()" index="3-4"><i class="el-icon-s-marketing"></i>成本分析
+                        </el-menu-item>
+                    </el-menu-item-group>
+                    <el-menu-item-group title="营业记录">
+                        <el-menu-item @click="select_eleven()" index="3-5"><i class="el-icon-s-order"></i>营业记录
+                        </el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
+                <el-menu-item @click="select_twelve()" index="4">
+                    <i class="el-icon-s-tools"></i>
+                    <span slot="title">系统设置</span>
+                </el-menu-item>
+            </el-menu>
+        </nav>
+
+        <!-- Page -->
+        <div class="content-inner">
+            <!-- Page Header-->
+            <header class="page-header">
+                <div class="container-fluid">
+                    <h1 class="no-margin-bottom">系统设置</h1>
+                </div>
+            </header>
+
+            <!--Page Section-->
+            <section>
+
+                <div class="container-fluid  align-items-center">
+
+                    <div class="row">
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-9">
+                            <div class="card">
+                                <div class="card-header d-flex align-items-center">
+                                    <h2 class="h2">新增客户</h2>
+                                </div>
+                                <div class="card-body">
+
+                                    <el-form :model="form" :rules="rules" :validate-on-rule-change="true"
+                                             label-position="left" label-width="150px" ref="form1">
+
+                                        <el-form-item label="开卡人姓名" prop="clientName">
+                                            <el-input onkeyup="this.value=this.value.replace(/^ +| +$/g,'')"
+                                                      style="width:50%" v-model="form.clientName"></el-input>
+                                        </el-form-item>
+
+                                        <el-form-item label="开卡人性别" prop="clientGender">
+                                            <el-select v-model="form.clientGender">
+                                                <el-option :key="item.index" :value="item" v-for="item in gender">
+                                                    <a @click="setgender(item)" style="width:100%">{{item}}</a>
+                                                </el-option>
+                                            </el-select>
+                                        </el-form-item>
+
+                                        <el-form-item label="开卡人年龄段" prop="clientAge">
+                                            <el-select v-model="form.clientAge">
+                                                <el-option :key="item.index" :value="item" v-for="item in ages">
+                                                    <a @click="setage(item)" style="width:100%">{{item}}</a>
+                                                </el-option>
+                                            </el-select>
+                                        </el-form-item>
+
+                                        <el-form-item label="开卡人手机号(可不填)" prop="clientPhone">
+                                            <el-input onkeyup="this.value=this.value.replace(/^ +| +$/g,'')"
+                                                      style="width:50%" v-model="form.clientPhone"
+                                            ></el-input>
+                                        </el-form-item>
+
+                                        <el-form-item label="卡密码" prop="cardPassword">
+                                            <el-input :show-password=true style="width:50%" type="password"
+                                                      v-model="form.cardPassword"
+                                            ></el-input>
+                                        </el-form-item>
+
+                                        <el-form-item label="充值金额" prop="cardMoney">
+                                            <el-select v-model="form.cardMoney">
+                                                <el-option :key="item.index" :value="item.cardLevelPrice"
+                                                           v-for="item in cardLevel">
+                                                    <a @click="setprice(item.cardLevelPrice)" style="width:100%">{{item.cardLevelPrice+"元"}}</a>
+                                                </el-option>
+                                            </el-select>
+                                        </el-form-item>
+                                        <el-form-item label="推荐人卡号" prop="cardReferrer">
+                                            <el-input style="width:50%" v-model="form.cardReferrer"
+                                            ></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="密保问题" prop="cardQuestion">
+                                            <el-select v-model="form.cardQuestion">
+                                                <el-option :key="item.index" :value="item" v-for="item in question">
+                                                    <a @click="setquestion(item)" style="width:100%">{{item}}</a>
+                                                </el-option>
+                                            </el-select>
+                                        </el-form-item>
+                                        <el-form-item label="密保答案" prop="cardAnswer">
+                                            <el-input :rows="2"
+                                                      onkeyup="this.value=this.value.replace(/^ +| +$/g,'')"
+                                                      style="width:50%" type="textarea"
+                                                      v-model="form.cardAnswer"></el-input>
+                                        </el-form-item>
+
+                                        <el-form-item>
+                                            <el-button @click="onSubmit('form1')" type="primary">立即创建</el-button>
+                                            <el-button @click="fresh()">取消</el-button>
+                                        </el-form-item>
+                                    </el-form>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Page Footer-->
+            <footer class="main-footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p>Your company &copy; 2019-2020</p>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <p>Design by Three Boys from HIT &nbsp;&nbsp;<a href="#"
+                                                                            title="贺明QQ：957039243； 贾少杰QQ：1710951735； 刘猛QQ：2921978909。">联系我们</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+<script src="js/html-js/signup.js">
+
+</script>
+</body>
+</html>

@@ -25,6 +25,13 @@ public interface ClientService extends BaseService<Client> {
 
     List<JSONObject> findByClientPhone(String phone);
 
+    //通过客户id查所有图片信息(包含客户和图片信息)
+    List<JSONObject> findImageByClientId(Integer id);
+
+    List<JSONObject> findImageByClientName(String name);
+
+    List<JSONObject> findImageByClientAge(String age);
+
     //查头像
     JSONObject findProfileByClientId(Integer id);
 

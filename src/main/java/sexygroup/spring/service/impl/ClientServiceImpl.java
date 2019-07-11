@@ -56,6 +56,21 @@ public class ClientServiceImpl extends BaseServiceImpl<Client, ClientRepository>
     }
 
     @Override
+    public List<JSONObject> findImageByClientId(Integer id) {
+        return JsonUtil.convertList(clientRepository.findImageByClientId(id));
+    }
+
+    @Override
+    public List<JSONObject> findImageByClientName(String name) {
+        return JsonUtil.convertList(clientRepository.findImageByClientName(name));
+    }
+
+    @Override
+    public List<JSONObject> findImageByClientAge(String age) {
+        return JsonUtil.convertList(clientRepository.findImageByClientAge(age));
+    }
+
+    @Override
     public JSONObject findProfileByClientId(Integer id) {
         return JsonUtil.convertJSONObject(clientRepository.findProfileByClientId(id));
     }

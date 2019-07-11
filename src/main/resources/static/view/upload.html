@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="index,follow" name="robots">
+
+    <title>upload</title>
+
+    <!-- Bootstrap CSS-->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS-->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Icon fontastic CSS-->
+    <link href="icons-reference/styles.css" rel="stylesheet">
+    <!-- Favicon Icon-->
+    <link href="img/favicon.ico" rel="shortcut icon">
+    <!-- Element-ui CSS-->
+    <link href="vendor/element-ui/index.css" rel="stylesheet">
+    <!-- Theme stylesheet-->
+    <link href="css/style.default.css" rel="stylesheet">
+
+    <!-- Vue JS-->
+    <script src="vendor/vue/vue.js"></script>
+    <!-- Element-ui JS-->
+    <script src="vendor/element-ui/index.js"></script>
+    <!-- Axios JS-->
+    <script src="vendor/axios/axios.min.js"></script>
+    <!-- Lodash JS-->
+    <script src="vendor/lodash/lodash.js"></script>
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+<!-- 布局：  page-> "Main Navbar"													  					  		-->
+<!--          -> "page content"-> "Side Navbar" 									  		-->
+<!--                           -> "Page"-> "Page Header"               	-->
+<!--                                    -> "Page Section" 							-->
+<!--                                    -> "Page Footer"           			-->
+<!--    	Dialog对话框 																		          			-->
+<div class="page" id="app">
+    <!-- Main Navbar-->
+    <header>
+        <nav class="navbar">
+            <div class="container-fluid">
+                <div class="navbar-holder d-flex align-items-center justify-content-between">
+                    <!-- Navbar Header-->
+                    <div class="navbar-header">
+                        <!-- Navbar Brand -->
+                        <a class="navbar-brand d-none d-sm-inline-block" href="#">
+                            <div class="brand-text d-none d-lg-inline-block">
+                                <span>Spring<strong>&nbsp;春天造型</strong></span></div>
+                            <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div>
+                            <!--Update：收藏网站时显示在前面的图标。-->
+                        </a>
+                    </div>
+                    <!-- Navbar Logout -->
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- page content-->
+    <div class="page-content d-flex align-items-stretch">
+        <!-- Side Navbar -->
+
+
+        <!-- Page -->
+        <div class="content-inner">
+            <!-- Page Header-->
+            <header class="page-header">
+                <div class="container-fluid">
+                    <h1 class="no-margin-bottom">图片上传</h1>
+                </div>
+            </header>
+
+
+            <!-- Works Section-->
+            <section class="forms ">
+                <div class="container-fluid">
+                    <div class="row " draggable="true">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header d-flex align-items-center">
+                                    <h3 class="h4">图片上传</h3>
+                                    <el-button @click="jump()" style="position:absolute; right:10%;" type="primary">
+                                        查看所有图片
+                                    </el-button>
+
+
+                                </div>
+                                <div class="card-body" id="work">
+                                    <form>
+                                        <div class="form-group row">
+                                            <div class="col-sm-12">
+                                                <label class="form-control-label">卡号：</label>
+                                                <el-input
+                                                        clearable
+                                                        placeholder="请输入卡号或电话号"
+                                                        prefix-icon="el-icon-search"
+                                                        style="width:60%"
+                                                        type="number"
+                                                        v-model="cardCode"
+                                                >
+                                                </el-input>
+                                                <el-button @click="check()">查询</el-button>
+                                            </div>
+                                        </div>
+
+
+                                    </form>
+                                </div>
+
+
+                                <div class="card-body" id="work1">
+                                    <form class="form-horizontal">
+                                        <div class="form-group row">
+
+                                            <div class="col-sm-6" v-if="clients.length!='0'">
+                                                <label class="form-control-label"
+                                                       v-if="clients.length!='0'">用户列表：</label>
+                                                <el-select v-if="clients.length!='0'"
+                                                           v-model="client.clientName">
+                                                    <el-option
+                                                            :key="item.clientId"
+                                                            :value="item.clientName"
+                                                            v-for="item in clients"
+                                                    >
+                                                        <a @click="setClient(item)"
+                                                           style="width:100%">{{item.clientName}}</a>
+                                                    </el-option>
+                                                </el-select>
+
+
+                                                <div class="daily-feeds card">
+                                                    <div class="card-body no-padding">
+                                                        <!-- 头像列表-->
+                                                        <div class="item" v-for="item in clients">
+
+                                                            <div class="feed d-flex justify-content-between">
+                                                                <div class="feed-body d-flex justify-content-between">
+                                                                    <input :value="item.clientId"
+                                                                           @click="setClient(item)"
+                                                                           name="info"
+                                                                           type="radio"
+                                                                           v-model="client.clientId"/>
+                                                                    <a @click="dialogFormVisibleImage = true,setImage(item)"
+                                                                       class="feed-profile">
+                                                                        <el-image :src="myurl+item.imageName"
+                                                                                  style="width: 100%; height: 100%"
+                                                                        ></el-image>
+                                                                    </a>
+                                                                    <div class="content">
+                                                                        <h5>姓名：{{item.clientName}}</h5><span>性别：{{item.clientGender}} </span>
+                                                                        <div class="full-date">
+                                                                            电话：{{item.clientPhone}}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <el-dialog :visible.sync="dialogFormVisibleImage"
+                                                                           title="图片预览"
+                                                                >
+                                                                    <el-image :src="myurl+selectImage.imageName"
+                                                                              style="width: 100%; height: 100%"
+                                                                    ></el-image>
+
+                                                                    <span>评论</span>
+                                                                    <el-input
+                                                                            :disabled=true
+                                                                            :rows="2"
+                                                                            type="textarea"
+                                                                            v-model="selectImage.imageComment"></el-input>
+
+                                                                </el-dialog>
+
+
+                                                            </div>
+                                                        </div>
+                                                        </lable>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+
+                                                <div>
+                                                    <label>上传图片：</label>
+                                                    <el-upload
+                                                            :auto-upload="false"
+                                                            :file-list="files"
+                                                            :on-change="fileChange"
+                                                            :on-preview="handlePictureCardPreview"
+                                                            :on-remove="handleRemove"
+                                                            accept="image/jpeg, image/png"
+                                                            action="#"
+                                                            list-type="picture-card">
+                                                        <i class="el-icon-plus"> </i>
+                                                    </el-upload>
+
+
+                                                    <div v-for="item,index in files">
+                                                        {{'评论'+(index+1)+':'}}
+                                                        <el-input :rows="2" type="textarea"
+                                                                  v-model="comments[index]"></el-input>
+                                                    </div>
+
+                                                    <el-dialog :visible.sync="dialogVisible">
+                                                        <el-image :src="dialogImageUrl" width="100%"></el-image>
+
+                                                    </el-dialog>
+
+
+                                                    <el-button @click="upload()"
+                                                    >上传
+                                                    </el-button>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+        </div>
+        </section>
+
+
+        <!-- Page Footer-->
+
+    </div>
+</div>
+</div>
+
+<script src="js/html-js/upload.js">
+
+</script>
+
+</body>
+</html>
